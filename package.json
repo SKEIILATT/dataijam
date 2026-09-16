@@ -1,0 +1,35 @@
+{
+  "name": "dataijam",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Plataforma web para la gestión del evento DatAIJam",
+  "type": "module",
+  "packageManager": "pnpm@11.21.0",
+  "scripts": {
+    "dev": "pnpm --filter @dataijam/web dev",
+    "dev:web": "pnpm --filter @dataijam/web dev",
+    "dev:api": "pnpm --filter @dataijam/api start:dev",
+    "build": "pnpm run build:web && pnpm run build:api",
+    "build:web": "pnpm --filter @dataijam/web build",
+    "build:api": "pnpm --filter @dataijam/api build",
+    "lint": "pnpm run lint:web && pnpm run lint:api",
+    "lint:web": "pnpm --filter @dataijam/web lint",
+    "lint:api": "pnpm --filter @dataijam/api lint",
+    "test:api": "pnpm --filter @dataijam/api test",
+    "test:e2e:api": "pnpm --filter @dataijam/api test:e2e",
+    "db:up": "docker compose up -d postgres",
+    "db:down": "docker compose down",
+    "db:generate": "pnpm --filter @dataijam/api db:generate",
+    "prepare": "husky",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,json,md,yml,yaml,css}": "prettier --write"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^17.5.1",
+    "prettier": "^3.9.6"
+  }
+}
