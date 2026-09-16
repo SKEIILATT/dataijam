@@ -15,7 +15,7 @@
     "lint": "pnpm run lint:web && pnpm run lint:api",
     "lint:web": "pnpm --filter @dataijam/web lint",
     "lint:api": "pnpm --filter @dataijam/api lint",
-    "test:api": "pnpm --filter @dataijam/api test",
+    "test:api": "pnpm --filter @dataijam/api test --runInBand",
     "test:e2e:api": "pnpm --filter @dataijam/api test:e2e",
     "db:up": "docker compose up -d postgres",
     "db:down": "docker compose down",

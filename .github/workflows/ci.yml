@@ -21,4 +21,4 @@ jobs:
       - run: pnpm format:check
       - run: pnpm lint
       - run: pnpm build
-      - run: pnpm test:api -- --runInBand
+      - run: pnpm test:api
