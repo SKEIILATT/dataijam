@@ -53,9 +53,15 @@ export function SiteHeader() {
 
           <a
             href="#registro"
-            className="hidden items-center gap-2 rounded-full bg-linear-to-r from-brand-lime to-brand-yellow px-7 py-3 text-sm font-bold text-brand-navy shadow-lg shadow-brand-lime/10 transition-transform hover:scale-[1.03] lg:inline-flex"
+            className="group hidden items-center gap-2 rounded-full bg-linear-to-r from-brand-lime to-brand-yellow px-7 py-3 text-sm font-bold text-brand-navy shadow-lg shadow-brand-lime/10 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:shadow-xl hover:shadow-brand-lime/30 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-lime active:translate-y-0 active:scale-100 lg:inline-flex"
           >
-            Inscribete <span aria-hidden="true">&rarr;</span>
+            Inscribete{' '}
+            <span
+              aria-hidden="true"
+              className="transition-transform duration-300 group-hover:translate-x-1 group-active:translate-x-0"
+            >
+              &rarr;
+            </span>
           </a>
 
           <button
@@ -92,10 +98,16 @@ export function SiteHeader() {
               <li className="pt-2">
                 <a
                   href="#registro"
-                  className="inline-flex items-center gap-2 rounded-full bg-linear-to-r from-brand-lime to-brand-yellow px-5 py-2.5 text-sm font-bold text-brand-navy"
+                  className="group inline-flex items-center gap-2 rounded-full bg-linear-to-r from-brand-lime to-brand-yellow px-5 py-2.5 text-sm font-bold text-brand-navy transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand-lime/30 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-lime active:translate-y-0"
                   onClick={closeMenu}
                 >
-                  Inscribete <span aria-hidden="true">&rarr;</span>
+                  Inscribete{' '}
+                  <span
+                    aria-hidden="true"
+                    className="transition-transform duration-300 group-hover:translate-x-1 group-active:translate-x-0"
+                  >
+                    &rarr;
+                  </span>
                 </a>
               </li>
             </ul>
