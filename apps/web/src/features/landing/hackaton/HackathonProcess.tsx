@@ -1,4 +1,3 @@
-import type { HackathonStep } from './types'
 import { steps } from './hackathon.data'
 
 interface HackathonProcessProps {
