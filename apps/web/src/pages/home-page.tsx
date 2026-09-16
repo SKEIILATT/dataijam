@@ -10,8 +10,7 @@ export function HomePage() {
             El conocimiento viaja. El talento nos conecta.
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-brand-gray">
-            La landing esta en construccion. Cada seccion sera integrada por el equipo desde
-            features/landing.
+            Aquí ya va lo de ustedes :)
           </p>
         </Container>
       </section>
