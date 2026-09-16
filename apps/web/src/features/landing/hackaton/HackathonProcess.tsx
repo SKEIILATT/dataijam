@@ -1,5 +1,5 @@
 import { steps } from './hackathon.data'
-
+import HackathonStep from './HackathonStep'
 interface HackathonProcessProps {
   eyebrow: string
   heading: string
@@ -22,24 +22,7 @@ export function HackathonProcess({ eyebrow, heading, subheading }: HackathonProc
 
         <ol className="hackathon-process__steps" aria-label="Pasos del hackathon">
           {steps.map((step, index) => (
-            <li key={index} className="hackathon-process__step">
-              {index > 0 && <span className="hackathon-process__connector" aria-hidden="true" />}
-
-              <div className="hackathon-process__icon-wrap" aria-hidden="true">
-                <span className="hackathon-process__step-number">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <span className="hackathon-process__icon">
-                  <step.icon />
-                </span>
-              </div>
-
-              <div className="hackathon-process__step-body">
-                {step.date && <time className="hackathon-process__step-date">{step.date}</time>}
-                <h3 className="hackathon-process__step-title">{step.title}</h3>
-                <p className="hackathon-process__step-desc">{step.description}</p>
-              </div>
-            </li>
+            <HackathonStep key={step.title} step={step} index={index} />
           ))}
         </ol>
       </div>

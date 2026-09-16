@@ -1,4 +1,5 @@
 import { Container } from '../components/ui/container'
+import HackathonProcess from '@/features/landing/hackaton/HackathonProcess'
 export function HomePage() {
   return (
     <>
@@ -17,6 +18,11 @@ export function HomePage() {
       <section id="acerca" aria-label="Acerca de DatAIJam" />
       <section id="conferencias" aria-label="Conferencias" />
       <section id="hackathon" aria-label="Hackathon" />
+      <HackathonProcess
+        eyebrow="Hackathon"
+        heading="Info del hackathon"
+        subheading="Descripcion de hackathon"
+      />
       <section id="speakers" aria-label="Speakers" />
       <section id="patrocinadores" aria-label="Patrocinadores" />
       <section id="faq" aria-label="Preguntas frecuentes" />
