@@ -1,9 +1,17 @@
 import { Outlet } from 'react-router'
+import { SiteFooter } from './site-footer'
+import { SiteHeader } from './site-header'
 
 export function RootLayout() {
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
-      <Outlet />
-    </main>
+    <div className="min-h-screen bg-brand-navy text-brand-white">
+      <SiteHeader />
+
+      <main>
+        <Outlet />
+      </main>
+
+      <SiteFooter />
+    </div>
   )
 }
