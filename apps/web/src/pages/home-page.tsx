@@ -1,5 +1,4 @@
 import { Container } from '../components/ui/container'
-
 export function HomePage() {
   return (
     <>
