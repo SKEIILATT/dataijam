@@ -28,6 +28,3 @@ export const impactMetrics: ImpactMetric[] = [
     icon: Sparkles,
   },
 ]
-
-export const impactMetricsNote =
-  'Cifras por confirmar mientras se aprueban los datos oficiales del evento.'

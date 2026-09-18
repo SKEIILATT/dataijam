@@ -1,12 +1,9 @@
-import { impactMetrics, impactMetricsNote } from './about.data'
+import { impactMetrics } from './about.data'
 
 export function ImpactMetrics() {
   return (
     <div className="mt-12 sm:mt-16">
-      <dl
-        className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4"
-        aria-describedby="impact-metrics-note"
-      >
+      <dl className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
         {impactMetrics.map((metric) => {
           const Icon = metric.icon
 
@@ -26,10 +23,6 @@ export function ImpactMetrics() {
           )
         })}
       </dl>
-
-      <p id="impact-metrics-note" className="mt-4 text-xs text-brand-gray">
-        {impactMetricsNote}
-      </p>
     </div>
   )
 }

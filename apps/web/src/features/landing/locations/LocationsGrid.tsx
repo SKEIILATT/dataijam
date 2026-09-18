@@ -1,7 +1,7 @@
 import { Container } from '@/components/ui/container'
 
 import { LocationCard } from './LocationCard'
-import { locations, locationsContentNote } from './locations.data'
+import { locations } from './locations.data'
 import type { LocationsGridProps } from './types'
 
 export function LocationsGrid({ eyebrow, heading, subheading }: LocationsGridProps) {
@@ -26,8 +26,6 @@ export function LocationsGrid({ eyebrow, heading, subheading }: LocationsGridPro
             <LocationCard key={location.id} location={location} />
           ))}
         </ul>
-
-        <p className="mt-6 text-xs text-brand-navy/60">{locationsContentNote}</p>
       </Container>
     </section>
   )

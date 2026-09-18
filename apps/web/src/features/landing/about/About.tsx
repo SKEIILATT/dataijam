@@ -1,5 +1,3 @@
-import { ArrowRight } from 'lucide-react'
-
 import { Container } from '@/components/ui/container'
 
 import { ImpactMetrics } from './ImpactMetrics'
@@ -37,7 +35,6 @@ export function About({
               className="mt-8 inline-flex min-h-11 items-center gap-2 rounded-full bg-brand-cyan px-6 py-3 text-sm font-semibold text-brand-navy transition-colors duration-200 hover:bg-brand-lime focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-cyan"
             >
               {ctaLabel}
-              <ArrowRight aria-hidden="true" className="h-4 w-4" />
             </a>
           </div>
 
