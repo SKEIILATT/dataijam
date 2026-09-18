@@ -135,26 +135,9 @@ export function HackathonProcess({ eyebrow, heading, subheading }: HackathonProc
           transform: translateY(-3px);
         }
 
-        .hackathon-process__connector {
-          display: none;
-        }
-
         @media (max-width: 700px) {
           .hackathon-process__steps {
             grid-template-columns: 1fr;
-          }
-
-          .hackathon-process__connector {
-            display: block;
-            width: 2px;
-            height: 1.5rem;
-            background: linear-gradient(
-              180deg,
-              var(--hp-accent),
-              rgba(0, 212, 170, 0.2)
-            );
-            margin-left: 2.25rem;
-            margin-bottom: -0.5rem;
           }
         }
 

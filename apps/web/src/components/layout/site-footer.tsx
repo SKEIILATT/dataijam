@@ -5,7 +5,7 @@ import { Container } from '../ui/container'
 const navigationItems = [
   { label: 'Inicio', href: '#inicio' },
   { label: 'Acerca', href: '#acerca' },
-  { label: 'Conferencias', href: '#conferencias' },
+  { label: 'Conferencias', href: '#sedes' },
   { label: 'Hackathon', href: '#hackathon' },
   { label: 'Speakers', href: '#speakers' },
   { label: 'Patrocinadores', href: '#patrocinadores' },

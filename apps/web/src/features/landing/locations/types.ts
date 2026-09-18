@@ -10,7 +10,7 @@ export interface EventLocation {
 }
 
 export interface LocationsGridProps {
-  eyebrow: string
+  eyebrow?: string
   heading: string
   subheading: string
 }

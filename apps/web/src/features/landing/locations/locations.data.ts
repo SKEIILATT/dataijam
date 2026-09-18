@@ -26,6 +26,3 @@ export const locations: EventLocation[] = [
     imageAlt: 'Imagen de ejemplo que representa la sede de Guayaquil, pendiente de reemplazo',
   },
 ]
-
-export const locationsContentNote =
-  'Textos, fechas e imagenes de ejemplo mientras se confirma el contenido oficial de cada sede.'
