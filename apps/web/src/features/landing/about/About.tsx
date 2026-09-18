@@ -17,7 +17,9 @@ export function About({
       <Container>
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
           <div>
-            <p className="text-sm font-semibold tracking-[0.18em] text-brand-cyan">{eyebrow}</p>
+            {eyebrow && (
+              <p className="text-sm font-semibold tracking-[0.18em] text-brand-cyan">{eyebrow}</p>
+            )}
 
             <h2
               id="about-heading"

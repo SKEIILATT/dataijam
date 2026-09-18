@@ -9,7 +9,9 @@ export function LocationsGrid({ eyebrow, heading, subheading }: LocationsGridPro
     <section aria-labelledby="locations-heading" className="bg-brand-white py-16 sm:py-24">
       <Container>
         <div className="max-w-2xl">
-          <p className="text-sm font-semibold tracking-[0.18em] text-brand-blue">{eyebrow}</p>
+          {eyebrow && (
+            <p className="text-sm font-semibold tracking-[0.18em] text-brand-blue">{eyebrow}</p>
+          )}
 
           <h2
             id="locations-heading"

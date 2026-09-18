@@ -22,7 +22,6 @@ export function HomePage() {
 
       <div id="acerca">
         <About
-          eyebrow="Acerca de"
           heading="DatAIJam conecta talento e ideas con impacto"
           description="Un espacio de aprendizaje y colaboración donde estudiantes, profesionales y comunidad tech se reúnen para construir soluciones con inteligencia artificial (texto de ejemplo)."
           ctaLabel="Conoce más"
@@ -33,7 +32,6 @@ export function HomePage() {
       </div>
       <section id="sedes">
         <LocationsGrid
-          eyebrow="Sedes"
           heading="Un evento, dos ciudades"
           subheading="DatAIJam se vive en Quito y Guayaquil, acercando la comunidad tech a más personas en el país."
         />
