@@ -5,7 +5,7 @@ import { Container } from '../ui/container'
 const navigationItems = [
   { label: 'Inicio', href: '#inicio', isActive: true },
   { label: 'Acerca', href: '#acerca', isActive: false },
-  { label: 'Conferencias', href: '#conferencias', isActive: false },
+  { label: 'Conferencias', href: '#sedes', isActive: false },
   { label: 'Hackathon', href: '#hackathon', isActive: false },
   { label: 'Speakers', href: '#speakers', isActive: false },
   { label: 'Patrocinadores', href: '#patrocinadores', isActive: false },
