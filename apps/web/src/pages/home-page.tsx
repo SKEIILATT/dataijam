@@ -42,7 +42,7 @@ export function HomePage() {
       <div id="hackathon">
         <HackathonProcess
           eyebrow="Hackathon"
-          heading="De la idea a una soluciÃ³n con impacto"
+          heading="De la idea a una solución con impacto"
           subheading="Conoce el recorrido para participar, colaborar y presentar tu proyecto durante DatAIJam."
         />
       </div>
@@ -50,7 +50,7 @@ export function HomePage() {
         <SpeakerGrid
           eyebrow="Speakers"
           heading="Conoce a quienes comparten su experiencia"
-          subheading="Expertos que nos acompaÃ±arÃ¡n para inspirar nuevas ideas y conexiones."
+          subheading="Expertos que nos acompañarán para inspirar nuevas ideas y conexiones."
         />
       </div>
       <section id="patrocinadores" aria-label="Patrocinadores" />
