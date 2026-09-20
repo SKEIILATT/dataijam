@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'
 
 import { ImpactMetrics } from './ImpactMetrics'
@@ -18,26 +19,18 @@ export function About({
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
           <div>
             {eyebrow && (
-              <p className="text-sm font-semibold tracking-[0.18em] text-brand-cyan">{eyebrow}</p>
+              <p className="text-sm font-medium tracking-[0.18em] text-brand-cyan">{eyebrow}</p>
             )}
 
-            <h2
-              id="about-heading"
-              className="mt-3 text-3xl font-bold tracking-tight text-brand-white sm:text-4xl"
-            >
+            <h2 id="about-heading" className="mt-3 text-h2 font-semibold text-brand-white">
               {heading}
             </h2>
 
-            <p className="mt-5 max-w-xl text-base leading-7 text-brand-gray sm:text-lg">
-              {description}
-            </p>
+            <p className="mt-5 max-w-xl text-body text-brand-gray">{description}</p>
 
-            <a
-              href={ctaHref}
-              className="mt-8 inline-flex min-h-11 items-center gap-2 rounded-full bg-brand-cyan px-6 py-3 text-sm font-semibold text-brand-navy transition-colors duration-200 hover:bg-brand-lime focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-cyan"
-            >
+            <Button as="a" href={ctaHref} variant="accent" className="mt-8">
               {ctaLabel}
-            </a>
+            </Button>
           </div>
 
           <figure className="aspect-[4/3] overflow-hidden rounded-2xl sm:aspect-[16/10]">

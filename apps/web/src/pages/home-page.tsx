@@ -1,24 +1,19 @@
+import { HandHeart, HelpCircle, Ticket } from 'lucide-react'
+
 import aboutPlaceholder from '../assets/images/about/about-placeholder.svg'
-import { Container } from '../components/ui/container'
+import { ComingSoonSection } from '../components/ui/coming-soon-section'
 import { About } from '../features/landing/about/About'
+import { BenefitsBand } from '../features/landing/benefits/BenefitsBand'
 import { HackathonProcess } from '../features/landing/hackaton/HackathonProcess'
+import { Hero } from '../features/landing/hero/Hero'
 import { LocationsGrid } from '../features/landing/locations/LocationsGrid'
 import { SpeakerGrid } from '../features/landing/speakers/SpeakerGrid'
 
 export function HomePage() {
   return (
     <>
-      <section id="inicio" className="min-h-96 py-20 sm:py-28">
-        <Container>
-          <p className="text-sm font-semibold tracking-[0.18em] text-brand-cyan">DATAIJAM 2026</p>
-          <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            El conocimiento viaja. El talento nos conecta.
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-brand-gray">
-            Aquí ya va lo de ustedes :)
-          </p>
-        </Container>
-      </section>
+      <Hero />
+      <BenefitsBand />
 
       <div id="acerca">
         <About
@@ -32,11 +27,10 @@ export function HomePage() {
       </div>
       <section id="sedes">
         <LocationsGrid
-          heading="Un evento, dos ciudades"
-          subheading="DatAIJam se vive en Quito y Guayaquil, acercando la comunidad tech a más personas en el país."
+          heading="Un evento, una ciudad"
+          subheading="DatAIJam se vive en Guayaquil, conectando a la comunidad tech para crear impacto en el país."
         />
       </section>
-      <section id="conferencias" aria-label="Conferencias" />
       <div id="hackathon">
         <HackathonProcess
           eyebrow="Hackathon"
@@ -51,9 +45,31 @@ export function HomePage() {
           subheading="Expertos que nos acompañarán para inspirar nuevas ideas y conexiones."
         />
       </div>
-      <section id="patrocinadores" aria-label="Patrocinadores" />
-      <section id="faq" aria-label="Preguntas frecuentes" />
-      <section id="registro" aria-label="Registro" />
+      <ComingSoonSection
+        blocks={[
+          {
+            id: 'patrocinadores',
+            icon: HandHeart,
+            title: 'Patrocinadores',
+            description:
+              'Estamos cerrando alianzas con empresas y organizaciones aliadas. Esta sección se publicará antes del evento.',
+          },
+          {
+            id: 'faq',
+            icon: HelpCircle,
+            title: 'Preguntas frecuentes',
+            description:
+              'Todavía no hay preguntas frecuentes publicadas. Escríbenos a hola@dataijam.com si tienes dudas.',
+          },
+          {
+            id: 'registro',
+            icon: Ticket,
+            title: 'Registro',
+            description:
+              'La inscripción abre próximamente. Escríbenos a hola@dataijam.com y te avisamos apenas esté disponible.',
+          },
+        ]}
+      />
     </>
   )
 }

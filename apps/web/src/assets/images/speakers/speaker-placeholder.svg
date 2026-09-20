@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="480" viewBox="0 0 400 480" role="img" aria-label="Foto de speaker pendiente de confirmar">
+  <rect width="400" height="480" fill="#0A2540" />
+  <rect x="6" y="6" width="388" height="468" fill="none" stroke="#08CDEF" stroke-width="2" stroke-dasharray="10 8" opacity="0.4" />
+  <g opacity="0.55">
+    <circle cx="200" cy="196" r="56" fill="none" stroke="#F4F6F8" stroke-width="6" />
+    <path
+      d="M96 400c0-70 46-116 104-116s104 46 104 116"
+      fill="none"
+      stroke="#F4F6F8"
+      stroke-width="6"
+      stroke-linecap="round"
+    />
+  </g>
+</svg>

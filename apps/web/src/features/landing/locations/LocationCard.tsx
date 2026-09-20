@@ -22,19 +22,17 @@ export function LocationCard({ location }: LocationCardProps) {
       />
 
       <div className="p-6 sm:p-8">
-        <time className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-cyan">
+        <time className="text-xs font-medium uppercase tracking-[0.14em] text-brand-cyan">
           {location.date}
         </time>
 
-        <h3 className="mt-2 text-2xl font-bold text-brand-white sm:text-3xl">{location.city}</h3>
+        <h3 className="mt-2 text-h3 font-semibold text-brand-white">{location.city}</h3>
 
-        <p className="mt-3 max-w-sm text-sm leading-6 text-brand-white/85 sm:text-base">
-          {location.description}
-        </p>
+        <p className="mt-3 max-w-sm text-body text-brand-white/85">{location.description}</p>
 
         <a
           href={location.ctaHref}
-          className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-full border border-brand-white/30 px-5 py-2.5 text-sm font-semibold text-brand-white transition-colors duration-200 hover:border-brand-white hover:bg-brand-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-cyan"
+          className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-full border border-brand-white/30 px-5 py-2.5 text-sm font-medium text-brand-white transition-colors duration-200 hover:border-brand-white hover:bg-brand-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-cyan"
         >
           {location.ctaLabel}
           <ArrowRight aria-hidden="true" className="h-4 w-4" />

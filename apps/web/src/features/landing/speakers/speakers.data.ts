@@ -1,32 +1,34 @@
+import speakerPlaceholder from '@/assets/images/speakers/speaker-placeholder.svg'
+
 import type { Speaker } from './types'
 
 export const speakers: Speaker[] = [
   {
-    name: 'Nombre del speaker',
+    name: 'Por confirmar',
     role: 'Especialista en Inteligencia Artificial',
     location: 'Guayaquil, Ecuador',
-    imageSrc: '../assets/images/speakers/speaker-placeholder-1.jpg',
-    imageAlt: 'Foto de perfil del speaker',
+    imageSrc: speakerPlaceholder,
+    imageAlt: 'Foto de speaker pendiente de confirmar',
   },
   {
-    name: 'Nombre del speaker',
+    name: 'Por confirmar',
     role: 'Ingeniero de Datos',
-    location: 'Quito, Ecuador',
-    imageSrc: '../assets/images/speakers/speaker-placeholder-2.jpg',
-    imageAlt: 'Foto de perfil del speaker',
+    location: 'Ubicación por confirmar',
+    imageSrc: speakerPlaceholder,
+    imageAlt: 'Foto de speaker pendiente de confirmar',
   },
   {
-    name: 'Nombre del speaker',
-    role: 'Investigadora en Ciencia de Datos',
+    name: 'Por confirmar',
+    role: 'Investigador/a en Ciencia de Datos',
     location: 'Cuenca, Ecuador',
-    imageSrc: '../assets/images/speakers/speaker-placeholder-3.jpg',
-    imageAlt: 'Foto de perfil del speaker',
+    imageSrc: speakerPlaceholder,
+    imageAlt: 'Foto de speaker pendiente de confirmar',
   },
   {
-    name: 'Nombre del speaker',
+    name: 'Por confirmar',
     role: 'Especialista en Tecnología',
     location: 'Guayaquil, Ecuador',
-    imageSrc: '../assets/images/speakers/speaker-placeholder-4.jpg',
-    imageAlt: 'Foto de perfil del speaker',
+    imageSrc: speakerPlaceholder,
+    imageAlt: 'Foto de speaker pendiente de confirmar',
   },
 ]

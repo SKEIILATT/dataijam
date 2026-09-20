@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Sora:wght@500;600&family=Space+Grotesk:wght@600;700&display=swap');
 @import 'tailwindcss';
 
 @theme {
@@ -11,10 +12,105 @@
   --color-brand-lime: #80df6f;
   --color-brand-yellow: #caea5f;
 
-  --font-sans: ui-sans-serif, system-ui, sans-serif;
+  /* Fijos (no se redefinen bajo [data-theme='light']): el logo de marca
+     usa colores pensados para fondo claro, así que el footer se mantiene
+     claro en los dos temas en vez de invertirse como el resto de secciones. */
+  --color-footer-surface: #f4f6f8;
+  --color-footer-ink: #031326;
+  --color-footer-accent: #077480;
+
+  /* Sistema tipográfico DatAIJam */
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-heading: 'Sora', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-body);
+  --font-weight-display-semibold: 600;
+  --font-weight-display-bold: 700;
+  --font-weight-heading-medium: 500;
+  --font-weight-heading-semibold: 600;
+  --font-weight-body-regular: 400;
+  --font-weight-body-medium: 500;
+
+  --text-h1: clamp(2.25rem, 1.5rem + 5vw, 5rem);
+  --text-h1--line-height: 0.98;
+  --text-h1--letter-spacing: -0.01em;
+  --text-h2: clamp(2rem, 3.5vw, 2.5rem);
+  --text-h2--line-height: 1.1;
+  --text-h3: clamp(1.5rem, 2.5vw, 2rem);
+  --text-h3--line-height: 1.15;
+  --text-h4: clamp(1.125rem, 2vw, 1.5rem);
+  --text-h4--line-height: 1.25;
+  --text-body: clamp(0.875rem, 1.2vw, 1rem);
+  --text-body--line-height: 1.5;
 }
 
 @layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  :root[data-theme='light'] {
+    color-scheme: light;
+    --color-brand-navy: #f3fbff;
+    --color-brand-white: #06275d;
+    --color-brand-gray: #527088;
+    --color-brand-blue: #087ff2;
+    --color-brand-cyan: #077480;
+    --color-brand-turquoise: #35d7a4;
+    --color-brand-lime: #087ff2;
+    --color-brand-yellow: #12d3e3;
+  }
+
+  /* El tramo final del gradiente terminaba en #12d3e3, que da 1.75:1 sobre
+     el fondo claro (#f3fbff) e incumple incluso el umbral WCAG AA de texto
+     grande (3:1). Se reemplaza por #077480, que sí lo cumple (5.25:1).
+
+     Esta regla aplica a TODO h1/h2/h3 del sitio (empieza en #06275d, oscuro).
+     Cualquier h1/h2/h3 nuevo necesita su propio color explícito (ej.
+     text-brand-white/text-brand-navy) o hereda este degradado sin darse
+     cuenta; si ese heading vive en una sección con fondo oscuro en modo
+     claro (bg-brand-white), el texto queda casi invisible por diseño. */
+  :root[data-theme='light'] h1,
+  :root[data-theme='light'] h2,
+  :root[data-theme='light'] h3 {
+    background: linear-gradient(135deg, #06275d 0%, #087ff2 58%, #077480 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  .hero__accent {
+    background-image: linear-gradient(90deg, #08cdef 0%, #3acf98 52%, #80df6f 100%);
+  }
+
+  :root[data-theme='light'] .hero__accent {
+    background-image: linear-gradient(135deg, #06275d 0%, #087ff2 58%, #077480 100%);
+  }
+
+  /* Gradiente propio (no deriva de --color-brand-lime/yellow) para que el
+     texto blanco del CTA mantenga AA (>=4.5:1) en ambos extremos; el original
+     terminaba en #12d3e3 (1.75:1 con texto blanco). */
+  :root[data-theme='light'] .theme-primary-action {
+    background-color: transparent;
+    background-image: linear-gradient(90deg, #0a66c2 0%, #077480 100%);
+    border-color: transparent;
+    color: #f3fbff;
+  }
+
+  :root[data-theme='light'] .site-header__wordmark {
+    filter: brightness(0) saturate(100%) invert(13%) sepia(60%) saturate(2055%) hue-rotate(202deg)
+      brightness(85%) contrast(98%);
+  }
+
+  .site-header__wordmark-accent {
+    display: none;
+  }
+
+  :root[data-theme='light'] .site-header__wordmark-accent {
+    display: block;
+    clip-path: inset(0 46% 0 35%);
+  }
+
   html {
     scroll-behavior: smooth;
   }
@@ -23,7 +119,25 @@
     min-width: 320px;
     background-color: var(--color-brand-navy);
     color: var(--color-brand-white);
-    font-family: var(--font-sans);
+    font-family: var(--font-body);
+  }
+
+  h1,
+  h2 {
+    font-family: var(--font-display);
+  }
+
+  h3 {
+    font-family: var(--font-heading);
+  }
+
+  h4,
+  p,
+  button,
+  input,
+  textarea,
+  select {
+    font-family: var(--font-body);
   }
 
   button,

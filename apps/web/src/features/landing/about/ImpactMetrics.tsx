@@ -15,7 +15,7 @@ export function ImpactMetrics() {
               <dt className="line-clamp-2 min-h-10 text-xs leading-5 text-brand-gray sm:text-sm">
                 {metric.label}
               </dt>
-              <dd className="flex items-center gap-2 text-2xl font-bold text-brand-white sm:text-3xl">
+              <dd className="flex items-center gap-2 text-h3 font-semibold text-brand-white">
                 <Icon aria-hidden="true" className="h-5 w-5 text-brand-cyan sm:h-6 sm:w-6" />
                 {metric.value}
               </dd>

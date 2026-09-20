@@ -10,20 +10,17 @@ export function LocationsGrid({ eyebrow, heading, subheading }: LocationsGridPro
       <Container>
         <div className="max-w-2xl">
           {eyebrow && (
-            <p className="text-sm font-semibold tracking-[0.18em] text-brand-blue">{eyebrow}</p>
+            <p className="text-sm font-medium tracking-[0.18em] text-brand-blue">{eyebrow}</p>
           )}
 
-          <h2
-            id="locations-heading"
-            className="mt-3 text-3xl font-bold tracking-tight text-brand-navy sm:text-4xl"
-          >
+          <h2 id="locations-heading" className="mt-3 text-h2 font-semibold text-brand-navy">
             {heading}
           </h2>
 
-          <p className="mt-5 text-base leading-7 text-brand-navy/70 sm:text-lg">{subheading}</p>
+          <p className="mt-5 text-body text-brand-navy/70">{subheading}</p>
         </div>
 
-        <ul className="mt-12 grid gap-6 sm:mt-16 lg:grid-cols-2" aria-label="Sedes del evento">
+        <ul className="mt-12 grid gap-6 sm:mt-16" aria-label="Sede del evento">
           {locations.map((location) => (
             <LocationCard key={location.id} location={location} />
           ))}
