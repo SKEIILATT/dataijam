@@ -8,7 +8,7 @@ export interface ImpactMetric {
 }
 
 export interface AboutProps {
-  eyebrow: string
+  eyebrow?: string
   heading: string
   description: string
   ctaLabel: string

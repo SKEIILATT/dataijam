@@ -1,5 +1,8 @@
+import aboutPlaceholder from '../assets/images/about/about-placeholder.svg'
 import { Container } from '../components/ui/container'
+import { About } from '../features/landing/about/About'
 import { HackathonProcess } from '../features/landing/hackaton/HackathonProcess'
+import { LocationsGrid } from '../features/landing/locations/LocationsGrid'
 import { SpeakerGrid } from '../features/landing/speakers/SpeakerGrid'
 
 export function HomePage() {
@@ -17,12 +20,27 @@ export function HomePage() {
         </Container>
       </section>
 
-      <section id="acerca" aria-label="Acerca de DatAIJam" />
+      <div id="acerca">
+        <About
+          heading="DatAIJam conecta talento e ideas con impacto"
+          description="Un espacio de aprendizaje y colaboración donde estudiantes, profesionales y comunidad tech se reúnen para construir soluciones con inteligencia artificial (texto de ejemplo)."
+          ctaLabel="Conoce más"
+          ctaHref="#hackathon"
+          imageSrc={aboutPlaceholder}
+          imageAlt="Imagen de ejemplo que representa la comunidad de DatAIJam, pendiente de reemplazo"
+        />
+      </div>
+      <section id="sedes">
+        <LocationsGrid
+          heading="Un evento, dos ciudades"
+          subheading="DatAIJam se vive en Quito y Guayaquil, acercando la comunidad tech a más personas en el país."
+        />
+      </section>
       <section id="conferencias" aria-label="Conferencias" />
       <div id="hackathon">
         <HackathonProcess
           eyebrow="Hackathon"
-          heading="De la idea a una soluciÃ³n con impacto"
+          heading="De la idea a una solución con impacto"
           subheading="Conoce el recorrido para participar, colaborar y presentar tu proyecto durante DatAIJam."
         />
       </div>
@@ -30,7 +48,7 @@ export function HomePage() {
         <SpeakerGrid
           eyebrow="Speakers"
           heading="Conoce a quienes comparten su experiencia"
-          subheading="Expertos que nos acompaÃ±arÃ¡n para inspirar nuevas ideas y conexiones."
+          subheading="Expertos que nos acompañarán para inspirar nuevas ideas y conexiones."
         />
       </div>
       <section id="patrocinadores" aria-label="Patrocinadores" />

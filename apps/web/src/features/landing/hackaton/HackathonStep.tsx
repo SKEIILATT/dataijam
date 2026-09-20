@@ -10,8 +10,6 @@ export function HackathonStep({ step, index }: HackathonStepProps) {
 
   return (
     <li className="hackathon-process__step">
-      {index > 0 && <span className="hackathon-process__connector" aria-hidden="true" />}
-
       <div className="hackathon-process__icon-wrap" aria-hidden="true">
         <span className="hackathon-process__step-number">{String(index + 1).padStart(2, '0')}</span>
 

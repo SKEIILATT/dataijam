@@ -1,5 +1,3 @@
-import { ArrowRight } from 'lucide-react'
-
 import { Container } from '@/components/ui/container'
 
 import { ImpactMetrics } from './ImpactMetrics'
@@ -19,7 +17,9 @@ export function About({
       <Container>
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
           <div>
-            <p className="text-sm font-semibold tracking-[0.18em] text-brand-cyan">{eyebrow}</p>
+            {eyebrow && (
+              <p className="text-sm font-semibold tracking-[0.18em] text-brand-cyan">{eyebrow}</p>
+            )}
 
             <h2
               id="about-heading"
@@ -37,7 +37,6 @@ export function About({
               className="mt-8 inline-flex min-h-11 items-center gap-2 rounded-full bg-brand-cyan px-6 py-3 text-sm font-semibold text-brand-navy transition-colors duration-200 hover:bg-brand-lime focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-cyan"
             >
               {ctaLabel}
-              <ArrowRight aria-hidden="true" className="h-4 w-4" />
             </a>
           </div>
 

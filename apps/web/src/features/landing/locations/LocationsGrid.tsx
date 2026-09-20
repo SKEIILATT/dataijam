@@ -1,7 +1,7 @@
 import { Container } from '@/components/ui/container'
 
 import { LocationCard } from './LocationCard'
-import { locations, locationsContentNote } from './locations.data'
+import { locations } from './locations.data'
 import type { LocationsGridProps } from './types'
 
 export function LocationsGrid({ eyebrow, heading, subheading }: LocationsGridProps) {
@@ -9,7 +9,9 @@ export function LocationsGrid({ eyebrow, heading, subheading }: LocationsGridPro
     <section aria-labelledby="locations-heading" className="bg-brand-white py-16 sm:py-24">
       <Container>
         <div className="max-w-2xl">
-          <p className="text-sm font-semibold tracking-[0.18em] text-brand-blue">{eyebrow}</p>
+          {eyebrow && (
+            <p className="text-sm font-semibold tracking-[0.18em] text-brand-blue">{eyebrow}</p>
+          )}
 
           <h2
             id="locations-heading"
@@ -26,8 +28,6 @@ export function LocationsGrid({ eyebrow, heading, subheading }: LocationsGridPro
             <LocationCard key={location.id} location={location} />
           ))}
         </ul>
-
-        <p className="mt-6 text-xs text-brand-navy/60">{locationsContentNote}</p>
       </Container>
     </section>
   )
