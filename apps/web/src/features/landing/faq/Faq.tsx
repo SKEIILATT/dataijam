@@ -6,7 +6,7 @@ import { faqItems } from './faq.data'
 
 export function Faq() {
   return (
-    <section id="faq" aria-labelledby="faq-heading" className="ds-section ds-section--quiet">
+    <section id="faq" aria-labelledby="faq-heading" className="ds-section ds-contrast">
       <Container>
         <div data-reveal className="max-w-2xl">
           <p className="text-sm font-medium tracking-[0.18em] text-brand-cyan uppercase">FAQ</p>
