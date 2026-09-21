@@ -1,5 +1,3 @@
-import { Sparkles } from 'lucide-react'
-
 import { Container } from '@/components/ui/container'
 
 import { SpeakerCard } from './SpeakerCard'
@@ -29,29 +27,17 @@ export function SpeakerGrid({ eyebrow, heading, subheading }: SpeakerGridProps) 
       </div>
 
       <Container className="relative">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_15rem] lg:items-start">
-          <div className="max-w-4xl">
-            <p className="text-sm font-medium tracking-[0.18em] text-brand-cyan uppercase">
-              {eyebrow}
-            </p>
-            <h2
-              id="speaker-grid-heading"
-              className="mt-3 max-w-3xl text-h2 font-semibold text-brand-white"
-            >
-              {heading}
-            </h2>
-            <p className="mt-5 max-w-3xl text-body text-brand-white/70">{subheading}</p>
-          </div>
-
-          <div className="hidden border-t border-brand-cyan/70 pt-3 lg:block">
-            <p className="flex items-center gap-2 text-sm font-medium tracking-[0.14em] text-brand-cyan uppercase">
-              <Sparkles aria-hidden="true" className="size-4" />
-              {String(speakers.length).padStart(2, '0')} expertos
-            </p>
-            <p className="mt-8 text-sm leading-6 text-brand-white/55">
-              Diferentes perspectivas. Un mismo propósito: impulsar lo que viene.
-            </p>
-          </div>
+        <div className="max-w-4xl">
+          <p className="text-sm font-medium tracking-[0.18em] text-brand-cyan uppercase">
+            {eyebrow}
+          </p>
+          <h2
+            id="speaker-grid-heading"
+            className="mt-3 max-w-3xl text-h2 font-semibold text-brand-white"
+          >
+            {heading}
+          </h2>
+          <p className="mt-5 max-w-3xl text-body text-brand-white/70">{subheading}</p>
         </div>
 
         <div className="mt-10 grid gap-4 lg:mt-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1.45fr)]">

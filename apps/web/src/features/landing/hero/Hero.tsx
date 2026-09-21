@@ -1,6 +1,9 @@
 import { ArrowRight, CalendarDays, MapPin } from 'lucide-react'
 
-import logoFull from '@/assets/brand/logo-full.svg'
+import symbol from '@/assets/brand/symbol.svg'
+import tagline from '@/assets/brand/tagline-light.svg'
+import wordmark from '@/assets/brand/wordmark.png'
+import dataGlobe from '@/assets/images/hero/data-globe.png'
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'
 
@@ -8,33 +11,26 @@ type HeroProps = {
   eventLabel?: string
   dateLabel?: string
   locationLabel?: string
-  logoSrc?: string
-  logoAlt?: string
 }
 
 export function Hero({
   eventLabel = 'Conferencias + Hackathon',
   dateLabel = 'Fecha por confirmar',
   locationLabel = 'Ciudad por confirmar',
-  logoSrc = logoFull,
-  logoAlt = 'DatAIJam',
 }: HeroProps) {
   return (
     <section
       id="inicio"
       aria-labelledby="hero-heading"
-      className="relative isolate overflow-hidden bg-brand-navy py-18 sm:py-24 lg:py-32"
+      className="relative isolate overflow-hidden bg-brand-navy py-18 sm:py-24 lg:py-20"
     >
       <div aria-hidden="true" className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute -right-32 top-4 size-96 rounded-full border border-brand-cyan/25 sm:right-0 sm:size-[34rem]" />
-        <div className="absolute -right-16 top-20 size-72 rounded-full border-[18px] border-brand-blue/15 sm:right-20 sm:size-96" />
-        <div className="absolute right-[8%] top-[17%] size-28 rounded-full bg-brand-lime/20 blur-2xl" />
-        <div className="absolute -bottom-36 right-[-10%] h-96 w-[46rem] rounded-[50%] border border-brand-cyan/25 bg-[radial-gradient(ellipse_at_center,_rgba(8,205,239,0.16),_transparent_62%)]" />
+        <img src={dataGlobe} alt="" className="hero-world" />
         <div className="absolute inset-0 bg-linear-to-r from-brand-navy via-brand-navy/80 to-brand-blue/10" />
       </div>
 
       <Container>
-        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,3fr)_minmax(16rem,2fr)]">
+        <div className="grid items-center gap-12 lg:grid-cols-2">
           <div>
             <p className="text-sm font-medium tracking-[0.18em] text-brand-cyan uppercase">
               {eventLabel}
@@ -79,11 +75,20 @@ export function Hero({
               </Button>
             </div>
           </div>
-          <img
-            src={logoSrc}
-            alt={logoAlt}
-            className="mx-auto hidden w-full max-w-xs drop-shadow-[0_0_2rem_rgba(8,205,239,0.3)] lg:block"
-          />
+          <div className="hero-brand-lockup hidden lg:flex">
+            <img src={symbol} alt="" className="hero-brand-lockup__symbol" />
+            <img
+              src={wordmark}
+              alt="DatAIJam"
+              className="hero-brand-lockup__wordmark site-header__wordmark"
+            />
+            <span
+              role="img"
+              aria-label="Datos, personas, acción"
+              className="hero-brand-lockup__tagline"
+              style={{ maskImage: `url(${tagline})` }}
+            />
+          </div>
         </div>
       </Container>
     </section>
