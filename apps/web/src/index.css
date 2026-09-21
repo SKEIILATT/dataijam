@@ -129,36 +129,45 @@
 }
 
 @layer components {
+  /* Fixed corner crop; the WebGL sphere rotates independently inside it. */
   .hero-world {
     position: absolute;
-    right: clamp(-24rem, -20vw, -12rem);
+    right: clamp(-22rem, -17vw, -8rem);
     bottom: 0;
-    width: clamp(48rem, 72vw, 86rem);
-    /* Keep the lower half beyond the section, like the reference's horizon. */
-    margin-bottom: clamp(-43rem, -36vw, -24rem);
+    width: clamp(48rem, 66vw, 75rem);
+    aspect-ratio: 1;
+    margin-bottom: clamp(-35rem, -30vw, -22rem);
     max-width: none;
     opacity: 0.9;
-    filter: drop-shadow(0 0 3rem color-mix(in srgb, var(--color-brand-cyan) 45%, transparent));
-    animation: surface-enter var(--motion-duration) var(--motion-easing);
+    pointer-events: none;
   }
 
-  /* Separado del wrapper .hero-world a propósito: así la entrada de una sola
-     vez (translateY) y el giro continuo no compiten por la misma propiedad
-     transform en el mismo elemento. */
-  .hero-world__spin {
+  .hero-world__canvas,
+  .hero-world__poster {
+    position: absolute;
+    inset: 0;
     display: block;
     width: 100%;
     height: 100%;
-    animation: hero-world-spin 60s linear infinite;
+    object-fit: contain;
+  }
+
+  .hero-world__canvas {
+    opacity: 0;
+  }
+  .hero-world__canvas[data-ready='true'] {
+    opacity: 1;
+  }
+  .hero-world__canvas[data-ready='true'] + .hero-world__poster {
+    visibility: hidden;
   }
 
   @media (max-width: 1023px) {
     .hero-world {
       right: -35vw;
-      bottom: 0;
       width: clamp(32rem, 105vw, 60rem);
       margin-bottom: clamp(-30rem, -52.5vw, -16rem);
-      opacity: 0.42;
+      opacity: 0.38;
     }
   }
 
@@ -174,8 +183,30 @@
     gap: 0.75rem;
   }
 
-  .hero-brand-lockup__symbol {
+  .hero-brand-lockup__arrival {
+    position: relative;
+    isolation: isolate;
     width: 85%;
+  }
+
+  .hero-brand-lockup__arrival::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 12% 4%;
+    border-radius: 50%;
+    background: radial-gradient(
+      ellipse,
+      color-mix(in srgb, var(--color-brand-cyan) 24%, transparent),
+      transparent 70%
+    );
+    opacity: 0.45;
+    pointer-events: none;
+  }
+
+  .hero-brand-lockup__symbol {
+    display: block;
+    width: 100%;
     height: auto;
     filter: drop-shadow(0 0 1.5rem color-mix(in srgb, var(--color-brand-cyan) 25%, transparent));
   }
@@ -195,14 +226,85 @@
   }
 
   :root[data-theme='light'] .hero-world {
-    opacity: 0.72;
-    mix-blend-mode: multiply;
+    opacity: 0.75;
   }
 
   @media (max-width: 1023px) {
     :root[data-theme='light'] .hero-world {
-      opacity: 0.38;
+      opacity: 0.45;
     }
+  }
+}
+
+/* Brand choreography: entrance once, then only the turtle floats.
+   Separate wrappers keep the entrance and ambient transforms independent. */
+@media (min-width: 1024px) {
+  .hero-brand-lockup[data-brand-ready='false'] {
+    opacity: 0;
+  }
+
+  .hero-brand-lockup[data-brand-ready='true'] .hero-brand-lockup__arrival {
+    animation: brand-arrive 1400ms var(--motion-easing) both;
+  }
+
+  .hero-brand-lockup[data-brand-ready='true'] .hero-brand-lockup__symbol {
+    animation: brand-float 6s ease-in-out 1400ms infinite;
+  }
+
+  .hero-brand-lockup[data-brand-ready='true'] .hero-brand-lockup__arrival::before {
+    animation: brand-halo 6s ease-in-out 1400ms infinite;
+  }
+
+  .hero-brand-lockup[data-brand-ready='true'] .hero-brand-lockup__wordmark {
+    animation: brand-reveal 1200ms var(--motion-easing) 450ms both;
+  }
+
+  .hero-brand-lockup[data-brand-ready='true'] .hero-brand-lockup__tagline {
+    animation: brand-reveal 1100ms var(--motion-easing) 850ms both;
+  }
+}
+
+@keyframes brand-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.96) rotate(-2deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0);
+  }
+}
+
+@keyframes brand-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes brand-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    transform: translateY(-20px) rotate(1.2deg);
+  }
+}
+
+@keyframes brand-halo {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.08);
   }
 }
 
@@ -528,19 +630,14 @@
   }
 }
 
-@keyframes hero-world-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  *,
-  *::before,
-  *::after {
+  /* The hero's brand animation, like the globe, is explicitly enabled by design. */
+  *:not(.hero-brand-lockup *),
+  *:not(.hero-brand-lockup *)::before,
+  *:not(.hero-brand-lockup *)::after {
     animation: none !important;
     transition: none !important;
   }

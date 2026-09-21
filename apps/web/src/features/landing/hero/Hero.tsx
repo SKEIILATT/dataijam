@@ -1,9 +1,10 @@
 import { ArrowRight, CalendarDays, MapPin } from 'lucide-react'
+import { useEffect, useRef } from 'react'
 
 import symbol from '@/assets/brand/symbol.svg'
 import tagline from '@/assets/brand/tagline-light.svg'
 import wordmark from '@/assets/brand/wordmark.png'
-import dataGlobe from '@/assets/images/hero/data-globe.png'
+import { RotatingGlobe } from './RotatingGlobe'
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'
 
@@ -18,16 +19,29 @@ export function Hero({
   dateLabel = 'Fecha por confirmar',
   locationLabel = 'Ciudad por confirmar',
 }: HeroProps) {
+  const brandRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const brand = brandRef.current
+    if (!brand) return
+    let cancelled = false
+    const images = Array.from(brand.querySelectorAll('img'))
+    void Promise.allSettled(images.map((image) => image.decode())).then(() => {
+      if (!cancelled) brand.dataset.brandReady = 'true'
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
   return (
     <section
       id="inicio"
       aria-labelledby="hero-heading"
-      className="ds-hero-curve relative isolate overflow-hidden bg-brand-navy py-16 sm:py-24"
+      className="ds-hero-curve relative isolate overflow-hidden bg-brand-navy py-10 sm:py-14"
     >
       <div aria-hidden="true" className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="hero-world">
-          <img src={dataGlobe} alt="" className="hero-world__spin" />
-        </div>
+        <RotatingGlobe />
         <div className="absolute inset-0 bg-linear-to-r from-brand-navy via-brand-navy/80 to-brand-blue/10" />
       </div>
 
@@ -77,8 +91,10 @@ export function Hero({
               </Button>
             </div>
           </div>
-          <div className="hero-brand-lockup hidden lg:flex">
-            <img src={symbol} alt="" className="hero-brand-lockup__symbol" />
+          <div ref={brandRef} data-brand-ready="false" className="hero-brand-lockup hidden lg:flex">
+            <div className="hero-brand-lockup__arrival">
+              <img src={symbol} alt="" className="hero-brand-lockup__symbol" />
+            </div>
             <img
               src={wordmark}
               alt="DatAIJam"
