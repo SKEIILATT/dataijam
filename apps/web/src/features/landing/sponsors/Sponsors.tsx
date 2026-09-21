@@ -1,6 +1,5 @@
 import { MoveUpRight, Plus } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'
 import { sponsors } from './sponsors.data'
 import type { Sponsor } from './sponsors.data'
@@ -68,28 +67,18 @@ export function Sponsors() {
       className="ds-section sponsors-section"
     >
       <Container>
-        <div data-reveal className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-          <div className="max-w-2xl">
-            <p className="text-sm font-medium tracking-[0.18em] text-brand-cyan uppercase">
-              Patrocinadores
-            </p>
-            <h2 id="sponsors-heading" className="mt-3 text-h2 font-semibold text-brand-white">
-              Juntos hacemos posible lo que viene
-            </h2>
-            <p className="mt-4 text-body text-brand-gray">
-              {hasSponsors
-                ? 'Las marcas que apoyan el talento, las ideas y las conexiones de DatAIJam.'
-                : 'Estamos preparando las alianzas del evento. Pronto conocerás a las marcas que nos acompañarán.'}
-            </p>
-          </div>
-          <Button
-            as="a"
-            href="mailto:hola@dataijam.com?subject=Quiero%20patrocinar%20DatAIJam"
-            variant="secondary"
-            className="self-start shrink-0 lg:self-auto"
-          >
-            Quiero ser patrocinador <MoveUpRight aria-hidden="true" className="size-4" />
-          </Button>
+        <div data-reveal className="max-w-2xl">
+          <p className="text-sm font-medium tracking-[0.18em] text-brand-cyan uppercase">
+            Patrocinadores
+          </p>
+          <h2 id="sponsors-heading" className="mt-3 text-h2 font-semibold text-brand-white">
+            Juntos hacemos posible lo que viene
+          </h2>
+          <p className="mt-4 text-body text-brand-gray">
+            {hasSponsors
+              ? 'Las marcas que apoyan el talento, las ideas y las conexiones de DatAIJam.'
+              : 'Estamos preparando las alianzas del evento. Pronto conocerás a las marcas que nos acompañarán.'}
+          </p>
         </div>
       </Container>
 

@@ -634,6 +634,45 @@
   letter-spacing: 0;
 }
 
+/* Acordeón nativo (<details>/<summary>): sin JS, accesible por teclado y
+   con toggle automático de teclas por defecto. */
+.faq-item > summary {
+  list-style: none;
+}
+
+.faq-item > summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 24px;
+  cursor: pointer;
+}
+
+.faq-item__summary:focus-visible {
+  outline: 2px solid var(--color-brand-cyan);
+  outline-offset: -2px;
+  border-radius: var(--radius-card);
+}
+
+.faq-item__chevron {
+  color: var(--color-brand-cyan);
+  transition: transform var(--motion-duration) var(--motion-easing);
+}
+
+.faq-item[open] .faq-item__chevron {
+  transform: rotate(180deg);
+}
+
+.faq-item__answer {
+  margin: 0;
+  padding: 0 24px 20px;
+}
+
 :root[data-theme='light'] .ds-section h2.text-h2 {
   background: linear-gradient(
     135deg,

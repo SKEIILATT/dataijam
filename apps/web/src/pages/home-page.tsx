@@ -1,15 +1,13 @@
-import { HelpCircle, Ticket } from 'lucide-react'
-
 import aboutPlaceholder from '../assets/images/about/about-placeholder.svg'
-import { ComingSoonSection } from '../components/ui/coming-soon-section'
 import { ScrollReveal } from '../components/ui/scroll-reveal'
 import { About } from '../features/landing/about/About'
 import { BenefitsBand } from '../features/landing/benefits/BenefitsBand'
+import { Faq } from '../features/landing/faq/Faq'
 import { HackathonProcess } from '../features/landing/hackaton/HackathonProcess'
 import { Hero } from '../features/landing/hero/Hero'
 import { LocationsGrid } from '../features/landing/locations/LocationsGrid'
+import { Registration } from '../features/landing/registration/Registration'
 import { SpeakerGrid } from '../features/landing/speakers/SpeakerGrid'
-
 import { Sponsors } from '../features/landing/sponsors/Sponsors'
 
 export function HomePage() {
@@ -49,24 +47,8 @@ export function HomePage() {
         />
       </div>
       <Sponsors />
-      <ComingSoonSection
-        blocks={[
-          {
-            id: 'faq',
-            icon: HelpCircle,
-            title: 'Preguntas frecuentes',
-            description:
-              'Todavía no hay preguntas frecuentes publicadas. Escríbenos a hola@dataijam.com si tienes dudas.',
-          },
-          {
-            id: 'registro',
-            icon: Ticket,
-            title: 'Registro',
-            description:
-              'La inscripción abre próximamente. Escríbenos a hola@dataijam.com y te avisamos apenas esté disponible.',
-          },
-        ]}
-      />
+      <Faq />
+      <Registration />
     </ScrollReveal>
   )
 }
