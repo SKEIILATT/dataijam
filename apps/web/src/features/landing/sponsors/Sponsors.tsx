@@ -91,58 +91,56 @@ export function Sponsors() {
             Quiero ser patrocinador <MoveUpRight aria-hidden="true" className="size-4" />
           </Button>
         </div>
+      </Container>
 
-        <div className="ds-content-gap">
-          <div
-            ref={viewport}
-            className="sponsors-marquee"
-            role="region"
-            aria-label="Patrocinadores del evento"
-          >
-            <div className="sponsors-track">
-              {[0, 1].map((copy) => (
-                <ul
-                  key={copy}
-                  className="sponsors-group"
-                  aria-hidden={copy === 1 ? true : undefined}
-                >
-                  {Array.from({ length: itemCount }, (_, index) => {
-                    const duplicate = copy === 1 || (hasSponsors && index >= sponsors.length)
-                    return (
-                      <li
-                        key={index}
-                        className="sponsors-slide"
-                        aria-hidden={duplicate ? true : undefined}
-                      >
-                        {hasSponsors ? (
-                          <SponsorLogo
-                            sponsor={sponsors[index % sponsors.length]}
-                            decorative={duplicate}
-                          />
-                        ) : (
-                          <div className="sponsor-placeholder">
-                            <span className="sponsor-placeholder__number">
-                              {String(index + 1).padStart(2, '0')}
-                            </span>
-                            <Plus aria-hidden="true" className="size-7" />
-                            <span className="text-sm font-medium">Tu marca aquí</span>
-                            <span className="text-xs text-brand-gray">Espacio disponible</span>
-                          </div>
-                        )}
-                      </li>
-                    )
-                  })}
-                </ul>
-              ))}
-            </div>
+      <div className="ds-content-gap">
+        <div
+          ref={viewport}
+          className="sponsors-marquee"
+          role="region"
+          aria-label="Patrocinadores del evento"
+        >
+          <div className="sponsors-track">
+            {[0, 1].map((copy) => (
+              <ul key={copy} className="sponsors-group" aria-hidden={copy === 1 ? true : undefined}>
+                {Array.from({ length: itemCount }, (_, index) => {
+                  const duplicate = copy === 1 || (hasSponsors && index >= sponsors.length)
+                  return (
+                    <li
+                      key={index}
+                      className="sponsors-slide"
+                      aria-hidden={duplicate ? true : undefined}
+                    >
+                      {hasSponsors ? (
+                        <SponsorLogo
+                          sponsor={sponsors[index % sponsors.length]}
+                          decorative={duplicate}
+                        />
+                      ) : (
+                        <div className="sponsor-placeholder">
+                          <span className="sponsor-placeholder__number">
+                            {String(index + 1).padStart(2, '0')}
+                          </span>
+                          <Plus aria-hidden="true" className="size-7" />
+                          <span className="text-sm font-medium">Tu marca aquí</span>
+                          <span className="text-xs text-brand-gray">Espacio disponible</span>
+                        </div>
+                      )}
+                    </li>
+                  )
+                })}
+              </ul>
+            ))}
           </div>
+        </div>
+        <Container>
           <p className="mt-4 text-xs text-brand-gray">
             {hasSponsors
               ? 'Alianzas que impulsan nuestra comunidad.'
               : 'Patrocinadores por confirmar · Espacios ilustrativos'}
           </p>
-        </div>
-      </Container>
+        </Container>
+      </div>
     </section>
   )
 }
