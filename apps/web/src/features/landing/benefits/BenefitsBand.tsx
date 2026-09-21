@@ -13,22 +13,20 @@ export function BenefitsBand() {
   return (
     <section
       aria-label="Valores de DatAIJam"
-      className="bg-brand-white py-8 text-brand-navy sm:py-10"
+      className="ds-band ds-contrast py-8 text-brand-white sm:py-12"
     >
       <Container>
-        <ul className="grid divide-y divide-brand-navy/15 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
+        <ul className="grid divide-y divide-brand-white/15 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
           {benefits.map(({ icon: Icon, title, description }) => (
             <li
               key={title}
-              className="flex items-center gap-4 px-1 py-5 first:pt-0 last:pb-0 sm:px-6 sm:py-2 sm:first:pl-0 sm:last:pr-0 lg:block lg:text-center"
+              data-reveal
+              className="flex items-center gap-4 px-0 py-6 first:pt-0 last:pb-0 sm:px-6 sm:py-2 sm:first:pl-0 sm:last:pr-0 lg:block lg:text-center"
             >
-              <Icon
-                aria-hidden="true"
-                className="size-8 shrink-0 text-brand-blue lg:mx-auto lg:size-9"
-              />
+              <Icon aria-hidden="true" className="size-6 shrink-0 text-brand-cyan lg:mx-auto" />
               <div className="lg:mt-3">
-                <h2 className="text-h4 font-medium text-brand-navy">{title}</h2>
-                <p className="mt-1 text-sm text-brand-navy/65">{description}</p>
+                <h2 className="ds-card-title text-brand-white">{title}</h2>
+                <p className="mt-1 text-sm text-brand-gray">{description}</p>
               </div>
             </li>
           ))}

@@ -2,6 +2,7 @@ import { HandHeart, HelpCircle, Ticket } from 'lucide-react'
 
 import aboutPlaceholder from '../assets/images/about/about-placeholder.svg'
 import { ComingSoonSection } from '../components/ui/coming-soon-section'
+import { ScrollReveal } from '../components/ui/scroll-reveal'
 import { About } from '../features/landing/about/About'
 import { BenefitsBand } from '../features/landing/benefits/BenefitsBand'
 import { HackathonProcess } from '../features/landing/hackaton/HackathonProcess'
@@ -11,7 +12,7 @@ import { SpeakerGrid } from '../features/landing/speakers/SpeakerGrid'
 
 export function HomePage() {
   return (
-    <>
+    <ScrollReveal>
       <Hero />
       <BenefitsBand />
 
@@ -70,6 +71,6 @@ export function HomePage() {
           },
         ]}
       />
-    </>
+    </ScrollReveal>
   )
 }

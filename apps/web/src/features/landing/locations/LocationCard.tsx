@@ -1,5 +1,7 @@
 import { ArrowRight } from 'lucide-react'
 
+import { Button } from '@/components/ui/button'
+
 import type { EventLocation } from './types'
 
 interface LocationCardProps {
@@ -8,12 +10,15 @@ interface LocationCardProps {
 
 export function LocationCard({ location }: LocationCardProps) {
   return (
-    <li className="group relative isolate flex min-h-80 flex-col justify-end overflow-hidden rounded-2xl">
+    <li
+      data-reveal
+      className="ds-card ds-card--panorama ds-media-card group relative isolate flex min-h-80 flex-col justify-end overflow-hidden"
+    >
       <img
         src={location.imageSrc}
         alt={location.imageAlt}
         loading="lazy"
-        className="absolute inset-0 -z-10 h-full w-full object-cover transition-transform duration-300 motion-safe:group-hover:scale-105"
+        className="absolute inset-0 -z-10 h-full w-full object-cover ds-media-image"
       />
 
       <div
@@ -21,22 +26,19 @@ export function LocationCard({ location }: LocationCardProps) {
         className="absolute inset-0 -z-10 bg-linear-to-t from-brand-navy via-brand-navy/70 to-transparent"
       />
 
-      <div className="p-6 sm:p-8">
+      <div className="p-6">
         <time className="text-xs font-medium uppercase tracking-[0.14em] text-brand-cyan">
           {location.date}
         </time>
 
-        <h3 className="mt-2 text-h3 font-semibold text-brand-white">{location.city}</h3>
+        <h3 className="mt-2 ds-card-title text-brand-white">{location.city}</h3>
 
-        <p className="mt-3 max-w-sm text-body text-brand-white/85">{location.description}</p>
+        <p className="mt-4 max-w-sm text-body text-brand-gray">{location.description}</p>
 
-        <a
-          href={location.ctaHref}
-          className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-full border border-brand-white/30 px-5 py-2.5 text-sm font-medium text-brand-white transition-colors duration-200 hover:border-brand-white hover:bg-brand-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-cyan"
-        >
+        <Button as="a" href={location.ctaHref} variant="secondary" className="mt-6">
           {location.ctaLabel}
           <ArrowRight aria-hidden="true" className="h-4 w-4" />
-        </a>
+        </Button>
       </div>
     </li>
   )

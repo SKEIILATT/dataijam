@@ -14,9 +14,9 @@ export function About({
   imageAlt,
 }: AboutProps) {
   return (
-    <section aria-labelledby="about-heading" className="bg-brand-navy py-16 sm:py-24">
+    <section aria-labelledby="about-heading" className="ds-section ds-section--accented">
       <Container>
-        <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
+        <div data-reveal className="grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-12">
           <div>
             {eyebrow && (
               <p className="text-sm font-medium tracking-[0.18em] text-brand-cyan">{eyebrow}</p>
@@ -26,14 +26,14 @@ export function About({
               {heading}
             </h2>
 
-            <p className="mt-5 max-w-xl text-body text-brand-gray">{description}</p>
+            <p className="mt-4 max-w-xl text-body text-brand-gray">{description}</p>
 
-            <Button as="a" href={ctaHref} variant="accent" className="mt-8">
+            <Button as="a" href={ctaHref} variant="secondary" className="mt-8">
               {ctaLabel}
             </Button>
           </div>
 
-          <figure className="aspect-[4/3] overflow-hidden rounded-2xl sm:aspect-[16/10]">
+          <figure className="ds-image-frame aspect-[4/3] overflow-hidden">
             <img
               src={imageSrc}
               alt={imageAlt}

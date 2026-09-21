@@ -88,7 +88,7 @@ export function SiteHeader() {
                   <a
                     href={item.href}
                     aria-current={activeHref === item.href ? 'true' : undefined}
-                    className={`relative py-2 text-sm font-medium text-brand-white/80 transition-colors hover:text-brand-white after:absolute after:bottom-0 after:left-0 after:h-px after:bg-brand-lime after:transition-all ${
+                    className={`relative py-2 text-sm font-medium text-brand-gray transition-colors hover:text-brand-white after:absolute after:bottom-0 after:left-0 after:h-px after:bg-brand-lime after:transition-all ${
                       activeHref === item.href
                         ? 'text-brand-white after:w-full'
                         : 'after:w-0 hover:after:w-full'
@@ -107,7 +107,7 @@ export function SiteHeader() {
                 Inscribete{' '}
                 <span
                   aria-hidden="true"
-                  className="transition-transform duration-300 group-hover:translate-x-1 group-active:translate-x-0"
+                  className="transition-transform duration-[var(--motion-duration)] group-hover:translate-x-1 group-active:translate-x-0"
                 >
                   &rarr;
                 </span>
@@ -118,7 +118,7 @@ export function SiteHeader() {
               type="button"
               aria-label={theme === 'dark' ? 'Activar modo claro' : 'Activar modo oscuro'}
               aria-pressed={theme === 'light'}
-              className="inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-brand-white/25 text-brand-white transition-colors hover:border-brand-cyan hover:text-brand-cyan focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-cyan"
+              className="inline-flex size-12 shrink-0 items-center justify-center rounded-full border border-brand-white/25 text-brand-white transition-colors hover:border-brand-cyan hover:text-brand-cyan focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-cyan"
               onClick={() =>
                 setTheme((currentTheme) => (currentTheme === 'dark' ? 'light' : 'dark'))
               }
@@ -134,7 +134,7 @@ export function SiteHeader() {
               type="button"
               aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
               aria-expanded={isMenuOpen}
-              className="inline-flex size-11 items-center justify-center rounded-full border border-brand-white/20 text-brand-white transition-colors hover:border-brand-lime hover:text-brand-lime lg:hidden"
+              className="inline-flex size-12 items-center justify-center rounded-full border border-brand-white/20 text-brand-white transition-colors hover:border-brand-lime hover:text-brand-lime lg:hidden"
               onClick={() => setIsMenuOpen((currentValue) => !currentValue)}
             >
               {isMenuOpen ? (
@@ -179,7 +179,7 @@ export function SiteHeader() {
                   Inscribete{' '}
                   <span
                     aria-hidden="true"
-                    className="transition-transform duration-300 group-hover:translate-x-1 group-active:translate-x-0"
+                    className="transition-transform duration-[var(--motion-duration)] group-hover:translate-x-1 group-active:translate-x-0"
                   >
                     &rarr;
                   </span>

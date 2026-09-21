@@ -4,7 +4,14 @@
 @theme {
   --color-brand-navy: #031326;
   --color-brand-white: #f4f6f8;
-  --color-brand-gray: #8a9ba8;
+  --color-brand-gray: #a8b8c8;
+  --color-surface-alt: #092039;
+  --color-surface-card: #102940;
+  --color-border: #365268;
+  --radius-control: 1rem;
+  --radius-card: 1.5rem;
+  --radius-pill: 9999px;
+  --spacing: 0.25rem;
 
   --color-brand-blue: #0482eb;
   --color-brand-cyan: #08cdef;
@@ -54,29 +61,14 @@
     --color-brand-navy: #f3fbff;
     --color-brand-white: #06275d;
     --color-brand-gray: #527088;
+    --color-surface-alt: #e4f2fc;
+    --color-surface-card: #ffffff;
+    --color-border: #b0c8de;
     --color-brand-blue: #087ff2;
     --color-brand-cyan: #077480;
     --color-brand-turquoise: #35d7a4;
     --color-brand-lime: #087ff2;
     --color-brand-yellow: #12d3e3;
-  }
-
-  /* El tramo final del gradiente terminaba en #12d3e3, que da 1.75:1 sobre
-     el fondo claro (#f3fbff) e incumple incluso el umbral WCAG AA de texto
-     grande (3:1). Se reemplaza por #077480, que sí lo cumple (5.25:1).
-
-     Esta regla aplica a TODO h1/h2/h3 del sitio (empieza en #06275d, oscuro).
-     Cualquier h1/h2/h3 nuevo necesita su propio color explícito (ej.
-     text-brand-white/text-brand-navy) o hereda este degradado sin darse
-     cuenta; si ese heading vive en una sección con fondo oscuro en modo
-     claro (bg-brand-white), el texto queda casi invisible por diseño. */
-  :root[data-theme='light'] h1,
-  :root[data-theme='light'] h2,
-  :root[data-theme='light'] h3 {
-    background: linear-gradient(135deg, #06275d 0%, #087ff2 58%, #077480 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
   }
 
   .hero__accent {
@@ -85,16 +77,6 @@
 
   :root[data-theme='light'] .hero__accent {
     background-image: linear-gradient(135deg, #06275d 0%, #087ff2 58%, #077480 100%);
-  }
-
-  /* Gradiente propio (no deriva de --color-brand-lime/yellow) para que el
-     texto blanco del CTA mantenga AA (>=4.5:1) en ambos extremos; el original
-     terminaba en #12d3e3 (1.75:1 con texto blanco). */
-  :root[data-theme='light'] .theme-primary-action {
-    background-color: transparent;
-    background-image: linear-gradient(90deg, #0a66c2 0%, #077480 100%);
-    border-color: transparent;
-    color: #f3fbff;
   }
 
   :root[data-theme='light'] .site-header__wordmark {
@@ -157,8 +139,17 @@
     max-width: none;
     opacity: 0.9;
     filter: drop-shadow(0 0 3rem color-mix(in srgb, var(--color-brand-cyan) 45%, transparent));
-    transform-origin: 65% 65%;
-    animation: hero-world-float 14s ease-in-out infinite;
+    animation: surface-enter var(--motion-duration) var(--motion-easing);
+  }
+
+  /* Separado del wrapper .hero-world a propósito: así la entrada de una sola
+     vez (translateY) y el giro continuo no compiten por la misma propiedad
+     transform en el mismo elemento. */
+  .hero-world__spin {
+    display: block;
+    width: 100%;
+    height: 100%;
+    animation: hero-world-spin 60s linear infinite;
   }
 
   @media (max-width: 1023px) {
@@ -215,19 +206,346 @@
   }
 }
 
-@keyframes hero-world-float {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
+/* Shared interaction and layout contract. Exceptions: decorative circles and brand artwork. */
+:root {
+  --motion-duration: 240ms;
+  --motion-easing: cubic-bezier(0.2, 0, 0, 1);
+  --elevation-card: 0 8px 24px color-mix(in srgb, var(--color-brand-white) 8%, transparent);
+  --section-space: 64px;
+  --content-gap: 32px;
+  --action-start: var(--color-brand-lime);
+  --action-end: var(--color-brand-yellow);
+  --action-ink: var(--color-brand-navy);
+  --radius-expressive: clamp(32px, 5vw, 64px);
+  --section-curve: clamp(24px, 4vw, 48px);
+  --edge-gradient: linear-gradient(
+    115deg,
+    var(--color-brand-cyan),
+    var(--color-brand-lime) 65%,
+    var(--color-brand-yellow)
+  );
+}
+
+:root[data-theme='light'] {
+  --action-start: #0a66c2;
+  --action-end: #077480;
+  --action-ink: #f3fbff;
+  --edge-gradient: linear-gradient(115deg, var(--color-brand-blue), var(--color-brand-yellow));
+}
+
+/* Light editorial bands frame the curved dark sections, as in the brand reference. */
+.landing-flow {
+  background: var(--color-footer-surface);
+}
+
+:root[data-theme='light'] .landing-flow {
+  background: var(--color-surface-alt);
+}
+
+.ds-hero-curve {
+  border-radius: 0 0 50% 50% / 0 0 var(--section-curve) var(--section-curve);
+}
+
+.ds-section.ds-section--accented {
+  border: 0;
+  background:
+    radial-gradient(
+      ellipse at 100% 0,
+      color-mix(in srgb, var(--color-brand-lime) 9%, transparent),
+      transparent 50%
+    ),
+    var(--color-brand-navy);
+}
+
+.ds-section.ds-section--quiet {
+  border: 0;
+}
+
+.ds-section.ds-contrast,
+.ds-band.ds-contrast {
+  border: 0;
+  background: var(--color-footer-surface);
+}
+
+:root:not([data-theme='light']) .ds-contrast {
+  --color-brand-white: var(--color-footer-ink);
+  --color-brand-navy: var(--color-footer-surface);
+  --color-brand-gray: #527088;
+  --color-brand-cyan: var(--color-footer-accent);
+  --color-border: #b0c8de;
+  --color-surface-card: #ffffff;
+}
+
+/* Photo cards stay dark inside the light bands, keeping their text readable. */
+:root:not([data-theme='light']) .ds-contrast .ds-media-card {
+  --color-brand-white: #f4f6f8;
+  --color-brand-navy: #031326;
+  --color-brand-gray: #a8b8c8;
+  --color-brand-cyan: #08cdef;
+  --color-border: #365268;
+}
+
+:root[data-theme='light'] .ds-contrast {
+  background: var(--color-surface-alt);
+}
+
+.ds-image-frame {
+  padding: 3px;
+  border-radius: var(--radius-expressive) var(--radius-card);
+  background: var(--edge-gradient);
+}
+
+.ds-image-frame img {
+  border-radius: calc(var(--radius-expressive) - 3px) calc(var(--radius-card) - 3px);
+}
+
+.ds-section h2.text-h2::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  margin-top: 24px;
+  border-radius: var(--radius-pill);
+  background: var(--edge-gradient);
+}
+
+.ds-section .text-center h2.text-h2::after {
+  margin-inline: auto;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --section-space: 96px;
+    --content-gap: 48px;
+  }
+}
+
+.ds-section {
+  padding-block: var(--section-space);
+  background: var(--color-brand-navy);
+  border-top: 1px solid var(--color-border);
+}
+
+.ds-section--alternate,
+.ds-band {
+  background: var(--color-surface-alt);
+}
+
+.ds-band {
+  border-block: 1px solid var(--color-border);
+}
+
+.ds-content-gap {
+  margin-top: var(--content-gap);
+}
+
+.ds-card {
+  position: relative;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background-color: var(--color-surface-card);
+  box-shadow: var(--elevation-card);
+}
+
+.ds-card--metric {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--color-brand-white) 5%, var(--color-brand-navy));
+  box-shadow: none;
+}
+
+.ds-card--quiet,
+.ds-card--step {
+  box-shadow: none;
+}
+
+.ds-card--step::before {
+  content: '';
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 32px;
+  height: 3px;
+  border-radius: var(--radius-pill);
+  background: var(--edge-gradient);
+}
+
+.ds-card--panorama {
+  border: 0;
+  border-radius: var(--radius-card) var(--radius-expressive);
+}
+
+.ds-card--featured {
+  border-radius: var(--radius-card) var(--radius-card) var(--radius-expressive) var(--radius-card);
+}
+
+/* Masked stroke adds a gradient without covering photos or intercepting controls. */
+.ds-card--featured::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  inset: -1px;
+  padding: 1px;
+  border-radius: inherit;
+  background: var(--edge-gradient);
+  pointer-events: none;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+}
+
+.ds-media-card {
+  /* Photos remain legible in both themes through the existing theme-aware overlay. */
+  background-color: var(--color-brand-navy);
+}
+
+.ds-card-title {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+:root[data-theme='light'] .ds-section h2.text-h2 {
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-white),
+    var(--color-brand-blue) 58%,
+    var(--color-brand-cyan)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.ds-button {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  font: 500 14px/22px var(--font-body);
+  cursor: pointer;
+  text-align: center;
+}
+
+.ds-button--primary {
+  background: linear-gradient(90deg, var(--action-start), var(--action-end));
+  color: var(--action-ink);
+}
+
+.ds-button--secondary {
+  border-color: var(--color-border);
+  color: var(--color-brand-white);
+  background: transparent;
+}
+
+.ds-button--ghost {
+  color: var(--color-brand-white);
+  background: transparent;
+}
+
+:where(a, button, input, select, textarea),
+.ds-media-image,
+[data-reveal] {
+  transition-property: color, background-color, border-color, box-shadow, opacity, transform;
+  transition-duration: var(--motion-duration);
+  transition-timing-function: var(--motion-easing);
+}
+
+:where(a, button) :where(svg, span),
+:where(a, button)::after {
+  transition-duration: var(--motion-duration);
+  transition-timing-function: var(--motion-easing);
+}
+
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid var(--color-brand-cyan);
+  outline-offset: 4px;
+}
+
+:where(a, button):active:not(:disabled):not([aria-disabled='true']) {
+  transform: translateY(1px);
+}
+
+@media (hover: hover) {
+  .ds-button:hover:not(:disabled):not([aria-disabled='true']):not([aria-busy='true']) {
+    transform: translateY(-2px);
+    box-shadow: var(--elevation-card);
   }
 
-  50% {
-    transform: translate3d(-1rem, -0.75rem, 0) scale(1.025);
+  .ds-button--secondary:hover,
+  .ds-button--ghost:hover {
+    border-color: var(--color-brand-cyan);
+    background-color: color-mix(in srgb, var(--color-brand-cyan) 10%, transparent);
+  }
+}
+
+/* Status styling is ready for real forms; no fabricated loading UI. */
+.ds-button:disabled,
+.ds-button[aria-disabled='true'] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.ds-button[aria-busy='true'] {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+:where(input:not([type='checkbox']):not([type='radio']), select, textarea) {
+  min-height: 48px;
+  padding: 12px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-card);
+  color: var(--color-brand-white);
+}
+
+:where(section, div, li)[id] {
+  scroll-margin-top: 112px;
+}
+
+.lucide {
+  stroke-width: 1.75;
+}
+
+[data-reveal-pending]:not(:focus-within) {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+@keyframes surface-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+@keyframes hero-world-spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-world {
-    animation: none;
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  [data-reveal-pending] {
+    opacity: 1;
+    transform: none;
   }
 }

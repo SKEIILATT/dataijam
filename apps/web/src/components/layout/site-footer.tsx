@@ -21,7 +21,7 @@ const socialNetworks = [
 
 export function SiteFooter() {
   return (
-    <footer className="bg-footer-surface py-14 text-footer-ink sm:py-16">
+    <footer className="bg-footer-surface py-12 text-footer-ink sm:py-16">
       <Container>
         <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div className="flex justify-center">
@@ -29,8 +29,8 @@ export function SiteFooter() {
           </div>
 
           <div className="lg:border-l lg:border-brand-gray/35 lg:pl-8">
-            <h2 className="text-h4 font-medium text-footer-ink">Navegacion</h2>
-            <ul className="mt-5 space-y-3">
+            <h2 className="ds-card-title text-footer-ink">Navegacion</h2>
+            <ul className="mt-4 space-y-3">
               {navigationItems.map((item) => (
                 <li key={item.href}>
                   <a
@@ -45,14 +45,14 @@ export function SiteFooter() {
           </div>
 
           <div className="lg:border-l lg:border-brand-gray/35 lg:pl-8">
-            <h2 className="text-h4 font-medium text-footer-ink">Siguenos</h2>
-            <ul className="mt-5 flex flex-wrap gap-3">
+            <h2 className="ds-card-title text-footer-ink">Siguenos</h2>
+            <ul className="mt-4 flex flex-wrap gap-3">
               {socialNetworks.map(({ label, Icon }) => (
                 <li key={label}>
                   <span
                     aria-label={label}
-                    title={label}
-                    className="inline-flex size-9 items-center justify-center rounded-full border border-footer-ink/20 text-footer-ink transition-colors hover:border-footer-accent hover:text-footer-accent"
+                    title={`${label}: enlace pendiente`}
+                    className="inline-flex size-12 items-center justify-center rounded-full border border-footer-ink/20 text-footer-ink "
                   >
                     <Icon aria-hidden="true" className="size-4" />
                   </span>
@@ -62,10 +62,10 @@ export function SiteFooter() {
           </div>
 
           <div className="lg:border-l lg:border-brand-gray/35 lg:pl-8">
-            <h2 className="text-h4 font-medium text-footer-ink">Contactanos</h2>
+            <h2 className="ds-card-title text-footer-ink">Contactanos</h2>
             <a
               href="mailto:hola@dataijam.com"
-              className="mt-5 block text-sm text-footer-ink/70 transition-colors hover:text-footer-accent"
+              className="mt-4 block text-sm text-footer-ink/70 transition-colors hover:text-footer-accent"
             >
               hola@dataijam.com
             </a>
@@ -82,12 +82,8 @@ export function SiteFooter() {
           <p>© 2026 DatAIJam. Todos los derechos reservados.</p>
 
           <div className="flex gap-5">
-            <a href="#terminos" className="transition-colors hover:text-footer-accent">
-              Terminos
-            </a>
-            <a href="#privacidad" className="transition-colors hover:text-footer-accent">
-              Privacidad
-            </a>
+            <span title="Contenido pendiente de publicación">Términos (próximamente)</span>
+            <span title="Contenido pendiente de publicación">Privacidad (próximamente)</span>
           </div>
         </div>
       </Container>
