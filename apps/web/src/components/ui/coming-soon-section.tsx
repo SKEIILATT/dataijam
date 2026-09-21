@@ -17,7 +17,7 @@ export function ComingSoonSection({ blocks }: ComingSoonSectionProps) {
   return (
     <section aria-label="Contenido en preparación" className="ds-section ds-section--quiet">
       <Container>
-        <ul className="grid gap-6 md:grid-cols-3">
+        <ul className={`grid gap-6 ${blocks.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'}`}>
           {blocks.map(({ id, icon: Icon, title, description }) => (
             <li key={id} data-reveal id={id} className="ds-card ds-card--quiet scroll-mt-24 p-6">
               <div

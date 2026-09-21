@@ -1,4 +1,4 @@
-import { HandHeart, HelpCircle, Ticket } from 'lucide-react'
+import { HelpCircle, Ticket } from 'lucide-react'
 
 import aboutPlaceholder from '../assets/images/about/about-placeholder.svg'
 import { ComingSoonSection } from '../components/ui/coming-soon-section'
@@ -9,6 +9,8 @@ import { HackathonProcess } from '../features/landing/hackaton/HackathonProcess'
 import { Hero } from '../features/landing/hero/Hero'
 import { LocationsGrid } from '../features/landing/locations/LocationsGrid'
 import { SpeakerGrid } from '../features/landing/speakers/SpeakerGrid'
+
+import { Sponsors } from '../features/landing/sponsors/Sponsors'
 
 export function HomePage() {
   return (
@@ -46,15 +48,9 @@ export function HomePage() {
           subheading="Expertos que nos acompañarán para inspirar nuevas ideas y conexiones."
         />
       </div>
+      <Sponsors />
       <ComingSoonSection
         blocks={[
-          {
-            id: 'patrocinadores',
-            icon: HandHeart,
-            title: 'Patrocinadores',
-            description:
-              'Estamos cerrando alianzas con empresas y organizaciones aliadas. Esta sección se publicará antes del evento.',
-          },
           {
             id: 'faq',
             icon: HelpCircle,

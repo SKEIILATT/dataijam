@@ -501,6 +501,131 @@
   background-color: var(--color-brand-navy);
 }
 
+.sponsors-section {
+  background:
+    radial-gradient(
+      ellipse at 0 100%,
+      color-mix(in srgb, var(--color-brand-lime) 8%, transparent),
+      transparent 60%
+    ),
+    var(--color-brand-navy);
+}
+
+.sponsors-marquee {
+  overflow: hidden;
+  padding-block: 8px;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 24px,
+    black calc(100% - 24px),
+    transparent
+  );
+}
+
+.sponsors-track {
+  display: flex;
+  width: max-content;
+  animation: sponsors-drift 45s linear infinite;
+}
+
+.sponsors-group {
+  display: flex;
+  flex-shrink: 0;
+  gap: 24px;
+  padding-right: 24px;
+}
+
+.sponsors-slide {
+  flex: 0 0 clamp(200px, 23vw, 264px);
+  width: clamp(200px, 23vw, 264px);
+}
+
+.sponsors-marquee[data-running='false'] .sponsors-track {
+  animation-play-state: paused;
+}
+
+/* Keyboard users see all original links in a stationary, wrapping list. */
+.sponsors-marquee:focus-within {
+  mask-image: none;
+}
+
+.sponsors-marquee:focus-within .sponsors-track {
+  animation: none;
+  width: 100%;
+}
+
+.sponsors-marquee:focus-within .sponsors-group {
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 4px;
+}
+
+.sponsors-marquee:focus-within [aria-hidden='true'] {
+  display: none;
+}
+
+@keyframes sponsors-drift {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.sponsor-logo,
+.sponsor-placeholder {
+  position: relative;
+  display: flex;
+  height: 160px;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-card);
+  padding: 24px;
+}
+
+.sponsor-logo {
+  background: var(--color-footer-surface);
+  color: var(--color-footer-ink);
+  border: 1px solid var(--color-border);
+}
+
+.sponsor-logo img {
+  width: 100%;
+  max-width: 180px;
+  height: 72px;
+  object-fit: contain;
+}
+
+.sponsor-logo__arrow {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  opacity: 0.5;
+}
+
+.sponsor-placeholder {
+  flex-direction: column;
+  gap: 8px;
+  border: 1px dashed var(--color-border);
+  background: color-mix(in srgb, var(--color-brand-white) 3%, var(--color-brand-navy));
+  color: var(--color-brand-cyan);
+}
+
+.sponsor-placeholder__number {
+  position: absolute;
+  top: 16px;
+  left: 20px;
+  font-size: 12px;
+  color: var(--color-brand-gray);
+}
+
+@media (hover: hover) {
+  a.sponsor-logo:hover {
+    border-color: var(--color-brand-cyan);
+    box-shadow: var(--elevation-card);
+    transform: translateY(-2px);
+  }
+}
+
 .ds-card-title {
   font-family: var(--font-heading);
   font-size: 20px;
@@ -635,9 +760,9 @@
     scroll-behavior: auto;
   }
   /* The hero's brand animation, like the globe, is explicitly enabled by design. */
-  *:not(.hero-brand-lockup *),
-  *:not(.hero-brand-lockup *)::before,
-  *:not(.hero-brand-lockup *)::after {
+  *:not(.hero-brand-lockup *, .sponsors-track),
+  *:not(.hero-brand-lockup *, .sponsors-track)::before,
+  *:not(.hero-brand-lockup *, .sponsors-track)::after {
     animation: none !important;
     transition: none !important;
   }
