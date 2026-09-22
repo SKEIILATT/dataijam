@@ -2,12 +2,8 @@
 
 ## Produccion
 
-1. Copia `.env.production.example` a `.env.production` en el servidor y define secretos fuertes.
+1. Copia `.env.production.example` a `.env.production` en el servidor y ajusta `HTTP_PORT` si el default no aplica.
 2. Despliega con `docker compose -f compose.production.yaml --env-file .env.production up -d --build`.
-3. Verifica `https://tu-dominio/api/health`.
+3. Verifica que `https://tu-dominio` cargue correctamente.
 
-## Backups
-
-Ejecuta `infra/scripts/backup-postgres.sh` desde la raiz del repositorio. Por defecto conserva 14 dias y guarda los archivos en `backups/postgres/`, ruta ignorada por Git.
-
-En el servidor, programa una ejecucion diaria con cron y prueba restauraciones antes del lanzamiento.
+HTTPS y secretos de produccion se configuran en el servidor, nunca en Git.

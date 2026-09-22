@@ -767,14 +767,15 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 20px 24px;
+  min-height: 60px;
+  padding: 16px 8px;
   cursor: pointer;
 }
 
 .faq-item__summary:focus-visible {
   outline: 2px solid var(--color-brand-cyan);
   outline-offset: -2px;
-  border-radius: var(--radius-card);
+  border-radius: 4px;
 }
 
 .faq-item__chevron {
@@ -788,7 +789,7 @@
 
 .faq-item__answer {
   margin: 0;
-  padding: 0 24px 20px;
+  padding: 0 44px 20px 8px;
 }
 
 :root[data-theme='light'] .ds-section h2.text-h2 {
