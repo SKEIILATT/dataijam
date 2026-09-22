@@ -27,6 +27,7 @@ export function HackathonProcess({ eyebrow, heading, subheading }: HackathonProc
         </div>
 
         <ol
+          data-stagger
           className="ds-content-gap grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
           aria-label="Pasos del hackathon"
         >

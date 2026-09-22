@@ -57,7 +57,7 @@ export function Registration() {
           </div>
 
           <form
-            data-reveal
+            data-reveal="side"
             onSubmit={handleSubmit}
             className="ds-card flex flex-col gap-5 p-6 sm:p-8"
           >

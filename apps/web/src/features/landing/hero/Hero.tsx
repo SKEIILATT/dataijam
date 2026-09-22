@@ -47,7 +47,7 @@ export function Hero({
 
       <Container>
         <div className="grid items-center gap-12 lg:grid-cols-2">
-          <div>
+          <div className="hero-copy">
             <p className="text-sm font-medium tracking-[0.18em] text-brand-cyan uppercase">
               {eventLabel}
             </p>
@@ -64,14 +64,14 @@ export function Hero({
             <dl className="mt-8 flex flex-col gap-4 text-sm sm:flex-row sm:gap-8">
               <div className="flex items-center gap-3 text-brand-white">
                 <CalendarDays aria-hidden="true" className="size-5 text-brand-cyan" />
-                <div>
+                <div className="hero-copy">
                   <dt className="sr-only">Fecha</dt>
                   <dd>{dateLabel}</dd>
                 </div>
               </div>
               <div className="flex items-center gap-3 text-brand-white">
                 <MapPin aria-hidden="true" className="size-5 text-brand-cyan" />
-                <div>
+                <div className="hero-copy">
                   <dt className="sr-only">Ubicación</dt>
                   <dd>{locationLabel}</dd>
                 </div>

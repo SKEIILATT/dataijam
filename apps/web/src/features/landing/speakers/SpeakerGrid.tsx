@@ -40,7 +40,10 @@ export function SpeakerGrid({ eyebrow, heading, subheading }: SpeakerGridProps) 
           <p className="mt-4 max-w-2xl text-body text-brand-gray">{subheading}</p>
         </div>
 
-        <div className="ds-content-gap grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1.45fr)]">
+        <div
+          data-stagger
+          className="ds-content-gap grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1.45fr)]"
+        >
           <ul className="grid" aria-label="Speaker destacado">
             <SpeakerCard speaker={featuredSpeaker} featured />
           </ul>

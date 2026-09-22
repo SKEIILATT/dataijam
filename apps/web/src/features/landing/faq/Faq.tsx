@@ -22,9 +22,13 @@ export function Faq() {
           </p>
         </div>
 
-        <div data-reveal className="ds-content-gap flex flex-col gap-3">
+        <div data-stagger className="ds-content-gap flex flex-col gap-3">
           {faqItems.map((item) => (
-            <details key={item.question} className="faq-item ds-card ds-card--quiet">
+            <details
+              data-reveal="fade"
+              key={item.question}
+              className="faq-item ds-card ds-card--quiet"
+            >
               <summary className="faq-item__summary">
                 <span className="ds-card-title text-brand-white">{item.question}</span>
                 <ChevronDown aria-hidden="true" className="faq-item__chevron size-5 shrink-0" />

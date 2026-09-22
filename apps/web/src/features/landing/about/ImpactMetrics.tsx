@@ -3,7 +3,7 @@ import { impactMetrics } from './about.data'
 export function ImpactMetrics() {
   return (
     <div className="ds-content-gap">
-      <dl className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+      <dl data-stagger className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
         {impactMetrics.map((metric) => {
           const Icon = metric.icon
 

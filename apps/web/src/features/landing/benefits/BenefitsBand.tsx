@@ -16,7 +16,10 @@ export function BenefitsBand() {
       className="ds-band ds-contrast py-8 text-brand-white sm:py-12"
     >
       <Container>
-        <ul className="grid divide-y divide-brand-white/15 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
+        <ul
+          data-stagger
+          className="grid divide-y divide-brand-white/15 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4"
+        >
           {benefits.map(({ icon: Icon, title, description }) => (
             <li
               key={title}

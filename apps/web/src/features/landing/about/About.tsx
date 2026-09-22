@@ -16,8 +16,8 @@ export function About({
   return (
     <section aria-labelledby="about-heading" className="ds-section ds-section--accented">
       <Container>
-        <div data-reveal className="grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-12">
-          <div>
+        <div className="grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-12">
+          <div data-reveal>
             {eyebrow && (
               <p className="text-sm font-medium tracking-[0.18em] text-brand-cyan">{eyebrow}</p>
             )}
@@ -33,7 +33,7 @@ export function About({
             </Button>
           </div>
 
-          <figure className="ds-image-frame aspect-[4/3] overflow-hidden">
+          <figure data-reveal="side" className="ds-image-frame aspect-[4/3] overflow-hidden">
             <img
               src={imageSrc}
               alt={imageAlt}

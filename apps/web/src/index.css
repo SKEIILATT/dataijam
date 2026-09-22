@@ -236,38 +236,53 @@
   }
 }
 
-/* Brand choreography: entrance once, then only the turtle floats.
-   Separate wrappers keep the entrance and ambient transforms independent. */
+/* Preserve the original floating turtle and halo after the entrance. */
 @media (min-width: 1024px) {
   .hero-brand-lockup[data-brand-ready='false'] {
     opacity: 0;
   }
-
   .hero-brand-lockup[data-brand-ready='true'] .hero-brand-lockup__arrival {
-    animation: brand-arrive 1400ms var(--motion-easing) both;
+    animation: brand-arrive var(--motion-hero) var(--motion-easing) both;
   }
-
   .hero-brand-lockup[data-brand-ready='true'] .hero-brand-lockup__symbol {
-    animation: brand-float 6s ease-in-out 1400ms infinite;
+    animation: brand-float 6s ease-in-out var(--motion-hero) infinite;
   }
-
   .hero-brand-lockup[data-brand-ready='true'] .hero-brand-lockup__arrival::before {
-    animation: brand-halo 6s ease-in-out 1400ms infinite;
+    animation: brand-halo 6s ease-in-out var(--motion-hero) infinite;
   }
-
   .hero-brand-lockup[data-brand-ready='true'] .hero-brand-lockup__wordmark {
-    animation: brand-reveal 1200ms var(--motion-easing) 450ms both;
+    animation: brand-reveal var(--motion-reveal) var(--motion-easing) 160ms both;
   }
-
   .hero-brand-lockup[data-brand-ready='true'] .hero-brand-lockup__tagline {
-    animation: brand-reveal 1100ms var(--motion-easing) 850ms both;
+    animation: brand-reveal var(--motion-reveal) var(--motion-easing) 320ms both;
+  }
+}
+
+@keyframes brand-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    transform: translateY(-20px) rotate(1.2deg);
+  }
+}
+@keyframes brand-halo {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.08);
   }
 }
 
 @keyframes brand-arrive {
   from {
     opacity: 0;
-    transform: translateY(40px) scale(0.96) rotate(-2deg);
+    transform: translateY(24px) scale(0.98);
   }
   to {
     opacity: 1;
@@ -286,32 +301,15 @@
   }
 }
 
-@keyframes brand-float {
-  0%,
-  100% {
-    transform: translateY(0) rotate(0);
-  }
-  50% {
-    transform: translateY(-20px) rotate(1.2deg);
-  }
-}
-
-@keyframes brand-halo {
-  0%,
-  100% {
-    opacity: 0.45;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.08);
-  }
-}
-
 /* Shared interaction and layout contract. Exceptions: decorative circles and brand artwork. */
 :root {
-  --motion-duration: 240ms;
-  --motion-easing: cubic-bezier(0.2, 0, 0, 1);
+  --motion-duration: 200ms;
+  --motion-normal: 400ms;
+  --motion-reveal: 850ms;
+  --motion-hero: 800ms;
+  --motion-stagger: 120ms;
+  --motion-theme: 900ms;
+  --motion-easing: cubic-bezier(0.22, 1, 0.36, 1);
   --elevation-card: 0 8px 24px color-mix(in srgb, var(--color-brand-white) 8%, transparent);
   --section-space: 64px;
   --content-gap: 32px;
@@ -352,9 +350,14 @@
   border: 0;
   background:
     radial-gradient(
-      ellipse at 100% 0,
-      color-mix(in srgb, var(--color-brand-lime) 9%, transparent),
-      transparent 50%
+      ellipse 700px 460px at 100% 0,
+      color-mix(in srgb, var(--color-brand-lime) 22%, transparent),
+      transparent 58%
+    ),
+    radial-gradient(
+      ellipse 600px 460px at -4% 100%,
+      color-mix(in srgb, var(--color-brand-blue) 19%, transparent),
+      transparent 58%
     ),
     var(--color-brand-navy);
 }
@@ -366,6 +369,27 @@
 .ds-section.ds-contrast,
 .ds-band.ds-contrast {
   border: 0;
+}
+
+/* Full sections get the decorative wash; the short BenefitsBand doesn't have
+   the height for it to read as anything but a mismatched patch, so it stays
+   a flat, uniform fill matching the other light bands around it. */
+.ds-section.ds-contrast {
+  background:
+    radial-gradient(
+      ellipse 560px 360px at 2% 0%,
+      color-mix(in srgb, var(--color-brand-cyan) 16%, transparent),
+      transparent 62%
+    ),
+    radial-gradient(
+      ellipse 560px 360px at 100% 100%,
+      color-mix(in srgb, var(--color-brand-turquoise) 14%, transparent),
+      transparent 62%
+    ),
+    var(--color-footer-surface);
+}
+
+.ds-band.ds-contrast {
   background: var(--color-footer-surface);
 }
 
@@ -387,7 +411,22 @@
   --color-border: #365268;
 }
 
-:root[data-theme='light'] .ds-contrast {
+:root[data-theme='light'] .ds-section.ds-contrast {
+  background:
+    radial-gradient(
+      ellipse 560px 360px at 2% 0%,
+      color-mix(in srgb, var(--color-brand-cyan) 13%, transparent),
+      transparent 62%
+    ),
+    radial-gradient(
+      ellipse 560px 360px at 100% 100%,
+      color-mix(in srgb, var(--color-brand-turquoise) 11%, transparent),
+      transparent 62%
+    ),
+    var(--color-surface-alt);
+}
+
+:root[data-theme='light'] .ds-band.ds-contrast {
   background: var(--color-surface-alt);
 }
 
@@ -423,9 +462,83 @@
 }
 
 .ds-section {
+  position: relative;
   padding-block: var(--section-space);
-  background: var(--color-brand-navy);
+  background:
+    radial-gradient(
+      ellipse 720px 440px at 6% -8%,
+      color-mix(in srgb, var(--color-brand-blue) 20%, transparent),
+      transparent 62%
+    ),
+    radial-gradient(
+      ellipse 600px 440px at 96% 108%,
+      color-mix(in srgb, var(--color-brand-turquoise) 17%, transparent),
+      transparent 62%
+    ),
+    var(--color-brand-navy);
   border-top: 1px solid var(--color-border);
+}
+
+/* Sober mosaic of a few large, thin-outlined brand-colored rings behind
+   every section's content — overlapping content so circles read as cut-off
+   arcs rather than full discs. --color-brand-* already flip per theme and
+   per .ds-contrast, so the mosaic recolors itself automatically. */
+.ds-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* Each circle's full radius is kept inside the 0–680px tile (with margin)
+     so it never wraps across the repeat seam — a ring that crosses a tile
+     edge gets sliced off instead of completing, which reads as a cropped
+     image rather than a clean overlapping arc. */
+  background-image:
+    radial-gradient(
+      circle 150px at 25% 26%,
+      transparent 92%,
+      color-mix(in srgb, var(--color-brand-blue) 15%, transparent) 94%,
+      color-mix(in srgb, var(--color-brand-blue) 15%, transparent) 96%,
+      transparent 98%
+    ),
+    radial-gradient(
+      circle 110px at 78% 55%,
+      transparent 91%,
+      color-mix(in srgb, var(--color-brand-turquoise) 14%, transparent) 93%,
+      color-mix(in srgb, var(--color-brand-turquoise) 14%, transparent) 95%,
+      transparent 98%
+    ),
+    radial-gradient(
+      circle 130px at 46% 78%,
+      transparent 92%,
+      color-mix(in srgb, var(--color-brand-cyan) 14%, transparent) 94%,
+      color-mix(in srgb, var(--color-brand-cyan) 14%, transparent) 96%,
+      transparent 98%
+    );
+  background-size: 680px 680px;
+  mask-image: radial-gradient(ellipse 75% 70% at 50% 40%, black 40%, transparent 90%);
+}
+
+/* Same ring swatch, shifted per section variant so consecutive sections
+   don't repeat the exact same layout. */
+.ds-section.ds-section--accented::before {
+  background-position: 260px -60px;
+}
+
+.ds-section.ds-contrast::before {
+  background-position: -180px 220px;
+}
+
+.sponsors-section::before {
+  background-position: 400px 120px;
+}
+
+/* Excludes aria-hidden decorative overlays (e.g. SpeakerGrid's absolutely
+   positioned background circles) — forcing position:relative on those would
+   break their own absolute/inset-0 layout. */
+.ds-section > :not([aria-hidden]) {
+  position: relative;
+  z-index: 1;
 }
 
 .ds-section--alternate,
@@ -504,9 +617,14 @@
 .sponsors-section {
   background:
     radial-gradient(
-      ellipse at 0 100%,
-      color-mix(in srgb, var(--color-brand-lime) 8%, transparent),
-      transparent 60%
+      ellipse 640px 420px at 0 100%,
+      color-mix(in srgb, var(--color-brand-lime) 20%, transparent),
+      transparent 58%
+    ),
+    radial-gradient(
+      ellipse 600px 420px at 100% -8%,
+      color-mix(in srgb, var(--color-brand-blue) 18%, transparent),
+      transparent 58%
     ),
     var(--color-brand-navy);
 }
@@ -716,8 +834,7 @@
 }
 
 :where(a, button, input, select, textarea),
-.ds-media-image,
-[data-reveal] {
+.ds-media-image {
   transition-property: color, background-color, border-color, box-shadow, opacity, transform;
   transition-duration: var(--motion-duration);
   transition-timing-function: var(--motion-easing);
@@ -735,7 +852,7 @@
 }
 
 :where(a, button):active:not(:disabled):not([aria-disabled='true']) {
-  transform: translateY(1px);
+  scale: 0.98;
 }
 
 @media (hover: hover) {
@@ -782,15 +899,290 @@
   stroke-width: 1.75;
 }
 
+/* Reveals use individual translate so card hover transforms remain independent. */
 [data-reveal-pending]:not(:focus-within) {
   opacity: 0;
-  transform: translateY(16px);
+}
+
+.hero-copy > * {
+  animation: surface-enter var(--motion-reveal) var(--motion-easing) both;
+}
+.hero-copy > :nth-child(2) {
+  animation-delay: 80ms;
+}
+.hero-copy > :nth-child(3) {
+  animation-delay: 160ms;
+}
+.hero-copy > :nth-child(4) {
+  animation-delay: 240ms;
+}
+.hero-copy > :nth-child(5) {
+  animation-delay: 320ms;
+}
+.hero-copy > :focus-within {
+  animation: none;
 }
 
 @keyframes surface-enter {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    translate: 0 20px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+:where(a, button, summary) {
+  transition-property: color, background-color, border-color, box-shadow, opacity, transform, scale;
+  transition-duration: var(--motion-duration);
+  transition-timing-function: var(--motion-easing);
+}
+button:not(:disabled),
+summary {
+  cursor: pointer;
+}
+.ds-card,
+.ds-image-frame img,
+.sponsor-logo img {
+  transition:
+    transform var(--motion-normal) var(--motion-easing),
+    border-color var(--motion-duration) var(--motion-easing),
+    box-shadow var(--motion-duration) var(--motion-easing),
+    opacity var(--motion-duration) var(--motion-easing);
+}
+.ds-media-image {
+  transition-duration: var(--motion-normal);
+}
+.ds-button svg,
+.sponsor-logo__arrow {
+  transition: transform var(--motion-duration) var(--motion-easing);
+}
+.ds-button--primary {
+  background-size: 150% 100%;
+  transition-property: color, background-position, box-shadow, transform, scale;
+}
+.motion-link,
+.footer-motion a {
+  position: relative;
+}
+.motion-link::after,
+.footer-motion a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--motion-duration) var(--motion-easing);
+}
+.motion-link::after {
+  background: var(--color-brand-lime);
+}
+.motion-link[aria-current='true'] {
+  color: var(--color-brand-white);
+}
+.motion-link:focus-visible::after,
+.footer-motion a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* The active link already has the sliding pill below it, so its own
+   hover/focus underline is suppressed — otherwise the two stack into a
+   visible double stripe. */
+.motion-link[aria-current='true']:hover::after,
+.motion-link[aria-current='true']:focus-visible::after {
+  transform: scaleX(0);
+}
+
+/* Single shared indicator that slides between nav items instead of each
+   link owning its own always-on underline (see .motion-link::after above,
+   which still handles hover/focus feedback per link). */
+.nav-indicator {
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-brand-lime);
+  pointer-events: none;
+  transition:
+    transform var(--motion-normal) var(--motion-easing),
+    width var(--motion-normal) var(--motion-easing),
+    opacity var(--motion-duration) var(--motion-easing);
+}
+.footer-motion a {
+  width: fit-content;
+}
+.footer-motion a:focus-visible {
+  outline-color: var(--color-footer-accent);
+}
+
+.mobile-navigation {
+  background: var(--color-brand-navy);
+  position: absolute;
+  inset: 100% 0 auto;
+  padding-inline: max(24px, calc((100% - 1280px) / 2));
+  max-height: calc(100dvh - 96px);
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  translate: 0 -8px;
+  transition:
+    opacity var(--motion-duration) var(--motion-easing),
+    translate var(--motion-normal) var(--motion-easing),
+    visibility 0s var(--motion-normal);
+}
+.mobile-navigation[data-open='true'] {
+  visibility: visible;
+  opacity: 1;
+  translate: 0 0;
+  transition-delay: 0s;
+}
+/* Nav interactions get a more pronounced press than the sitewide default
+   (see the global `:active { scale: 0.98 }` rule above) so clicks on the
+   navbar itself read clearly as feedback. */
+.site-header a:active:not(:disabled):not([aria-disabled='true']),
+.site-header button:active:not(:disabled):not([aria-disabled='true']) {
+  scale: 0.9;
+}
+
+/* Applied to <html> for a moment around a theme switch so the whole page
+   recolors smoothly, without permanently slowing down every ordinary
+   hover/focus color transition (those keep their own --motion-duration). */
+.theme-toggle {
+  position: relative;
+}
+.theme-toggle__icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    opacity var(--motion-normal) var(--motion-easing),
+    rotate var(--motion-normal) var(--motion-easing);
+}
+.theme-toggle__icon--moon {
+  opacity: 0;
+  rotate: -90deg;
+}
+.theme-toggle[aria-pressed='true'] .theme-toggle__icon--sun {
+  opacity: 0;
+  rotate: 90deg;
+}
+.theme-toggle[aria-pressed='true'] .theme-toggle__icon--moon {
+  opacity: 1;
+  rotate: 0deg;
+}
+
+.menu-glyph {
+  position: relative;
+  width: 20px;
+  height: 16px;
+}
+.menu-glyph span {
+  position: absolute;
+  left: 0;
+  width: 20px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition:
+    transform var(--motion-duration) var(--motion-easing),
+    opacity var(--motion-duration);
+}
+.menu-glyph span:nth-child(1) {
+  top: 0;
+}
+.menu-glyph span:nth-child(2) {
+  top: 7px;
+}
+.menu-glyph span:nth-child(3) {
+  top: 14px;
+}
+[aria-expanded='true'] .menu-glyph span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+[aria-expanded='true'] .menu-glyph span:nth-child(2) {
+  opacity: 0;
+}
+[aria-expanded='true'] .menu-glyph span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+.faq-item[open] .faq-item__answer {
+  animation: surface-enter var(--motion-normal) var(--motion-easing);
+}
+.faq-item__summary:active {
+  background: color-mix(in srgb, var(--color-brand-cyan) 8%, transparent);
+}
+.ds-media-card:focus-within {
+  border-color: var(--color-brand-cyan);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ds-card:not(form):not(.faq-item):hover {
+    transform: translateY(-10px) scale(1.015);
+    border-color: var(--color-brand-cyan);
+    box-shadow:
+      0 20px 40px color-mix(in srgb, var(--color-brand-navy) 35%, transparent),
+      0 0 0 1px color-mix(in srgb, var(--color-brand-cyan) 40%, transparent),
+      0 0 32px color-mix(in srgb, var(--color-brand-cyan) 25%, transparent);
+  }
+  .ds-media-card:hover .ds-media-image,
+  .ds-image-frame:hover img {
+    transform: scale(1.09);
+  }
+  .ds-button--primary:hover {
+    background-position: 100% 50%;
+    transform: translateY(-4px) scale(1.03);
+    box-shadow:
+      0 12px 28px color-mix(in srgb, var(--color-brand-lime) 35%, transparent),
+      0 0 24px color-mix(in srgb, var(--color-brand-yellow) 30%, transparent);
+  }
+  .ds-button:hover .lucide-arrow-right {
+    transform: translateX(5px);
+  }
+  .sponsor-logo:hover {
+    transform: translateY(-4px);
+  }
+  .sponsor-logo:hover .sponsor-logo__arrow {
+    transform: translate(3px, -3px) scale(1.15);
+  }
+  .sponsor-logo img {
+    opacity: 0.8;
+  }
+  .sponsor-logo:hover img {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+  .motion-link:hover::after,
+  .footer-motion a:hover::after {
+    transform: scaleX(1);
+  }
+  .site-header > div > div > a:hover {
+    transform: translateY(-1px);
+  }
+  .faq-item__summary:hover {
+    color: var(--color-brand-cyan);
+    background: color-mix(in srgb, var(--color-brand-cyan) 5%, transparent);
+  }
+}
+
+@media (max-width: 639px) {
+  @keyframes surface-enter {
+    from {
+      opacity: 0;
+      translate: 0 12px;
+    }
+    to {
+      opacity: 1;
+      translate: 0 0;
+    }
   }
 }
 
@@ -798,15 +1190,37 @@
   html {
     scroll-behavior: auto;
   }
-  /* The hero's brand animation, like the globe, is explicitly enabled by design. */
+  /* These established ambient effects are explicitly retained by the site owner. */
   *:not(.hero-brand-lockup *, .sponsors-track),
   *:not(.hero-brand-lockup *, .sponsors-track)::before,
   *:not(.hero-brand-lockup *, .sponsors-track)::after {
     animation: none !important;
     transition: none !important;
   }
-  [data-reveal-pending] {
+  .hero-brand-lockup[data-brand-ready='false'] {
     opacity: 1;
+  }
+  :where(a, button):active {
+    scale: 1;
+  }
+  .ds-card:hover,
+  .ds-button:hover,
+  .ds-media-card:hover .ds-media-image,
+  .ds-image-frame:hover img,
+  .site-header > div > div > a:hover {
     transform: none;
   }
+}
+
+/* Placed after the reduced-motion block so it wins there too: like the
+   navbar scroll animation, the theme-switch recolor always plays, at the
+   site owner's request. */
+.theme-transition,
+.theme-transition * {
+  transition:
+    background-color var(--motion-theme) var(--motion-easing),
+    color var(--motion-theme) var(--motion-easing),
+    border-color var(--motion-theme) var(--motion-easing),
+    fill var(--motion-theme) var(--motion-easing),
+    stroke var(--motion-theme) var(--motion-easing) !important;
 }

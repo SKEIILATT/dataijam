@@ -1,5 +1,5 @@
-import { Menu, Moon, Sun, X } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { Moon, Sun } from 'lucide-react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import wordmark from '../../assets/brand/wordmark.png'
 import { Button } from '../ui/button'
 import { Container } from '../ui/container'
@@ -15,16 +15,48 @@ const navigationItems = [
 ]
 
 export function SiteHeader() {
+  const menuToggle = useRef<HTMLButtonElement>(null)
+  const navListRef = useRef<HTMLUListElement>(null)
+  const themeTransitionTimeout = useRef(0)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [activeHref, setActiveHref] = useState('#inicio')
+  const [navIndicator, setNavIndicator] = useState<{ left: number; width: number } | null>(null)
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
     return window.localStorage.getItem('dataijam-theme') === 'light' ? 'light' : 'dark'
   })
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    const list = navListRef.current
+    if (!list) return
+
+    function measure() {
+      const activeLink = list?.querySelector<HTMLAnchorElement>(`a[href="${activeHref}"]`)
+      if (!activeLink) return
+      setNavIndicator({ left: activeLink.offsetLeft, width: activeLink.offsetWidth })
+    }
+
+    measure()
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [activeHref])
+
+  useLayoutEffect(() => {
+    // Layout effect (not a plain effect) so the attribute flips in the same
+    // frame the `.theme-transition` class is added, instead of racing it.
     document.documentElement.dataset.theme = theme
     window.localStorage.setItem('dataijam-theme', theme)
   }, [theme])
+
+  function toggleTheme() {
+    // Briefly lets every element transition its colors, instead of the
+    // instant cut a `data-theme` flip would otherwise cause.
+    document.documentElement.classList.add('theme-transition')
+    window.clearTimeout(themeTransitionTimeout.current)
+    themeTransitionTimeout.current = window.setTimeout(() => {
+      document.documentElement.classList.remove('theme-transition')
+    }, 950)
+    setTheme((currentTheme) => (currentTheme === 'dark' ? 'light' : 'dark'))
+  }
 
   useEffect(() => {
     const sections = navigationItems
@@ -52,12 +84,29 @@ export function SiteHeader() {
     return () => observer.disconnect()
   }, [])
 
+  useEffect(() => {
+    const desktop = window.matchMedia('(min-width: 1024px)')
+    const closeOnDesktop = () => {
+      if (desktop.matches) setIsMenuOpen(false)
+    }
+    desktop.addEventListener('change', closeOnDesktop)
+    return () => desktop.removeEventListener('change', closeOnDesktop)
+  }, [])
+
   function closeMenu() {
     setIsMenuOpen(false)
   }
 
   return (
-    <header className="sticky top-0 z-50 bg-brand-navy/80 backdrop-blur-sm">
+    <header
+      onKeyDown={(event) => {
+        if (event.key === 'Escape' && isMenuOpen) {
+          closeMenu()
+          menuToggle.current?.focus()
+        }
+      }}
+      className="site-header sticky top-0 z-50 bg-brand-navy/80 backdrop-blur-sm"
+    >
       <Container>
         <div className="grid min-h-24 grid-cols-[auto_1fr_auto] items-center gap-6 py-4">
           <a
@@ -82,17 +131,26 @@ export function SiteHeader() {
           </a>
 
           <nav aria-label="Navegación principal" className="hidden justify-center lg:flex">
-            <ul className="flex items-center gap-5 xl:gap-6">
+            <ul ref={navListRef} className="relative flex items-center gap-5 xl:gap-6">
+              <span
+                aria-hidden="true"
+                className="nav-indicator"
+                style={
+                  navIndicator
+                    ? {
+                        transform: `translateX(${navIndicator.left}px)`,
+                        width: `${navIndicator.width}px`,
+                        opacity: 1,
+                      }
+                    : { opacity: 0 }
+                }
+              />
               {navigationItems.map((item) => (
                 <li key={item.href}>
                   <a
                     href={item.href}
                     aria-current={activeHref === item.href ? 'true' : undefined}
-                    className={`relative py-2 text-sm font-medium text-brand-gray transition-colors hover:text-brand-white after:absolute after:bottom-0 after:left-0 after:h-px after:bg-brand-lime after:transition-all ${
-                      activeHref === item.href
-                        ? 'text-brand-white after:w-full'
-                        : 'after:w-0 hover:after:w-full'
-                    }`}
+                    className="motion-link relative py-2 text-sm font-medium text-brand-gray hover:text-brand-white"
                   >
                     {item.label}
                   </a>
@@ -118,76 +176,79 @@ export function SiteHeader() {
               type="button"
               aria-label={theme === 'dark' ? 'Activar modo claro' : 'Activar modo oscuro'}
               aria-pressed={theme === 'light'}
-              className="inline-flex size-12 shrink-0 items-center justify-center rounded-full border border-brand-white/25 text-brand-white transition-colors hover:border-brand-cyan hover:text-brand-cyan focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-cyan"
-              onClick={() =>
-                setTheme((currentTheme) => (currentTheme === 'dark' ? 'light' : 'dark'))
-              }
+              className="theme-toggle inline-flex size-12 shrink-0 items-center justify-center rounded-full border border-brand-white/25 text-brand-white transition-colors hover:border-brand-cyan hover:text-brand-cyan focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-cyan"
+              onClick={toggleTheme}
             >
-              {theme === 'dark' ? (
+              <span className="theme-toggle__icon theme-toggle__icon--sun">
                 <Sun aria-hidden="true" className="size-5" />
-              ) : (
+              </span>
+              <span className="theme-toggle__icon theme-toggle__icon--moon">
                 <Moon aria-hidden="true" className="size-5" />
-              )}
+              </span>
             </button>
 
             <button
               type="button"
               aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+              ref={menuToggle}
+              aria-controls="mobile-navigation"
               aria-expanded={isMenuOpen}
               className="inline-flex size-12 items-center justify-center rounded-full border border-brand-white/20 text-brand-white transition-colors hover:border-brand-lime hover:text-brand-lime lg:hidden"
               onClick={() => setIsMenuOpen((currentValue) => !currentValue)}
             >
-              {isMenuOpen ? (
-                <X aria-hidden="true" className="size-5" />
-              ) : (
-                <Menu aria-hidden="true" className="size-5" />
-              )}
+              <span aria-hidden="true" className="menu-glyph">
+                <span />
+                <span />
+                <span />
+              </span>
             </button>
           </div>
         </div>
 
-        {isMenuOpen ? (
-          <nav
-            aria-label="Navegación móvil"
-            className="border-t border-brand-white/10 bg-brand-navy/95 py-5 lg:hidden"
-          >
-            <ul className="flex flex-col gap-4">
-              {navigationItems.map((item) => (
-                <li key={item.href}>
-                  <a
-                    href={item.href}
-                    aria-current={activeHref === item.href ? 'true' : undefined}
-                    className={`block text-base font-medium transition-colors hover:text-brand-lime ${
-                      activeHref === item.href ? 'text-brand-lime' : 'text-brand-white'
-                    }`}
-                    onClick={closeMenu}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-
-              <li className="pt-2">
-                <Button
-                  as="a"
-                  href="#registro"
-                  variant="primary"
-                  fullWidth
-                  className="group"
+        <nav
+          id="mobile-navigation"
+          inert={!isMenuOpen}
+          aria-hidden={!isMenuOpen}
+          data-open={isMenuOpen}
+          aria-label="Navegación móvil"
+          className="mobile-navigation border-t border-brand-white/10 bg-brand-navy/95 py-5 lg:hidden"
+        >
+          <ul className="flex flex-col gap-4">
+            {navigationItems.map((item) => (
+              <li key={item.href}>
+                <a
+                  href={item.href}
+                  aria-current={activeHref === item.href ? 'true' : undefined}
+                  className={`block text-base font-medium transition-colors hover:text-brand-lime ${
+                    activeHref === item.href ? 'text-brand-lime' : 'text-brand-white'
+                  }`}
                   onClick={closeMenu}
                 >
-                  Inscribete{' '}
-                  <span
-                    aria-hidden="true"
-                    className="transition-transform duration-[var(--motion-duration)] group-hover:translate-x-1 group-active:translate-x-0"
-                  >
-                    &rarr;
-                  </span>
-                </Button>
+                  {item.label}
+                </a>
               </li>
-            </ul>
-          </nav>
-        ) : null}
+            ))}
+
+            <li className="pt-2">
+              <Button
+                as="a"
+                href="#registro"
+                variant="primary"
+                fullWidth
+                className="group"
+                onClick={closeMenu}
+              >
+                Inscribete{' '}
+                <span
+                  aria-hidden="true"
+                  className="transition-transform duration-[var(--motion-duration)] group-hover:translate-x-1 group-active:translate-x-0"
+                >
+                  &rarr;
+                </span>
+              </Button>
+            </li>
+          </ul>
+        </nav>
       </Container>
     </header>
   )
