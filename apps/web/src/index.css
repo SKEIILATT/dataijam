@@ -950,6 +950,7 @@ summary {
     transform var(--motion-normal) var(--motion-easing),
     border-color var(--motion-duration) var(--motion-easing),
     box-shadow var(--motion-duration) var(--motion-easing),
+    filter var(--motion-duration) var(--motion-easing),
     opacity var(--motion-duration) var(--motion-easing);
 }
 .ds-media-image {
@@ -1125,13 +1126,14 @@ summary {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .ds-card:not(form):not(.faq-item):hover {
+  /* filter:drop-shadow, not box-shadow — several cards (SpeakerCard,
+     LocationCard) need overflow:hidden to clip their photo, which would
+     also clip a box-shadow on that same element, silently hiding the glow. */
+  .ds-card:hover {
     transform: translateY(-10px) scale(1.015);
     border-color: var(--color-brand-cyan);
-    box-shadow:
-      0 20px 40px color-mix(in srgb, var(--color-brand-navy) 35%, transparent),
-      0 0 0 1px color-mix(in srgb, var(--color-brand-cyan) 40%, transparent),
-      0 0 32px color-mix(in srgb, var(--color-brand-cyan) 25%, transparent);
+    filter: drop-shadow(0 20px 40px color-mix(in srgb, var(--color-brand-navy) 35%, transparent))
+      drop-shadow(0 0 20px color-mix(in srgb, var(--color-brand-cyan) 35%, transparent));
   }
   .ds-media-card:hover .ds-media-image,
   .ds-image-frame:hover img {
