@@ -16,8 +16,8 @@ type HeroProps = {
 
 export function Hero({
   eventLabel = 'Conferencias + Hackathon',
-  dateLabel = 'Fecha por confirmar',
-  locationLabel = 'Ciudad por confirmar',
+  dateLabel = '16 de octubre de 2026',
+  locationLabel = 'Guayaquil, Ecuador',
 }: HeroProps) {
   const brandRef = useRef<HTMLDivElement>(null)
 

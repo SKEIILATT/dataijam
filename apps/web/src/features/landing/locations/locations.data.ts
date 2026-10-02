@@ -6,7 +6,7 @@ export const locations: EventLocation[] = [
   {
     id: 'guayaquil',
     city: 'Guayaquil',
-    date: 'Fecha por confirmar',
+    date: '16 de octubre de 2026',
     description: 'Innovación, industria y talento conectados al mundo (texto de ejemplo).',
     ctaLabel: 'Ver agenda de Guayaquil',
     ctaHref: '#agenda-guayaquil',

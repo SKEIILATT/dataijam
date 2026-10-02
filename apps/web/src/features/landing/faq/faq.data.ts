@@ -4,9 +4,8 @@ export interface FaqItem {
 }
 
 // Contenido ilustrativo para poder mostrar la sección ya armada. Las
-// respuestas evitan inventar datos que todavía no están definidos (fecha
-// exacta, costo, premios): esos se marcan como pendientes en vez de
-// fabricar una cifra o fecha falsa.
+// respuestas evitan inventar datos que todavía no están definidos (costo,
+// premios): esos se marcan como pendientes en vez de fabricar una cifra falsa.
 export const faqItems: FaqItem[] = [
   {
     question: '¿Qué es DatAIJam?',
@@ -34,8 +33,7 @@ export const faqItems: FaqItem[] = [
   },
   {
     question: '¿Cuándo es el evento?',
-    answer:
-      'Todavía estamos confirmando la fecha exacta. Regístrate para que te avisemos apenas esté definida.',
+    answer: 'El evento será el 16 de octubre de 2026.',
   },
   {
     question: '¿Cuánto cuesta participar?',
@@ -50,6 +48,6 @@ export const faqItems: FaqItem[] = [
   {
     question: '¿Cómo me inscribo?',
     answer:
-      'Usa el formulario de la sección "Registro" un poco más abajo en esta misma página, o escríbenos directamente a hola@dataijam.com.',
+      'Usa el botón de la sección "Registro" un poco más abajo en esta misma página, que te lleva al formulario oficial, o escríbenos directamente a registros@dataijam.com.',
   },
 ]

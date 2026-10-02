@@ -20,10 +20,10 @@ export function Faq() {
             <div className="mt-6 lg:mt-8">
               <p className="text-sm text-brand-gray">¿No encuentras tu duda? Escríbenos.</p>
               <a
-                href="mailto:hola@dataijam.com"
+                href="mailto:registros@dataijam.com"
                 className="mt-1 inline-flex min-h-11 items-center text-sm font-medium text-brand-cyan underline-offset-4 hover:underline"
               >
-                hola@dataijam.com
+                registros@dataijam.com
               </a>
             </div>
           </div>

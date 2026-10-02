@@ -66,10 +66,10 @@ export function SiteFooter() {
             <div className="lg:border-l lg:border-brand-gray/35 lg:pl-8">
               <h2 className="ds-card-title text-footer-ink">Contactanos</h2>
               <a
-                href="mailto:hola@dataijam.com"
+                href="mailto:registros@dataijam.com"
                 className="mt-4 block text-sm text-footer-ink/70 transition-colors hover:text-footer-accent"
               >
-                hola@dataijam.com
+                registros@dataijam.com
               </a>
               <p className="mt-2 text-sm text-footer-ink/70">Guayaquil, Ecuador</p>
 
