@@ -1,6 +1,6 @@
 import { Container } from '@/components/ui/container'
 
-import { SpeakerCard } from './SpeakerCard'
+import { SpeakerCarousel } from './SpeakerCarousel'
 import { speakers } from './speakers.data'
 
 interface SpeakerGridProps {
@@ -10,54 +10,37 @@ interface SpeakerGridProps {
 }
 
 export function SpeakerGrid({ eyebrow, heading, subheading }: SpeakerGridProps) {
-  const [featuredSpeaker, ...otherSpeakers] = speakers
-
-  if (!featuredSpeaker) {
+  if (!speakers.length) {
     return null
   }
 
   return (
     <section
       aria-labelledby="speaker-grid-heading"
-      className="ds-section ds-contrast relative overflow-hidden"
+      className="ds-section speakers-section relative overflow-hidden"
     >
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-40 top-12 size-96 rounded-full border border-brand-cyan/20" />
-        <div className="absolute -right-32 bottom-[-16rem] size-[34rem] rounded-full bg-brand-blue/15 blur-3xl" />
-      </div>
-
       <Container className="relative">
-        <div data-reveal className="max-w-2xl">
-          <p className="text-sm font-medium tracking-[0.18em] text-brand-cyan uppercase">
-            {eyebrow}
-          </p>
-          <h2
-            id="speaker-grid-heading"
-            className="mt-3 max-w-2xl text-h2 font-semibold text-brand-white"
-          >
-            {heading}
-          </h2>
-          <p className="mt-4 max-w-2xl text-body text-brand-gray">{subheading}</p>
+        <div data-reveal className="speakers-heading">
+          <div className="max-w-xl">
+            <p className="text-sm font-medium tracking-[0.18em] text-brand-cyan uppercase">
+              {eyebrow}
+            </p>
+            <h2
+              id="speaker-grid-heading"
+              className="mt-3 max-w-2xl text-h2 font-semibold text-brand-white"
+            >
+              {heading}
+            </h2>
+          </div>
+          <div className="max-w-sm">
+            <p className="mt-4 max-w-2xl text-body text-brand-gray">{subheading}</p>
+            <p className="mt-4 text-xs font-medium tracking-[0.12em] text-brand-cyan uppercase">
+              Próximamente · Voces 2026
+            </p>
+          </div>
         </div>
 
-        <div
-          data-stagger
-          className="ds-content-gap grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1.45fr)]"
-        >
-          <ul className="grid" aria-label="Speaker destacado">
-            <SpeakerCard speaker={featuredSpeaker} featured />
-          </ul>
-
-          <ul className="grid gap-6 sm:grid-cols-2" aria-label="Más speakers del evento">
-            {otherSpeakers.map((speaker, index) => (
-              <SpeakerCard
-                key={`${speaker.name}-${index}`}
-                speaker={speaker}
-                className={index === otherSpeakers.length - 1 ? 'sm:col-span-2' : ''}
-              />
-            ))}
-          </ul>
-        </div>
+        <SpeakerCarousel speakers={speakers} />
       </Container>
     </section>
   )

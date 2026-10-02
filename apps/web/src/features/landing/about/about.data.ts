@@ -17,13 +17,13 @@ export const impactMetrics: ImpactMetric[] = [
   },
   {
     id: 'semanas-hackathon',
-    value: '—',
+    value: '4',
     label: 'Semanas de hackathon',
     icon: Calendar,
   },
   {
     id: 'oportunidades',
-    value: '—',
+    value: '∞',
     label: 'Oportunidades de impacto',
     icon: Sparkles,
   },

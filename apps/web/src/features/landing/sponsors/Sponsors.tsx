@@ -67,18 +67,28 @@ export function Sponsors() {
       className="ds-section sponsors-section"
     >
       <Container>
-        <div data-reveal className="max-w-2xl">
-          <p className="text-sm font-medium tracking-[0.18em] text-brand-cyan uppercase">
-            Patrocinadores
-          </p>
-          <h2 id="sponsors-heading" className="mt-3 text-h2 font-semibold text-brand-white">
-            Juntos hacemos posible lo que viene
-          </h2>
-          <p className="mt-4 text-body text-brand-gray">
-            {hasSponsors
-              ? 'Las marcas que apoyan el talento, las ideas y las conexiones de DatAIJam.'
-              : 'Estamos preparando las alianzas del evento. Pronto conocerás a las marcas que nos acompañarán.'}
-          </p>
+        <div data-reveal className="sponsors-editorial__heading">
+          <div className="max-w-xl">
+            <p className="text-sm font-medium tracking-[0.18em] text-brand-cyan uppercase">
+              Patrocinadores
+            </p>
+            <h2 id="sponsors-heading" className="mt-3 text-h2 font-semibold text-brand-white">
+              El futuro se construye en equipo.
+            </h2>
+          </div>
+          <div className="max-w-sm">
+            <p className="mt-4 text-body text-brand-gray">
+              {hasSponsors
+                ? 'Las marcas que apoyan el talento, las ideas y las conexiones de DatAIJam.'
+                : 'Estamos preparando las alianzas del evento. Pronto conocerás a las marcas que nos acompañarán.'}
+            </p>
+            <a
+              href="mailto:registros@dataijam.com?subject=Alianzas%20DatAIJam"
+              className="editorial-text-link mt-5"
+            >
+              Quiero sumar mi marca <MoveUpRight aria-hidden="true" className="size-4" />
+            </a>
+          </div>
         </div>
       </Container>
 
@@ -112,7 +122,7 @@ export function Sponsors() {
                           </span>
                           <Plus aria-hidden="true" className="size-7" />
                           <span className="text-sm font-medium">Tu marca aquí</span>
-                          <span className="text-xs text-brand-gray">Espacio disponible</span>
+                          <span className="text-xs text-brand-gray">Impulsa el próximo paso</span>
                         </div>
                       )}
                     </li>

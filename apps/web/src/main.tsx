@@ -4,6 +4,7 @@ import { RouterProvider } from 'react-router/dom'
 import { AppProviders } from '@/app/app-providers'
 import { router } from '@/app/router'
 import './index.css'
+import './features/landing/landing-editorial.css'
 
 // Aplicado aquí (no solo en SiteHeader) para que el tema guardado se
 // respete en cualquier ruta, incluida NotFoundPage, que no monta el header.

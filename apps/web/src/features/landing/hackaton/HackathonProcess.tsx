@@ -1,5 +1,9 @@
-import { Container } from '@/components/ui/container'
+import { ArrowUpRight, CalendarDays, Users } from 'lucide-react'
 
+import { Container } from '@/components/ui/container'
+import { Button } from '@/components/ui/button'
+
+import { HackathonEvaluation } from './HackathonEvaluation'
 import { HackathonStep } from './HackathonStep'
 import { steps } from './hackathon.data'
 
@@ -11,9 +15,9 @@ interface HackathonProcessProps {
 
 export function HackathonProcess({ eyebrow, heading, subheading }: HackathonProcessProps) {
   return (
-    <section aria-labelledby="hackathon-process-heading" className="ds-section ds-section--quiet">
+    <section aria-labelledby="hackathon-process-heading" className="ds-section hackathon-section">
       <Container>
-        <div data-reveal className="mx-auto max-w-2xl text-center">
+        <div data-reveal className="hackathon-intro max-w-2xl">
           <p className="text-sm font-medium tracking-[0.18em] text-brand-cyan uppercase">
             {eyebrow}
           </p>
@@ -24,17 +28,38 @@ export function HackathonProcess({ eyebrow, heading, subheading }: HackathonProc
             {heading}
           </h2>
           <p className="mt-4 text-body text-brand-gray">{subheading}</p>
+
+          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-4">
+            <ul className="flex flex-wrap gap-x-6 gap-y-3 text-sm text-brand-white">
+              <li className="inline-flex items-center gap-2">
+                <CalendarDays aria-hidden="true" className="size-4 text-brand-cyan" />4 semanas
+              </li>
+              <li className="inline-flex items-center gap-2">
+                <Users aria-hidden="true" className="size-4 text-brand-cyan" />
+                Equipos de 3 a 4 personas
+              </li>
+            </ul>
+            <Button as="a" href="#registro" variant="secondary">
+              Quiero ser parte <ArrowUpRight aria-hidden="true" className="size-4" />
+            </Button>
+          </div>
         </div>
 
-        <ol
-          data-stagger
-          className="ds-content-gap grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
-          aria-label="Pasos del hackathon"
-        >
+        <ol data-stagger className="hackathon-timeline" aria-label="Semanas del hackathon">
           {steps.map((step, index) => (
             <HackathonStep key={step.title} step={step} index={index} />
           ))}
         </ol>
+
+        <section className="hackathon-evaluation" aria-labelledby="evaluation-heading">
+          <header className="hackathon-evaluation__heading">
+            <h3 id="evaluation-heading" className="text-brand-white">
+              ¿Cómo se evalúan los proyectos?
+            </h3>
+            <p className="mt-2 text-sm text-brand-gray">Consulta los criterios y sus porcentajes</p>
+          </header>
+          <HackathonEvaluation />
+        </section>
       </Container>
     </section>
   )

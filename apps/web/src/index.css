@@ -1215,6 +1215,626 @@ summary {
   }
 }
 
+/* Editorial sections: photography supplies depth without repeating card containers. */
+.photo-surface {
+  --color-brand-navy: #031326;
+  --color-brand-white: #f4f6f8;
+  --color-brand-gray: #c2d1df;
+  --color-brand-cyan: #50dcee;
+  --color-border: #365268;
+  --edge-gradient: linear-gradient(90deg, #08cdef, #caea5f);
+  color: var(--color-brand-white);
+  color-scheme: dark;
+}
+
+/* In light mode these sections switch from a dark photo veil to a light one,
+   same as every other photo section on the page, instead of staying dark
+   regardless of theme. */
+:root[data-theme='light'] .photo-surface {
+  --color-brand-navy: #f3fbff;
+  --color-brand-white: #06275d;
+  --color-brand-gray: #527088;
+  --color-brand-cyan: #077480;
+  --color-border: #b0c8de;
+  --edge-gradient: linear-gradient(90deg, #087ff2, #12d3e3);
+  color-scheme: light;
+}
+
+.community-section.ds-section {
+  overflow: hidden;
+  border: 0;
+  padding-bottom: 48px;
+  background: #031326;
+}
+
+:root[data-theme='light'] .community-section.ds-section {
+  background: #f3fbff;
+}
+
+.community-section::before,
+.hackathon-section::before,
+.speakers-section::before,
+.faq-section::before,
+.sponsors-section::before {
+  display: none;
+}
+
+.community-layout {
+  display: grid;
+  gap: 40px;
+  align-items: center;
+  grid-template-columns: 0.9fr 1.1fr;
+  min-height: 480px;
+}
+.community-layout h2 {
+  max-width: 470px;
+  font-size: clamp(2rem, 3.3vw, 3rem);
+}
+
+.community-section > .community-photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.community-photo img {
+  position: absolute;
+  object-position: 70% 35%;
+}
+.community-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, #031326fa 0%, #031326e8 28%, #03132691 46%, transparent 72%),
+    linear-gradient(0deg, #031326 0%, #031326cc 15%, transparent 48%),
+    linear-gradient(180deg, #03132699, transparent 24%);
+}
+:root[data-theme='light'] .community-photo::after {
+  background:
+    linear-gradient(90deg, #f3fbfffa 0%, #f3fbffe8 28%, #f3fbff91 46%, transparent 72%),
+    linear-gradient(0deg, #f3fbff 0%, #f3fbffcc 15%, transparent 48%),
+    linear-gradient(180deg, #f3fbff99, transparent 24%);
+}
+.community-photo__caption {
+  position: relative;
+  align-self: end;
+  justify-self: end;
+  margin: 0 24px 40px 0;
+  z-index: 1;
+  max-width: 180px;
+  font-family: Georgia, serif;
+  font-size: 30px;
+  font-style: italic;
+  line-height: 1.2;
+  transform: rotate(-5deg);
+}
+.community-photo__caption span {
+  display: block;
+  width: 88px;
+  height: 3px;
+  margin-top: 16px;
+  background: var(--edge-gradient);
+}
+.community-metrics {
+  position: relative;
+  margin-top: 40px;
+  border: 1px solid #41617980;
+  border-radius: 16px;
+  background: #092039b3;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 16px 48px #0003;
+}
+.community-metric + .community-metric {
+  border-left: 1px solid #41617980;
+}
+.location-panorama {
+  background: #083055;
+}
+:root[data-theme='light'] .location-panorama {
+  background: #f3fbff;
+}
+.location-panorama__image {
+  object-position: center 58%;
+  width: 100%;
+  filter: grayscale(1) contrast(1.08);
+  mix-blend-mode: luminosity;
+  mask-image: linear-gradient(90deg, #000 70%, #000c 100%);
+}
+:root[data-theme='light'] .location-panorama__image {
+  filter: none;
+  mix-blend-mode: normal;
+}
+.location-panorama__shade {
+  background:
+    linear-gradient(270deg, #03132680 0%, #03132699 24%, #03132666 48%, #03132633 70%),
+    linear-gradient(180deg, #031326, transparent 28%, transparent 65%, #031326);
+}
+:root[data-theme='light'] .location-panorama__shade {
+  /* The photo stays full color in light mode (see .location-panorama__image
+     above), so it needs a much more opaque veil than dark mode's desaturated
+     version did to keep the copy on the right legible. */
+  background:
+    linear-gradient(270deg, #f3fbffd9 0%, #f3fbffed 24%, #f3fbffc2 48%, #f3fbff85 70%),
+    linear-gradient(180deg, #f3fbff, transparent 28%, transparent 65%, #f3fbff);
+}
+.location-panorama__content {
+  position: relative;
+  display: flex;
+  min-height: 620px;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 100px;
+  flex-direction: row-reverse;
+  gap: 48px;
+}
+.location-panorama__copy {
+  width: 48%;
+  flex-shrink: 0;
+}
+.location-panorama__city {
+  margin-top: 8px;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 5.5vw, 5.5rem);
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 1.05;
+}
+.location-panorama__signature {
+  align-self: flex-end;
+  margin-bottom: 30px;
+  text-align: left;
+  font-family: Georgia, serif;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-style: italic;
+  line-height: 1.2;
+  text-shadow: 0 2px 16px #031326;
+}
+:root[data-theme='light'] .location-panorama__signature {
+  text-shadow: 0 2px 16px #f3fbff;
+}
+.location-panorama__signature span {
+  color: #b7f1dc;
+}
+.location-panorama__credit {
+  position: absolute;
+  right: 24px;
+  bottom: 16px;
+  left: 24px;
+  text-align: right;
+  font-size: 10px;
+  color: #e1e9f0;
+}
+:root[data-theme='light'] .location-panorama__credit {
+  color: #527088;
+}
+.location-panorama__credit a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.hackathon-section.ds-section {
+  overflow: hidden;
+  border: 0;
+  background:
+    radial-gradient(
+      ellipse at 90% 50%,
+      color-mix(in srgb, var(--color-brand-blue) 24%, transparent),
+      transparent 55%
+    ),
+    var(--color-brand-navy);
+}
+.hackathon-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 800px;
+  max-height: 100%;
+  pointer-events: none;
+  opacity: 0.65;
+  mask-image: linear-gradient(180deg, transparent, #000 18%, #000 75%, transparent);
+}
+:root[data-theme='light'] .hackathon-backdrop {
+  opacity: 0.35;
+}
+.hackathon-intro {
+  max-width: 48rem;
+}
+.hackathon-timeline {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 64px;
+  gap: 32px;
+}
+.hackathon-step {
+  position: relative;
+}
+.hackathon-step:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  top: 24px;
+  left: 64px;
+  right: -16px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-brand-cyan), var(--color-border));
+  opacity: 0.5;
+}
+.hackathon-step__marker {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  color: var(--color-brand-cyan);
+  background: color-mix(in srgb, var(--color-brand-cyan) 8%, var(--color-brand-navy));
+}
+.hackathon-evaluation {
+  margin-top: 40px;
+  border-block: 1px solid var(--color-border);
+}
+.hackathon-evaluation .ds-card:hover {
+  transform: none;
+  filter: none;
+}
+.speakers-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 40px;
+}
+.speakers-section.ds-section.ds-contrast {
+  background: var(--color-footer-surface);
+  border-radius: 48px 48px 0 0;
+}
+#speakers {
+  background: var(--color-brand-navy);
+}
+.sponsors-section.ds-section.ds-contrast {
+  background: var(--color-footer-surface);
+  padding-block: 64px;
+}
+.sponsors-section > .ds-content-gap {
+  margin-top: 32px;
+}
+.sponsors-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: max(24px, calc((100% - 1184px) / 2));
+  right: max(24px, calc((100% - 1184px) / 2));
+  height: 1px;
+  background: var(--color-border);
+  opacity: 0.5;
+}
+:root[data-theme='light'] .hackathon-section {
+  background: linear-gradient(180deg, #031326, var(--color-brand-navy) 96px);
+}
+.speaker-editorial {
+  overflow: hidden;
+  border-radius: 48px 12px 12px 12px;
+}
+.speaker-editorial:nth-child(even) {
+  border-radius: 12px 48px 12px 12px;
+}
+.speaker-editorial__portrait {
+  position: relative;
+  display: grid;
+  height: 240px;
+  place-items: center;
+  overflow: hidden;
+  color: #80d8e9;
+  background: radial-gradient(ellipse at 80% 0%, #196b80, transparent 75%), #092039;
+}
+.speaker-editorial:nth-child(even) .speaker-editorial__portrait {
+  background: radial-gradient(ellipse at 20% 0%, #205960, transparent 75%), #092039;
+}
+.speaker-editorial__orbit {
+  position: absolute;
+  width: 240px;
+  height: 240px;
+  border: 1px solid #7bccdb30;
+  border-radius: 50%;
+  transform: translate(50px, 36px);
+}
+.speaker-editorial__orbit::after {
+  content: '';
+  position: absolute;
+  inset: 28px;
+  border: 1px solid #7bccdb30;
+  border-radius: 50%;
+}
+.speaker-editorial__monogram {
+  font-family: var(--font-display);
+  font-size: 120px;
+  line-height: 1;
+  font-weight: 500;
+  color: #8bc7d150;
+}
+.speaker-editorial__label {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.speaker-editorial__info {
+  min-height: 126px;
+  padding: 20px;
+  color: #06273c;
+  background: linear-gradient(120deg, #a7e4f6, #d5edb5);
+}
+.speaker-editorial:nth-child(even) .speaker-editorial__info {
+  background: linear-gradient(120deg, #b5e8e3, #e0efbb);
+}
+.faq-intro {
+  border-left: 3px solid var(--color-brand-cyan);
+  padding-left: 28px;
+}
+.faq-section.ds-section.ds-contrast {
+  background: var(--color-footer-surface);
+}
+.faq-section .faq-item__summary {
+  padding-block: 24px;
+}
+.sponsors-section .sponsor-placeholder {
+  border-style: solid;
+  border-color: color-mix(in srgb, var(--color-brand-cyan) 25%, transparent);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--color-brand-blue) 12%, transparent),
+    color-mix(in srgb, var(--color-brand-cyan) 3%, transparent)
+  );
+}
+
+@media (max-width: 1023px) {
+  .community-layout {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .community-metrics {
+    margin-top: 24px;
+  }
+  .community-metric:nth-child(3) {
+    border-left: 0;
+  }
+  .community-metric:nth-child(n + 3) {
+    border-top: 1px solid #41617980;
+  }
+  .hackathon-timeline {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .hackathon-step:nth-child(2)::before {
+    display: none;
+  }
+}
+
+@media (max-width: 639px) {
+  .community-layout {
+    grid-template-columns: 1fr;
+    padding-top: 250px;
+    min-height: 0;
+  }
+  .community-section.ds-section {
+    padding-top: 48px;
+  }
+  .community-photo img {
+    height: 460px;
+    object-position: 68% top;
+  }
+  .community-photo::after {
+    background: linear-gradient(180deg, #03132633, #0313260d 160px, #031326e6 330px, #031326 450px);
+  }
+  .community-photo__caption {
+    display: none;
+  }
+  .community-metrics {
+    margin-top: 32px;
+  }
+  .community-metric {
+    padding: 18px 14px;
+  }
+  .community-metric dd {
+    font-size: 24px;
+  }
+  .community-metric dt {
+    font-size: 11px;
+  }
+  .location-panorama__content {
+    min-height: 620px;
+    padding-block: 280px 80px;
+  }
+  .location-panorama__copy {
+    width: 100%;
+  }
+  .location-panorama__image {
+    width: 100%;
+    height: 460px;
+    object-position: 70% center;
+    mask-image: none;
+  }
+  .location-panorama__shade {
+    background: linear-gradient(
+      180deg,
+      #031326,
+      #03132633 90px,
+      #03132644 180px,
+      #031326e8 340px,
+      #031326 460px
+    );
+  }
+  .location-panorama__signature {
+    display: none;
+  }
+  .location-panorama__credit {
+    text-align: left;
+    font-size: 9px;
+  }
+  .speakers-section.ds-section.ds-contrast {
+    border-radius: 28px 28px 0 0;
+  }
+  .hackathon-timeline {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    margin-top: 40px;
+  }
+  .hackathon-step {
+    padding-left: 68px;
+    min-height: 80px;
+  }
+  .hackathon-step__marker {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .hackathon-step > p {
+    margin-top: 0;
+  }
+  .hackathon-step:not(:last-child)::before {
+    display: block;
+    top: 58px;
+    left: 24px;
+    bottom: -16px;
+    width: 1px;
+    height: auto;
+  }
+  .speakers-heading {
+    display: block;
+  }
+  .speaker-editorial__portrait {
+    height: 170px;
+  }
+  .speaker-editorial__label {
+    left: 14px;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+  }
+  .speaker-editorial__info {
+    min-height: 150px;
+    padding: 16px 14px;
+  }
+  .speaker-editorial__info h3,
+  .speaker-editorial__info p {
+    font-size: 13px;
+  }
+  .faq-intro {
+    padding-left: 20px;
+  }
+}
+
+.speaker-carousel__viewport {
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  gap: 20px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  border-radius: 12px;
+}
+
+.speaker-carousel__viewport::-webkit-scrollbar {
+  display: none;
+}
+.speaker-carousel .speaker-editorial {
+  scroll-snap-align: start;
+  min-width: 0;
+}
+.speaker-carousel__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 24px;
+}
+.speaker-carousel__pages {
+  display: flex;
+  flex-wrap: wrap;
+}
+.speaker-carousel__pages button {
+  display: grid;
+  place-items: center;
+  min-width: 32px;
+  min-height: 44px;
+  cursor: pointer;
+}
+.speaker-carousel__pages span {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-brand-gray);
+  opacity: 0.4;
+  transition:
+    width 300ms,
+    opacity 300ms;
+}
+.speaker-carousel__pages [aria-current='true'] span {
+  width: 24px;
+  background: var(--color-brand-cyan);
+  opacity: 1;
+}
+.speaker-carousel__button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  color: var(--color-brand-white);
+  cursor: pointer;
+  transition:
+    background-color 200ms,
+    border-color 200ms;
+}
+.speaker-carousel__button:hover {
+  background: color-mix(in srgb, var(--color-brand-cyan) 10%, transparent);
+  border-color: var(--color-brand-cyan);
+}
+.speaker-carousel :focus-visible {
+  outline: 2px solid var(--color-brand-cyan);
+  outline-offset: -3px;
+}
+
+@media (min-width: 640px) {
+  .speaker-carousel__viewport {
+    grid-auto-columns: calc((100% - 20px) / 2);
+  }
+}
+
+@media (min-width: 1024px) {
+  .speaker-carousel__viewport {
+    grid-auto-columns: calc((100% - 60px) / 4);
+  }
+}
+
+@media (max-width: 639px) {
+  .speaker-carousel .speaker-editorial__portrait {
+    height: 260px;
+  }
+  .speaker-carousel .speaker-editorial__info {
+    min-height: 116px;
+    padding: 22px;
+  }
+  .speaker-carousel .speaker-editorial__info h3 {
+    font-size: 16px;
+  }
+  .speaker-carousel .speaker-editorial__info p {
+    font-size: 14px;
+  }
+  .speaker-carousel .speaker-editorial__label {
+    left: 22px;
+    font-size: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .speaker-carousel__pages span {
+    transition: none;
+  }
+}
+
 /* Placed after the reduced-motion block so it wins there too: like the
    navbar scroll animation, the theme-switch recolor always plays, at the
    site owner's request. */

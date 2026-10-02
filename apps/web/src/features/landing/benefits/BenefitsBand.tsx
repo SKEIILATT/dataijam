@@ -13,21 +13,17 @@ export function BenefitsBand() {
   return (
     <section
       aria-label="Valores de DatAIJam"
-      className="ds-band ds-contrast py-8 text-brand-white sm:py-12"
+      className="benefits-editorial py-8 text-brand-white sm:py-10"
     >
       <Container>
-        <ul
-          data-stagger
-          className="grid divide-y divide-brand-white/15 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4"
-        >
-          {benefits.map(({ icon: Icon, title, description }) => (
-            <li
-              key={title}
-              data-reveal
-              className="flex items-center gap-4 px-0 py-6 first:pt-0 last:pb-0 sm:px-6 sm:py-2 sm:first:pl-0 sm:last:pr-0 lg:block lg:text-center"
-            >
-              <Icon aria-hidden="true" className="size-6 shrink-0 text-brand-cyan lg:mx-auto" />
-              <div className="lg:mt-3">
+        <ul data-stagger className="benefits-editorial__grid">
+          {benefits.map(({ icon: Icon, title, description }, index) => (
+            <li key={title} data-reveal className="benefits-editorial__item">
+              <span className="benefits-editorial__number" aria-hidden="true">
+                0{index + 1}
+              </span>
+              <Icon aria-hidden="true" className="size-6 shrink-0 text-brand-cyan" />
+              <div>
                 <h2 className="ds-card-title text-brand-white">{title}</h2>
                 <p className="mt-1 text-sm text-brand-gray">{description}</p>
               </div>

@@ -1,4 +1,4 @@
-import { MoveUpRight } from 'lucide-react'
+import { ArrowUpRight, CalendarDays, MapPin } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'
@@ -11,23 +11,35 @@ export function Registration() {
     <section
       id="registro"
       aria-labelledby="registration-heading"
-      className="ds-section ds-section--accented"
+      className="ds-section registration-editorial"
     >
       <Container>
-        <div data-stagger className="mx-auto max-w-2xl text-center">
+        <div data-stagger className="registration-ticket">
+          <div aria-hidden="true" className="registration-ticket__orbit" />
           <div data-reveal>
-            <p className="text-sm font-medium tracking-[0.18em] text-brand-cyan uppercase">
-              Registro
-            </p>
+            <p className="registration-ticket__eyebrow">El próximo paso es tuyo</p>
             <h2 id="registration-heading" className="mt-3 text-h2 font-semibold text-brand-white">
-              Reserva tu lugar en DatAIJam
+              Las ideas nos unen.
+              <br />
+              <span>Tú las haces posibles.</span>
             </h2>
-            <p className="mx-auto mt-6 max-w-lg text-body text-brand-gray">
-              Sé parte de DatAIJam. Completa tu inscripción en un par de minutos.
+            <p className="mt-6 max-w-lg text-body">
+              Un encuentro puede ser el inicio de algo grande. Reserva tu lugar y conecta con la
+              comunidad DatAIJam.
             </p>
+            <div className="registration-ticket__meta">
+              <span>
+                <CalendarDays aria-hidden="true" className="size-4" />
+                16 OCT 2026
+              </span>
+              <span>
+                <MapPin aria-hidden="true" className="size-4" />
+                Guayaquil, Ecuador
+              </span>
+            </div>
           </div>
 
-          <div data-reveal className="mt-8 flex flex-col items-center gap-4">
+          <div data-reveal className="registration-ticket__action">
             <Button
               as="a"
               href={REGISTRATION_FORM_URL}
@@ -38,10 +50,10 @@ export function Registration() {
               className="w-full sm:w-auto sm:min-w-56"
             >
               Quiero participar
-              <MoveUpRight aria-hidden="true" className="size-4" />
+              <ArrowUpRight aria-hidden="true" className="size-5" />
             </Button>
 
-            <p id="registration-note" className="text-xs leading-5 text-brand-gray">
+            <p id="registration-note" className="mt-4 max-w-56 text-xs leading-5">
               Formulario en Google Forms · Se abre en otra pestaña.
             </p>
           </div>

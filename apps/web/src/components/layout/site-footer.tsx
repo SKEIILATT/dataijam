@@ -1,5 +1,6 @@
 import { FaInstagram, FaLinkedinIn, FaTiktok, FaYoutube } from 'react-icons/fa6'
-import logoFull from '../../assets/brand/logo-full.svg'
+import symbol from '../../assets/brand/symbol.svg'
+import wordmark from '../../assets/brand/wordmark.png'
 import { ScrollReveal } from '../ui/scroll-reveal'
 import { Container } from '../ui/container'
 
@@ -22,16 +23,20 @@ const socialNetworks = [
 
 export function SiteFooter() {
   return (
-    <footer className="bg-footer-surface py-12 text-footer-ink sm:py-16">
+    <footer className="site-footer-editorial bg-footer-surface py-12 text-footer-ink sm:py-16">
       <ScrollReveal className="footer-motion">
         <Container>
           <div data-reveal="fade" className="grid gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
-            <div className="flex justify-center">
-              <img src={logoFull} alt="DatAIJam" className="w-56 sm:w-64" />
+            <div className="footer-brand">
+              <img src={symbol} alt="" className="w-20" />
+              <img src={wordmark} alt="DatAIJam" className="footer-brand__wordmark" />
+              <p className="text-xs tracking-[0.12em] text-footer-ink/70">
+                DATOS · PERSONAS · ACCIÓN
+              </p>
             </div>
 
             <div className="lg:border-l lg:border-brand-gray/35 lg:pl-8">
-              <h2 className="ds-card-title text-footer-ink">Navegacion</h2>
+              <h2 className="ds-card-title text-footer-ink">Explora</h2>
               <ul className="mt-4 space-y-3">
                 {navigationItems.map((item) => (
                   <li key={item.href}>
@@ -47,7 +52,7 @@ export function SiteFooter() {
             </div>
 
             <div className="lg:border-l lg:border-brand-gray/35 lg:pl-8">
-              <h2 className="ds-card-title text-footer-ink">Siguenos</h2>
+              <h2 className="ds-card-title text-footer-ink">Redes</h2>
               <ul className="mt-4 flex flex-wrap gap-3">
                 {socialNetworks.map(({ label, Icon }) => (
                   <li key={label}>
@@ -61,10 +66,11 @@ export function SiteFooter() {
                   </li>
                 ))}
               </ul>
+              <p className="mt-3 text-xs text-footer-ink/60">Canales oficiales próximamente.</p>
             </div>
 
             <div className="lg:border-l lg:border-brand-gray/35 lg:pl-8">
-              <h2 className="ds-card-title text-footer-ink">Contactanos</h2>
+              <h2 className="ds-card-title text-footer-ink">Conversemos</h2>
               <a
                 href="mailto:registros@dataijam.com"
                 className="mt-4 block text-sm text-footer-ink/70 transition-colors hover:text-footer-accent"
@@ -74,7 +80,7 @@ export function SiteFooter() {
               <p className="mt-2 text-sm text-footer-ink/70">Guayaquil, Ecuador</p>
 
               <p className="mt-8 max-w-40 text-sm font-medium uppercase leading-6 tracking-[0.18em] text-footer-ink/55">
-                Una comunidad global con raices en Ecuador
+                Una comunidad global con raíces en Ecuador
               </p>
               <div className="mt-4 h-1 w-24 rounded-full bg-linear-to-r from-brand-cyan to-brand-yellow" />
             </div>
