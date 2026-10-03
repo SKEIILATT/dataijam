@@ -112,14 +112,6 @@
     display: block;
   }
 
-  html {
-    scroll-behavior: smooth;
-  }
-
-  html.lenis {
-    scroll-behavior: auto;
-  }
-
   body {
     min-width: 320px;
     background-color: var(--color-brand-navy);
@@ -377,6 +369,15 @@
     var(--color-brand-lime) 65%,
     var(--color-brand-yellow)
   );
+}
+
+/* Phones and tablets: shorter, snappier entrances that keep up with touch flings. */
+@media (hover: none), (max-width: 1023px) {
+  :root {
+    --motion-reveal: 520ms;
+    --motion-hero: 600ms;
+    --motion-stagger: 60ms;
+  }
 }
 
 :root[data-theme='light'] {

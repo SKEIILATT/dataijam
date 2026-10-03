@@ -1581,6 +1581,11 @@
 .hackathon-weeks-scroller[data-pinned='true'] {
   height: 280vh;
 }
+@media (max-width: 1023px) {
+  .hackathon-weeks-scroller[data-pinned='true'] {
+    height: 220vh;
+  }
+}
 /* Sits right under the intro, then pins centered in the space below the header. */
 .hackathon-weeks-scroller[data-pinned='true'] .hackathon-weeks-scroller__stage {
   position: sticky;
@@ -1874,4 +1879,9 @@
   margin: clamp(12px, 2vw, 24px) clamp(8px, 1.5vw, 24px);
   border-radius: clamp(24px, 3vw, 40px);
   overflow: clip;
+}
+
+/* Offscreen decorative loops are removed, not just paused, so they stop holding GPU layers. */
+.sponsors-marquee[data-running='false'] .sponsor-mystery::after {
+  animation: none;
 }

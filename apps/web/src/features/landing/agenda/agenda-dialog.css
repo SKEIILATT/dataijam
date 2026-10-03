@@ -285,3 +285,8 @@
   outline: 2px solid var(--color-brand-cyan);
   outline-offset: -2px;
 }
+
+/* Without Lenis (touch screens) the page behind the modal must not scroll. */
+html:has(.agenda-dialog[open]) {
+  overflow: hidden;
+}

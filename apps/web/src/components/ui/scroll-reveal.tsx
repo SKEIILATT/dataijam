@@ -111,7 +111,11 @@ export function ScrollReveal({
           reveal(element, index)
         })
       },
-      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
+      // Touch flings move fast: start revealing as soon as an element enters, so it
+      // never arrives blank. Desktop waits a little longer for a more deliberate entrance.
+      window.matchMedia('(hover: none), (max-width: 1023px)').matches
+        ? { threshold: 0, rootMargin: '0px 0px -2% 0px' }
+        : { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
     )
 
     // Anchor navigation gets an arrival reveal, instead of spending the whole

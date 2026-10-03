@@ -48,7 +48,8 @@
   border-radius: 12px;
   opacity: 0;
   backface-visibility: hidden;
-  animation: scroll-expand-stream var(--stream-duration) linear infinite paused;
+  animation: scroll-expand-stream var(--stream-duration) linear infinite;
+  animation-name: none;
   /* Evenly spaced along each wall; the right wall is offset half a step. */
   animation-delay: calc(
     var(--stream-duration) * (var(--index) + (var(--side) + 1) / 4) / var(--stream-panels) * -1
@@ -56,7 +57,7 @@
 }
 
 .scroll-expand.is-streaming .scroll-expand__panel {
-  animation-play-state: running;
+  animation-name: scroll-expand-stream;
 }
 
 .scroll-expand__panel img {
@@ -163,12 +164,19 @@
   padding-bottom: clamp(48px, 10vh, 112px);
 }
 
+/* Less scroll travel on touch screens: the same choreography in fewer swipes. */
+@media (max-width: 1023px) {
+  .scroll-expand {
+    height: 210vh;
+  }
+}
+
 @media (max-width: 767px) {
   .scroll-expand {
     --scroll-expand-inset-y: 25%;
     --scroll-expand-inset-x: 20%;
     --wall-angle: 58deg;
-    height: 230vh;
+    height: 185vh;
   }
 }
 
