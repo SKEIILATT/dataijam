@@ -1,5 +1,6 @@
 import { Users, Mic, Calendar, Sparkles } from 'lucide-react'
 
+import { speakerTotal } from '../speakers/speakers.data'
 import type { ImpactMetric } from './types'
 
 export const impactMetrics: ImpactMetric[] = [
@@ -11,7 +12,7 @@ export const impactMetrics: ImpactMetric[] = [
   },
   {
     id: 'speakers',
-    value: '—',
+    value: String(speakerTotal),
     label: 'Speakers invitados',
     icon: Mic,
   },

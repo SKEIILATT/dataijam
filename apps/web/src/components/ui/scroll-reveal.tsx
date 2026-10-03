@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import type { ReactNode } from 'react'
+import { useLenis } from 'lenis/react'
 
 /** One observer per scope; content is visible before enhancement and on keyboard focus. */
 export function ScrollReveal({
@@ -10,6 +11,8 @@ export function ScrollReveal({
   className?: string
 }) {
   const root = useRef<HTMLDivElement>(null)
+  const hashHandled = useRef(false)
+  const lenis = useLenis()
 
   useEffect(() => {
     const scope = root.current
@@ -34,26 +37,33 @@ export function ScrollReveal({
     const easeInOutCubic = (t: number) =>
       t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
 
-    // Native anchors give this smoothing "for free" via CSS `scroll-behavior`,
-    // but its speed isn't adjustable and reads as an abrupt jump — so anchor
-    // clicks animate the scroll manually instead, for a slower, deliberate descent.
+    // Lenis handles normal anchor travel. Keep the owner's established
+    // reduced-motion exception for navbar links without smoothing all scrolling.
     function scrollToSection(section: HTMLElement) {
       const scrollMarginTop = parseFloat(getComputedStyle(section).scrollMarginTop) || 0
       const targetY = section.getBoundingClientRect().top + window.scrollY - scrollMarginTop
-      if (!scrollDuration) {
-        window.scrollTo(0, targetY)
+      if (media.matches) {
+        const startY = window.scrollY
+        const distance = targetY - startY
+        const startTime = performance.now()
+        window.cancelAnimationFrame(scrollFrame)
+        function step(now: number) {
+          const progress = Math.min((now - startTime) / scrollDuration, 1)
+          window.scrollTo(0, startY + distance * easeInOutCubic(progress))
+          if (progress < 1) scrollFrame = window.requestAnimationFrame(step)
+        }
+        scrollFrame = window.requestAnimationFrame(step)
         return
       }
-      const startY = window.scrollY
-      const distance = targetY - startY
-      const startTime = performance.now()
-      window.cancelAnimationFrame(scrollFrame)
-      function step(now: number) {
-        const progress = Math.min((now - startTime) / scrollDuration, 1)
-        window.scrollTo(0, startY + distance * easeInOutCubic(progress))
-        if (progress < 1) scrollFrame = window.requestAnimationFrame(step)
+      if (lenis) {
+        lenis.scrollTo(targetY, {
+          duration: scrollDuration / 1000,
+          easing: easeInOutCubic,
+          onComplete: arrive,
+        })
+      } else {
+        window.scrollTo({ top: targetY, behavior: 'smooth' })
       }
-      scrollFrame = window.requestAnimationFrame(step)
     }
 
     function show(element: HTMLElement) {
@@ -191,15 +201,36 @@ export function ScrollReveal({
         })
     }
 
-    // Only a genuine user gesture should cut the animated scroll short — the
-    // 'scrollend' event also fires between our own scrollTo() frames, so it
-    // must not cancel scrollFrame itself or the animation stops after one tick.
+    // Lenis handles genuine wheel/touch interruptions; reveal the destination
+    // if a visitor chooses to scroll away during an anchor transition.
     function interruptScroll() {
       window.cancelAnimationFrame(scrollFrame)
       arrive()
     }
 
     configure()
+
+    // Arriving from another route with a hash (e.g. /#hackathon): jump there once laid out.
+    const hashTarget = window.location.hash
+      ? document.getElementById(decodeURIComponent(window.location.hash.slice(1)))
+      : null
+    if (hashTarget && scope.contains(hashTarget) && !hashHandled.current) {
+      scrollFrame = window.requestAnimationFrame(() => {
+        hashHandled.current = true
+        const margin = parseFloat(getComputedStyle(hashTarget).scrollMarginTop) || 0
+        const top = hashTarget.getBoundingClientRect().top + window.scrollY - margin
+        if (lenis) {
+          // After a client navigation Lenis still clamps to the previous page's height.
+          lenis.resize()
+          lenis.scrollTo(top, { immediate: true, force: true })
+        } else {
+          window.scrollTo(0, top)
+        }
+        destination = hashTarget
+        arrive()
+      })
+    }
+
     media.addEventListener('change', configure)
     scope.addEventListener('focusin', onFocus)
     document.addEventListener('click', onAnchor)
@@ -219,7 +250,7 @@ export function ScrollReveal({
       scope.removeEventListener('focusin', onFocus)
       elements.forEach((element) => element.removeAttribute('data-reveal-pending'))
     }
-  }, [])
+  }, [lenis])
 
   return (
     <div ref={root} className={className}>

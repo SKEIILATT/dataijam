@@ -1,6 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Sora:wght@500;600&family=Space+Grotesk:wght@600;700&display=swap');
 @import 'tailwindcss';
 
+.site-scroll-progress {
+  position: fixed;
+  z-index: 100;
+  inset: 0 0 auto;
+  height: 3px;
+  transform-origin: left center;
+  background: linear-gradient(90deg, #0482eb, #08cdef 55%, #80df6f);
+  box-shadow: 0 0 12px #08cdef80;
+  pointer-events: none;
+}
+
 @theme {
   --color-brand-navy: #031326;
   --color-brand-white: #f4f6f8;
@@ -79,22 +90,34 @@
     background-image: linear-gradient(135deg, #06275d 0%, #087ff2 58%, #077480 100%);
   }
 
-  :root[data-theme='light'] .site-header__wordmark {
+  .brand-wordmark {
+    position: relative;
+    display: inline-block;
+  }
+
+  .brand-wordmark__accent {
+    position: absolute;
+    inset: 0;
+    display: none;
+    pointer-events: none;
+  }
+
+  :root[data-theme='light'] .brand-wordmark__base {
     filter: brightness(0) saturate(100%) invert(13%) sepia(60%) saturate(2055%) hue-rotate(202deg)
       brightness(85%) contrast(98%);
   }
 
-  .site-header__wordmark-accent {
-    display: none;
-  }
-
-  :root[data-theme='light'] .site-header__wordmark-accent {
+  /* wordmark-accent.png holds only the colored "AI" pixels, aligned to the full wordmark. */
+  :root[data-theme='light'] .brand-wordmark__accent {
     display: block;
-    clip-path: inset(0 46% 0 35%);
   }
 
   html {
     scroll-behavior: smooth;
+  }
+
+  html.lenis {
+    scroll-behavior: auto;
   }
 
   body {
@@ -189,6 +212,27 @@
     width: 85%;
   }
 
+  .hero-brand-lockup__orbit {
+    position: absolute;
+    z-index: -1;
+    inset: 7% 3%;
+    border: 1px solid color-mix(in srgb, var(--color-brand-cyan) 35%, transparent);
+    border-radius: 50%;
+    box-shadow: 0 0 32px color-mix(in srgb, var(--color-brand-cyan) 16%, transparent);
+  }
+
+  .hero-brand-lockup__orbit::after {
+    content: '';
+    position: absolute;
+    top: 12%;
+    left: 12%;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--color-brand-lime);
+    box-shadow: 0 0 18px var(--color-brand-lime);
+  }
+
   .hero-brand-lockup__arrival::before {
     content: '';
     position: absolute;
@@ -255,6 +299,15 @@
   }
   .hero-brand-lockup[data-brand-ready='true'] .hero-brand-lockup__tagline {
     animation: brand-reveal var(--motion-reveal) var(--motion-easing) 320ms both;
+  }
+  .hero-brand-lockup[data-brand-ready='true'] .hero-brand-lockup__orbit {
+    animation: brand-orbit 18s linear infinite;
+  }
+}
+
+@keyframes brand-orbit {
+  to {
+    transform: rotate(360deg);
   }
 }
 
@@ -333,6 +386,28 @@
   --edge-gradient: linear-gradient(115deg, var(--color-brand-blue), var(--color-brand-yellow));
 }
 
+/* Immersive media moments (text over photos or video) keep the dark palette in both themes.
+   The element selector outranks the light .photo-surface token set. */
+:root[data-theme='light'] section.theme-dark {
+  color-scheme: dark;
+  --color-brand-navy: #031326;
+  --color-brand-white: #f4f6f8;
+  --color-brand-gray: #a8b8c8;
+  --color-surface-alt: #092039;
+  --color-surface-card: #102940;
+  --color-border: #365268;
+  --color-brand-blue: #0482eb;
+  --color-brand-cyan: #08cdef;
+  --color-brand-turquoise: #3acf98;
+  --color-brand-lime: #80df6f;
+  --color-brand-yellow: #caea5f;
+  --action-start: #80df6f;
+  --action-end: #caea5f;
+  --action-ink: #031326;
+  --edge-gradient: linear-gradient(115deg, #08cdef, #80df6f 65%, #caea5f);
+  color: var(--color-brand-white);
+}
+
 /* Light editorial bands frame the curved dark sections, as in the brand reference. */
 .landing-flow {
   background: var(--color-footer-surface);
@@ -371,9 +446,7 @@
   border: 0;
 }
 
-/* Full sections get the decorative wash; the short BenefitsBand doesn't have
-   the height for it to read as anything but a mismatched patch, so it stays
-   a flat, uniform fill matching the other light bands around it. */
+/* Full sections get the decorative wash; short bands keep a flat fill. */
 .ds-section.ds-contrast {
   background:
     radial-gradient(
@@ -683,9 +756,10 @@
   display: none;
 }
 
+/* `translate`, not `transform`, so the scroll-velocity skew can share the element. */
 @keyframes sponsors-drift {
   to {
-    transform: translateX(-50%);
+    translate: -50% 0;
   }
 }
 
@@ -726,14 +800,6 @@
   border: 1px dashed var(--color-border);
   background: color-mix(in srgb, var(--color-brand-white) 3%, var(--color-brand-navy));
   color: var(--color-brand-cyan);
-}
-
-.sponsor-placeholder__number {
-  position: absolute;
-  top: 16px;
-  left: 20px;
-  font-size: 12px;
-  color: var(--color-brand-gray);
 }
 
 @media (hover: hover) {
@@ -1331,9 +1397,6 @@ summary {
 .location-panorama {
   background: #083055;
 }
-:root[data-theme='light'] .location-panorama {
-  background: #f3fbff;
-}
 .location-panorama__image {
   object-position: center 58%;
   width: 100%;
@@ -1341,22 +1404,10 @@ summary {
   mix-blend-mode: luminosity;
   mask-image: linear-gradient(90deg, #000 70%, #000c 100%);
 }
-:root[data-theme='light'] .location-panorama__image {
-  filter: none;
-  mix-blend-mode: normal;
-}
 .location-panorama__shade {
   background:
     linear-gradient(270deg, #03132680 0%, #03132699 24%, #03132666 48%, #03132633 70%),
     linear-gradient(180deg, #031326, transparent 28%, transparent 65%, #031326);
-}
-:root[data-theme='light'] .location-panorama__shade {
-  /* The photo stays full color in light mode (see .location-panorama__image
-     above), so it needs a much more opaque veil than dark mode's desaturated
-     version did to keep the copy on the right legible. */
-  background:
-    linear-gradient(270deg, #f3fbffd9 0%, #f3fbffed 24%, #f3fbffc2 48%, #f3fbff85 70%),
-    linear-gradient(180deg, #f3fbff, transparent 28%, transparent 65%, #f3fbff);
 }
 .location-panorama__content {
   position: relative;
@@ -1390,9 +1441,6 @@ summary {
   line-height: 1.2;
   text-shadow: 0 2px 16px #031326;
 }
-:root[data-theme='light'] .location-panorama__signature {
-  text-shadow: 0 2px 16px #f3fbff;
-}
 .location-panorama__signature span {
   color: #b7f1dc;
 }
@@ -1405,15 +1453,13 @@ summary {
   font-size: 10px;
   color: #e1e9f0;
 }
-:root[data-theme='light'] .location-panorama__credit {
-  color: #527088;
-}
 .location-panorama__credit a {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 .hackathon-section.ds-section {
-  overflow: hidden;
+  /* clip, not hidden: hidden would turn the section into the scroller and break the sticky weeks. */
+  overflow: clip;
   border: 0;
   background:
     radial-gradient(
@@ -1423,50 +1469,8 @@ summary {
     ),
     var(--color-brand-navy);
 }
-.hackathon-backdrop {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 800px;
-  max-height: 100%;
-  pointer-events: none;
-  opacity: 0.65;
-  mask-image: linear-gradient(180deg, transparent, #000 18%, #000 75%, transparent);
-}
-:root[data-theme='light'] .hackathon-backdrop {
-  opacity: 0.35;
-}
 .hackathon-intro {
   max-width: 48rem;
-}
-.hackathon-timeline {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  margin-top: 64px;
-  gap: 32px;
-}
-.hackathon-step {
-  position: relative;
-}
-.hackathon-step:not(:last-child)::before {
-  content: '';
-  position: absolute;
-  top: 24px;
-  left: 64px;
-  right: -16px;
-  height: 1px;
-  background: linear-gradient(90deg, var(--color-brand-cyan), var(--color-border));
-  opacity: 0.5;
-}
-.hackathon-step__marker {
-  display: grid;
-  width: 48px;
-  height: 48px;
-  place-items: center;
-  border: 1px solid var(--color-border);
-  border-radius: 50%;
-  color: var(--color-brand-cyan);
-  background: color-mix(in srgb, var(--color-brand-cyan) 8%, var(--color-brand-navy));
 }
 .hackathon-evaluation {
   margin-top: 40px;
@@ -1506,9 +1510,6 @@ summary {
   background: var(--color-border);
   opacity: 0.5;
 }
-:root[data-theme='light'] .hackathon-section {
-  background: linear-gradient(180deg, #031326, var(--color-brand-navy) 96px);
-}
 .speaker-editorial {
   overflow: hidden;
   border-radius: 48px 12px 12px 12px;
@@ -1527,28 +1528,6 @@ summary {
 }
 .speaker-editorial:nth-child(even) .speaker-editorial__portrait {
   background: radial-gradient(ellipse at 20% 0%, #205960, transparent 75%), #092039;
-}
-.speaker-editorial__orbit {
-  position: absolute;
-  width: 240px;
-  height: 240px;
-  border: 1px solid #7bccdb30;
-  border-radius: 50%;
-  transform: translate(50px, 36px);
-}
-.speaker-editorial__orbit::after {
-  content: '';
-  position: absolute;
-  inset: 28px;
-  border: 1px solid #7bccdb30;
-  border-radius: 50%;
-}
-.speaker-editorial__monogram {
-  font-family: var(--font-display);
-  font-size: 120px;
-  line-height: 1;
-  font-weight: 500;
-  color: #8bc7d150;
 }
 .speaker-editorial__label {
   position: absolute;
@@ -1600,12 +1579,6 @@ summary {
   }
   .community-metric:nth-child(n + 3) {
     border-top: 1px solid #41617980;
-  }
-  .hackathon-timeline {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .hackathon-step:nth-child(2)::before {
-    display: none;
   }
 }
 
@@ -1672,31 +1645,6 @@ summary {
   }
   .speakers-section.ds-section.ds-contrast {
     border-radius: 28px 28px 0 0;
-  }
-  .hackathon-timeline {
-    grid-template-columns: 1fr;
-    gap: 28px;
-    margin-top: 40px;
-  }
-  .hackathon-step {
-    padding-left: 68px;
-    min-height: 80px;
-  }
-  .hackathon-step__marker {
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
-  .hackathon-step > p {
-    margin-top: 0;
-  }
-  .hackathon-step:not(:last-child)::before {
-    display: block;
-    top: 58px;
-    left: 24px;
-    bottom: -16px;
-    width: 1px;
-    height: auto;
   }
   .speakers-heading {
     display: block;
@@ -1846,4 +1794,8 @@ summary {
     border-color var(--motion-theme) var(--motion-easing),
     fill var(--motion-theme) var(--motion-easing),
     stroke var(--motion-theme) var(--motion-easing) !important;
+}
+
+:root[data-theme='light'] section.theme-dark.photo-surface {
+  --color-brand-gray: #c2d1df;
 }

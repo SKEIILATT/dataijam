@@ -135,50 +135,6 @@
   text-underline-offset: 6px;
 }
 
-/* A compact introduction to the four pillars. */
-.benefits-editorial {
-  background: var(--editorial-soft);
-  border-bottom: 0;
-}
-.benefits-editorial__grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-.benefits-editorial__item {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 18px 28px;
-  border-right: 1px solid var(--editorial-rule);
-}
-.benefits-editorial__item:first-child {
-  padding-left: 0;
-}
-.benefits-editorial__item:last-child {
-  border: 0;
-  padding-right: 0;
-}
-.benefits-editorial__number {
-  position: absolute;
-  top: -12px;
-  left: 28px;
-  color: var(--color-brand-gray);
-  font-family: var(--font-display);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-}
-.benefits-editorial__item:first-child .benefits-editorial__number {
-  left: 0;
-}
-.benefits-editorial .ds-card-title {
-  font-size: 17px;
-}
-.benefits-editorial p {
-  font-size: 11px;
-  line-height: 1.5;
-}
-
 /* Shared photograph treatment and generous, consistent text measures. */
 .landing-editorial .community-section.ds-section {
   padding-bottom: 48px;
@@ -210,6 +166,11 @@
 }
 .landing-editorial .location-panorama__signature span {
   color: var(--editorial-brand-cyan);
+}
+/* The caption sits on the darker side of the photo in both themes. */
+:root[data-theme='light'] .landing-editorial .community-photo__caption {
+  color: var(--editorial-brand-white);
+  text-shadow: 0 2px 18px rgb(3 19 38 / 0.5);
 }
 
 .landing-editorial :is(.community-metrics, .hackathon-evaluation, .faq-contact) {
@@ -260,33 +221,6 @@
 /* A quieter technical backdrop, with the four milestones as the foreground. */
 .landing-editorial .hackathon-section {
   border-bottom: 0;
-}
-.landing-editorial .hackathon-backdrop {
-  opacity: 0.4;
-}
-.landing-editorial .hackathon-timeline {
-  gap: 24px;
-  margin-top: 56px;
-}
-.landing-editorial .hackathon-step {
-  padding: 24px;
-  border: 1px solid var(--editorial-rule);
-  border-radius: var(--editorial-radius);
-  background: var(--editorial-panel-fill);
-}
-.landing-editorial .hackathon-step::before {
-  display: none;
-}
-.landing-editorial .hackathon-step__marker {
-  background: transparent;
-  border: 0;
-  border-radius: 0;
-  width: 32px;
-  height: 32px;
-}
-.landing-editorial .hackathon-step h3 {
-  min-height: 52px;
-  font-size: 17px;
 }
 .landing-editorial .hackathon-evaluation {
   margin-top: 48px;
@@ -435,15 +369,6 @@
     ),
     var(--editorial-brand-navy);
 }
-.landing-editorial .speaker-editorial__monogram {
-  color: var(--editorial-brand-cyan);
-  opacity: 0.65;
-}
-.landing-editorial .speaker-editorial__orbit {
-  width: 280px;
-  height: 280px;
-  transform: translate(65px, 45px);
-}
 .landing-editorial .speaker-editorial__label {
   padding: 6px 10px;
   border: 1px solid color-mix(in srgb, var(--editorial-brand-cyan) 35%, transparent);
@@ -494,10 +419,6 @@
   border-radius: var(--editorial-radius);
   border-color: var(--editorial-rule);
   background: var(--editorial-panel-fill);
-}
-.landing-editorial .sponsor-placeholder__number {
-  font-family: var(--font-display);
-  opacity: 0.6;
 }
 .landing-editorial .sponsors-marquee {
   padding-block: 8px;
@@ -724,6 +645,15 @@
   --editorial-brand-turquoise: #35d7a4;
   --editorial-brand-lime: #087ff2;
   --editorial-brand-yellow: #12d3e3;
+  /* Re-declared here: the inherited gradient was resolved with the dark palette. */
+  --editorial-accent-gradient: linear-gradient(90deg, #06275d, #087ff2 55%, #077480);
+}
+:root[data-theme='light'] .registration-ticket__action .ds-button--primary {
+  background: linear-gradient(110deg, var(--action-start), var(--action-end));
+  color: var(--action-ink);
+}
+:root[data-theme='light'] .registration-ticket__action .ds-button--primary:hover {
+  background: linear-gradient(110deg, #087ff2, #077480);
 }
 
 .site-footer-editorial {
@@ -748,24 +678,8 @@
 .footer-brand__wordmark {
   width: 210px;
 }
-:root[data-theme='light'] .footer-brand__wordmark {
-  filter: brightness(0) saturate(100%) invert(14%) sepia(30%) saturate(1400%) hue-rotate(168deg);
-}
 
 @media (max-width: 1023px) {
-  .benefits-editorial__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: 24px;
-  }
-  .benefits-editorial__item:nth-child(2) {
-    border-right: 0;
-  }
-  .benefits-editorial__item:nth-child(3) {
-    padding-left: 0;
-  }
-  .benefits-editorial__item:nth-child(3) .benefits-editorial__number {
-    left: 0;
-  }
   .landing-editorial .speakers-heading,
   .sponsors-editorial__heading {
     gap: 32px;
@@ -788,22 +702,6 @@
   .landing-editorial .ds-section h2.text-h2 {
     font-size: 34px;
   }
-  .benefits-editorial__item {
-    gap: 10px;
-    padding: 14px 12px;
-  }
-  .benefits-editorial__number {
-    left: 12px;
-  }
-  .benefits-editorial .ds-card-title {
-    font-size: 15px;
-  }
-  .benefits-editorial p {
-    font-size: 10px;
-  }
-  .benefits-editorial svg {
-    width: 20px;
-  }
   .landing-editorial .community-section.ds-section {
     padding-top: 48px;
   }
@@ -818,20 +716,6 @@
   }
   .landing-editorial .community-metric__pending {
     font-size: 22px;
-  }
-  .landing-editorial .hackathon-timeline {
-    gap: 12px;
-    margin-top: 32px;
-  }
-  .landing-editorial .hackathon-step {
-    padding: 22px 22px 18px 78px;
-  }
-  .landing-editorial .hackathon-step__marker {
-    top: 24px;
-    left: 22px;
-  }
-  .landing-editorial .hackathon-step h3 {
-    min-height: 0;
   }
   .landing-editorial .speaker-editorial__portrait {
     height: 240px;
@@ -890,11 +774,9 @@
     var(--section-photo-end, var(--color-brand-navy))
   );
 }
+/* Light mode keeps the photos as a soft hint: a thin veil reads as grey haze, not as light. */
 :root[data-theme='light'] .landing-editorial {
-  --section-photo-veil: linear-gradient(90deg, #f3fbfff2 5%, #f3fbffb3 58%, #f3fbff70);
-}
-.landing-editorial .benefits-editorial {
-  --section-photo: url('../../assets/images/editorial/connections.jpg');
+  --section-photo-veil: linear-gradient(90deg, #f3fbfff5 5%, #f3fbffdb 58%, #f3fbffb8);
 }
 .landing-editorial .speakers-section {
   --section-photo: url('../../assets/images/editorial/auditorium.jpg');
@@ -940,24 +822,6 @@
     transparent 62%
   );
 }
-.landing-editorial .benefits-editorial {
-  --section-photo-fade: linear-gradient(
-    180deg,
-    var(--color-brand-navy),
-    transparent 40px,
-    transparent calc(100% - 48px),
-    var(--editorial-brand-navy)
-  );
-}
-:root[data-theme='light'] .landing-editorial .hackathon-section {
-  --section-photo-fade: linear-gradient(
-    180deg,
-    var(--editorial-brand-navy),
-    transparent 120px,
-    transparent calc(100% - 120px),
-    var(--color-brand-navy)
-  );
-}
 .landing-editorial .community-photo::before {
   content: '';
   position: absolute;
@@ -973,7 +837,6 @@
 :root[data-theme]
   .landing-editorial
   :is(
-    .benefits-editorial,
     .hackathon-section,
     .speakers-section,
     .sponsors-section,
@@ -996,9 +859,6 @@
 }
 .landing-editorial .faq-section > div {
   transform: scaleX(-1);
-}
-.landing-editorial .hackathon-backdrop {
-  display: none;
 }
 .landing-editorial .hackathon-evaluation {
   background: var(--color-brand-navy);
@@ -1035,7 +895,7 @@
     --section-photo-veil: linear-gradient(90deg, #031326e6, #031326bd);
   }
   :root[data-theme='light'] .landing-editorial {
-    --section-photo-veil: linear-gradient(90deg, #f3fbffe6, #f3fbffbd);
+    --section-photo-veil: linear-gradient(90deg, #f3fbffeb, #f3fbffd6);
   }
 }
 
@@ -1073,4 +933,945 @@
       transform: scaleX(1);
     }
   }
+}
+
+/* Motion accents are intentionally assigned one job per section. */
+.hero__gradient-text {
+  width: fit-content;
+  max-width: 100%;
+  background-size: 220% 100%;
+}
+.hero-event-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hero-event-label__pulse {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--color-brand-lime);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--color-brand-lime) 14%, transparent);
+  animation: hero-signal-pulse 2.8s ease-in-out infinite;
+}
+@keyframes hero-signal-pulse {
+  50% {
+    box-shadow: 0 0 0 9px color-mix(in srgb, var(--color-brand-lime) 4%, transparent);
+  }
+}
+
+.faq-categories button {
+  position: relative;
+}
+.faq-categories button .faq-category-indicator {
+  position: absolute;
+  inset: -4px;
+  border: 1px solid var(--color-brand-cyan);
+  border-radius: inherit;
+  box-shadow: 0 0 18px color-mix(in srgb, var(--color-brand-cyan) 28%, transparent);
+  pointer-events: none;
+}
+
+.location-panorama__spotlight {
+  position: absolute;
+  z-index: 0;
+  top: calc(50% - 260px);
+  left: calc(50% - 260px);
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-brand-cyan) 15%, transparent),
+    transparent 65%
+  );
+  mix-blend-mode: screen;
+}
+
+.border-beam {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  border: 2px solid transparent;
+  border-radius: inherit;
+  pointer-events: none;
+  mask:
+    linear-gradient(transparent, transparent) padding-box,
+    linear-gradient(#000, #000) border-box;
+  mask-composite: intersect;
+}
+.border-beam__light {
+  position: absolute;
+  display: block;
+  width: 100px;
+  aspect-ratio: 1;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--editorial-brand-cyan),
+    var(--editorial-brand-lime)
+  );
+}
+.registration-connection-orbit {
+  position: absolute;
+  z-index: -1;
+  top: 20px;
+  right: 24px;
+  width: 120px;
+  height: 120px;
+  opacity: 0.72;
+  pointer-events: none;
+}
+.registration-connection-orbit__static {
+  display: block;
+  width: 84px;
+  height: 84px;
+  margin: 18px;
+  border: 1px solid var(--editorial-brand-cyan);
+  border-radius: 50%;
+}
+.registration-connection-orbit__static::before {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  margin: -5px auto 0;
+  border-radius: 50%;
+  background: var(--editorial-brand-lime);
+}
+
+@media (max-width: 639px) {
+  .registration-connection-orbit {
+    top: 12px;
+    right: 8px;
+    width: 72px;
+    height: 72px;
+    opacity: 0.45;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-brand-lockup__orbit,
+  .hero-event-label__pulse {
+    animation: none !important;
+  }
+  .location-panorama__spotlight {
+    display: none;
+  }
+}
+
+/* 21st.dev-inspired accents: one entrance, one responsive grid, and one card treatment. */
+.hero-copy > h1 {
+  animation: none;
+  font-size: clamp(2.4rem, 4.6vw, 4.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+}
+.hero-reveal-line {
+  display: block;
+}
+.hero-reveal-word {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: clip;
+  vertical-align: bottom;
+}
+.hero-reveal-word:not(:last-child) {
+  margin-inline-end: 0.25em;
+}
+.hero-reveal-word__inner {
+  display: inline-block;
+}
+.hero__gradient-text .hero-reveal-word__inner {
+  background-image: linear-gradient(90deg, #08cdef, #3acf98 55%, #80df6f);
+  background-size: 220% 100%;
+  background-position-x: inherit;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+:root[data-theme='light'] .hero__gradient-text .hero-reveal-word__inner {
+  background-image: linear-gradient(90deg, #06275d, #087ff2 58%, #077480);
+}
+.hero-cta-shine {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.hero-cta-shine::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  inset: -50% auto -50% 0;
+  width: 36%;
+  transform: translateX(-220%) skewX(-22deg);
+  background: linear-gradient(90deg, transparent, #ffffff80, transparent);
+  pointer-events: none;
+  animation: hero-cta-sheen 6.5s ease-in-out 1.4s infinite;
+}
+@keyframes hero-cta-sheen {
+  0%,
+  13% {
+    transform: translateX(-220%) skewX(-22deg);
+  }
+  29%,
+  100% {
+    transform: translateX(520%) skewX(-22deg);
+  }
+}
+
+.landing-editorial .hackathon-section {
+  position: relative;
+  isolation: isolate;
+}
+.hackathon-section__content {
+  position: relative;
+  z-index: 1;
+}
+.hackathon-grid-pulse {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background-image:
+    linear-gradient(90deg, #08cdef26 1px, transparent 1px),
+    linear-gradient(#08cdef26 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: linear-gradient(180deg, transparent 2%, #000 15%, #000 85%, transparent 100%);
+}
+.hackathon-grid-pulse::before,
+.hackathon-grid-pulse::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+.hackathon-grid-pulse::before {
+  background: radial-gradient(
+    260px circle at var(--pulse-x, 50%) var(--pulse-y, 50%),
+    #08cdef42,
+    transparent 78%
+  );
+}
+.hackathon-grid-pulse::after {
+  background-image:
+    linear-gradient(90deg, #80df6fb3 1px, transparent 1px),
+    linear-gradient(#08cdefb3 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(
+    230px circle at var(--pulse-x, 50%) var(--pulse-y, 50%),
+    #000,
+    transparent
+  );
+}
+.hackathon-grid-pulse[data-active='true']::before,
+.hackathon-grid-pulse[data-active='true']::after {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-cta-shine::after {
+    animation: none;
+    opacity: 0;
+  }
+  .hackathon-grid-pulse::before,
+  .hackathon-grid-pulse::after {
+    display: none;
+  }
+}
+
+/* Hackathon: compact week stepper; one week's detail and the rubrics on demand. */
+.hackathon-weeks {
+  margin-top: clamp(40px, 5vw, 64px);
+}
+.hackathon-weeks__track {
+  position: relative;
+}
+.hackathon-weeks__rail {
+  position: absolute;
+  top: 28px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 2px;
+  background: var(--editorial-rule);
+  pointer-events: none;
+}
+.hackathon-weeks__progress {
+  display: block;
+  height: 100%;
+  transform-origin: left center;
+  background: var(--editorial-accent-gradient);
+  box-shadow: 0 0 14px var(--color-brand-cyan);
+}
+.hackathon-weeks__tabs {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+.hackathon-week {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px 16px;
+  border-radius: var(--editorial-radius);
+  text-align: center;
+  color: var(--color-brand-gray);
+  cursor: pointer;
+  transition: color var(--motion-duration) var(--motion-easing);
+}
+.hackathon-week:focus-visible {
+  outline: 2px solid var(--color-brand-cyan);
+  outline-offset: 4px;
+}
+.hackathon-week__marker {
+  position: relative;
+  display: grid;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 10px;
+  place-items: center;
+  border: 1px solid var(--editorial-rule);
+  border-radius: 50%;
+  color: var(--color-brand-cyan);
+  background: var(--color-brand-navy);
+  transition:
+    transform var(--motion-normal) var(--motion-easing),
+    border-color var(--motion-duration) var(--motion-easing);
+}
+.hackathon-week:hover .hackathon-week__marker {
+  transform: translateY(-3px);
+  border-color: var(--color-brand-cyan);
+}
+.hackathon-week__glow {
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  background: var(--editorial-accent-gradient);
+  box-shadow: 0 0 28px color-mix(in srgb, var(--color-brand-cyan) 45%, transparent);
+}
+.hackathon-week[aria-selected='true'] .hackathon-week__marker {
+  color: var(--editorial-brand-navy);
+}
+.hackathon-week__label {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-brand-cyan);
+}
+.hackathon-week__title {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.hackathon-week[aria-selected='true'] .hackathon-week__title,
+.hackathon-week:hover .hackathon-week__title {
+  color: var(--color-brand-white);
+}
+.hackathon-week__summary {
+  font-size: 14px;
+  line-height: 1.4;
+}
+.hackathon-week-detail {
+  position: relative;
+  margin-top: 24px;
+  overflow: hidden;
+  border: 1px solid var(--editorial-rule);
+  border-radius: var(--editorial-radius-panel);
+  background: var(--editorial-panel-fill);
+}
+.hackathon-week-detail__body {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) minmax(0, 300px);
+  align-items: center;
+  gap: clamp(20px, 3vw, 40px);
+  min-height: 188px;
+  padding: clamp(24px, 3vw, 40px);
+}
+.hackathon-week-detail__number {
+  font-family: var(--font-display);
+  font-size: clamp(64px, 8vw, 112px);
+  font-weight: 700;
+  line-height: 0.9;
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--color-brand-cyan) 70%, transparent);
+}
+.hackathon-week-detail__deliverable {
+  display: flex;
+  gap: 12px;
+  padding: 18px 20px;
+  border: 1px solid var(--editorial-rule);
+  border-radius: var(--editorial-radius);
+  background: color-mix(in srgb, var(--color-brand-cyan) 6%, transparent);
+}
+.hackathon-evaluation .hackathon-evaluation__heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  border-bottom-color: transparent;
+  transition: border-color var(--motion-duration) var(--motion-easing);
+}
+.hackathon-evaluation[data-open='true'] .hackathon-evaluation__heading {
+  border-bottom-color: var(--editorial-rule);
+}
+.hackathon-evaluation__toggle svg {
+  transition: transform var(--motion-normal) var(--motion-easing);
+}
+.hackathon-evaluation__toggle[aria-expanded='true'] svg {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 767px) {
+  .hackathon-weeks__rail {
+    display: none;
+  }
+  .hackathon-weeks__tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .hackathon-week {
+    padding: 14px 8px;
+    border: 1px solid var(--editorial-rule);
+  }
+  .hackathon-week[aria-selected='true'] {
+    border-color: var(--color-brand-cyan);
+  }
+  .hackathon-week__marker {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 4px;
+  }
+  .hackathon-week__title {
+    font-size: 15px;
+  }
+  .hackathon-week__summary {
+    display: none;
+  }
+  .hackathon-week-detail__body {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 16px;
+  }
+  .hackathon-week-detail__number {
+    font-size: 56px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hackathon-week:hover .hackathon-week__marker {
+    transform: none;
+  }
+}
+
+/* Speakers: confirmed portraits reveal their bio in place; pending slots stay a teaser. */
+.speaker-editorial__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  transition: transform 700ms var(--motion-easing);
+}
+.speaker-editorial:hover .speaker-editorial__photo {
+  transform: scale(1.05);
+}
+.speaker-editorial__bio {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow-y: auto;
+  padding: 20px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--editorial-brand-white);
+  background: color-mix(in srgb, var(--editorial-brand-navy) 90%, transparent);
+  backdrop-filter: blur(10px);
+  translate: 0 100%;
+  visibility: hidden;
+  transition:
+    translate var(--motion-normal) var(--motion-easing),
+    visibility 0s linear var(--motion-normal);
+}
+.speaker-editorial__bio[data-open='true'] {
+  translate: 0 0;
+  visibility: visible;
+  transition: translate var(--motion-normal) var(--motion-easing);
+}
+.speaker-editorial__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+}
+.speaker-editorial__bio-toggle {
+  min-height: 40px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-brand-cyan);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+.speaker-editorial__social {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 1px solid var(--editorial-rule);
+  border-radius: 50%;
+  color: var(--color-brand-cyan);
+  transition:
+    border-color var(--motion-duration) var(--motion-easing),
+    transform var(--motion-duration) var(--motion-easing);
+}
+.speaker-editorial__social:hover {
+  border-color: var(--color-brand-cyan);
+  transform: translateY(-2px);
+}
+.speaker-mystery__silhouette {
+  align-self: end;
+  width: 72%;
+  margin-bottom: -8px;
+  fill: color-mix(in srgb, var(--editorial-brand-cyan) 55%, var(--editorial-brand-blue));
+  filter: blur(14px);
+  opacity: 0.55;
+  animation: speaker-mystery-breathe 4.5s ease-in-out infinite;
+}
+.speaker-mystery__scan {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 40%;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    color-mix(in srgb, var(--editorial-brand-cyan) 18%, transparent),
+    transparent
+  );
+  translate: 0 -100%;
+  animation: speaker-mystery-scan 3.8s var(--motion-easing) infinite;
+  pointer-events: none;
+}
+.speaker-mystery:nth-child(even) .speaker-mystery__scan {
+  animation-delay: -1.9s;
+}
+.speaker-mystery__label {
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.speaker-mystery__redacted {
+  filter: blur(5px);
+  user-select: none;
+}
+@keyframes speaker-mystery-breathe {
+  50% {
+    opacity: 0.8;
+    transform: scale(1.03);
+  }
+}
+@keyframes speaker-mystery-scan {
+  to {
+    translate: 0 250%;
+  }
+}
+
+/* Sponsors: blurred marks keep the mystery until partners are confirmed. */
+.sponsor-mystery {
+  gap: 18px;
+  overflow: hidden;
+}
+.sponsor-mystery::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    color-mix(in srgb, var(--editorial-brand-white) 10%, transparent) 50%,
+    transparent 65%
+  );
+  translate: -100% 0;
+  animation: sponsor-mystery-sweep 3.6s ease-in-out infinite;
+  pointer-events: none;
+}
+.sponsors-slide:nth-child(even) .sponsor-mystery::after {
+  animation-delay: -1.8s;
+}
+.sponsor-mystery__logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  filter: blur(6px);
+  opacity: 0.85;
+}
+.sponsor-mystery__mark {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--editorial-accent-gradient);
+}
+.sponsor-mystery__word {
+  width: 96px;
+  height: 16px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-brand-white) 70%, transparent);
+}
+.sponsor-mystery[data-variant='1'] .sponsor-mystery__mark {
+  border-radius: 10px;
+  transform: rotate(45deg) scale(0.8);
+}
+.sponsor-mystery[data-variant='1'] .sponsor-mystery__word {
+  width: 120px;
+  height: 12px;
+}
+.sponsor-mystery[data-variant='2'] .sponsor-mystery__mark {
+  border-radius: 12px 50% 50%;
+}
+.sponsor-mystery[data-variant='2'] .sponsor-mystery__word {
+  width: 72px;
+  height: 20px;
+}
+.sponsor-mystery__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-brand-cyan);
+}
+@keyframes sponsor-mystery-sweep {
+  60%,
+  100% {
+    translate: 100% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .speaker-editorial:hover .speaker-editorial__photo {
+    transform: none;
+  }
+  .speaker-mystery__silhouette,
+  .speaker-mystery__scan,
+  .sponsor-mystery::after {
+    animation: none;
+  }
+  .speaker-mystery__scan,
+  .sponsor-mystery::after {
+    display: none;
+  }
+}
+
+/* Scroll choreography: each section moves in its own way, all tied to the scroll position. */
+
+/* Hackathon: the weeks pin while scroll walks through them. */
+.hackathon-weeks-scroller[data-pinned='true'] {
+  height: 280vh;
+}
+/* Sits right under the intro, then pins centered in the space below the header. */
+.hackathon-weeks-scroller[data-pinned='true'] .hackathon-weeks-scroller__stage {
+  position: sticky;
+  top: max(104px, calc(50svh - var(--stage-h, 0px) / 2 + 44px));
+}
+@media (max-width: 767px) {
+  .hackathon-weeks-scroller[data-pinned='true'] .hackathon-weeks-scroller__stage {
+    top: max(88px, calc(50svh - var(--stage-h, 0px) / 2 + 40px));
+  }
+}
+.hackathon-weeks__hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-brand-gray);
+}
+
+/* Speakers: dealt cards, cursor tilt with glare, and the headline count. */
+.speaker-carousel__viewport {
+  padding-block: 28px;
+  margin-block: -28px;
+  perspective: 1200px;
+}
+.speaker-editorial {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  rotate: var(--tilt-x, 0) var(--tilt-y, 1) 0 var(--tilt, 0deg);
+  transition: rotate 320ms var(--motion-easing);
+}
+.speaker-editorial::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: radial-gradient(
+    circle at var(--glare-x, 50%) var(--glare-y, 50%),
+    rgb(255 255 255 / 0.16),
+    transparent 55%
+  );
+  opacity: 0;
+  transition: opacity 320ms ease;
+  pointer-events: none;
+}
+.speaker-editorial[data-tilting]::after {
+  opacity: 1;
+}
+.speakers-count {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+.speakers-count__number {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 7vw, 92px);
+  font-weight: 700;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: transparent;
+  background: var(--editorial-accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+:root[data-theme='light'] .speakers-count__number {
+  background-image: linear-gradient(135deg, #06275d, #087ff2 58%, #077480);
+}
+.speakers-count__label {
+  max-width: 12ch;
+  padding-bottom: 4px;
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-brand-white);
+}
+
+/* Guayaquil: an outlined city name drifts against the camera pan. */
+.location-panorama__ghost {
+  position: absolute;
+  z-index: -5;
+  bottom: -0.26em;
+  left: 0;
+  font-family: var(--font-display);
+  font-size: clamp(120px, 24vw, 380px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--color-brand-cyan) 26%, transparent);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* FAQ: a giant question mark turns with the scroll; answers unfold smoothly. */
+.faq-section {
+  overflow: clip;
+}
+.faq-intro {
+  position: relative;
+  isolation: isolate;
+}
+.faq-intro__glyph {
+  position: absolute;
+  z-index: -1;
+  top: -0.32em;
+  right: -0.04em;
+  font-family: var(--font-display);
+  font-size: clamp(220px, 26vw, 380px);
+  font-weight: 700;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 2px color-mix(in srgb, var(--color-brand-cyan) 30%, transparent);
+  pointer-events: none;
+  user-select: none;
+}
+.faq-answers {
+  interpolate-size: allow-keywords;
+}
+.faq-item::details-content {
+  block-size: 0;
+  overflow: clip;
+  transition:
+    block-size 380ms var(--motion-easing),
+    content-visibility 380ms allow-discrete;
+}
+.faq-item[open]::details-content {
+  block-size: auto;
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .faq-item {
+      animation: faq-item-in linear both;
+      animation-timeline: view();
+      animation-range: entry 5% cover 28%;
+    }
+  }
+}
+@keyframes faq-item-in {
+  from {
+    opacity: 0;
+    translate: 72px 0;
+  }
+}
+
+/* Registration: the finale's glow grows behind the rising ticket. */
+.registration-editorial {
+  overflow: clip;
+}
+.registration-glow {
+  position: absolute;
+  inset: -30% -4%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in srgb, var(--editorial-brand-cyan) 30%, transparent) 30%,
+    color-mix(in srgb, var(--editorial-brand-lime) 16%, transparent) 55%,
+    transparent 72%
+  );
+  filter: blur(48px);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .speaker-editorial {
+    rotate: none;
+  }
+  .speaker-editorial::after {
+    display: none;
+  }
+}
+.speaker-editorial > .speaker-editorial__info {
+  flex: 1;
+}
+@media (max-width: 639px) {
+  .speaker-carousel__pages {
+    flex-wrap: nowrap;
+  }
+  .speaker-carousel__pages button {
+    min-width: 24px;
+  }
+}
+
+/* Ambient loops run as CSS animations and pause while offscreen (data-animating from JS). */
+.hero__gradient-text[data-animating='true'] {
+  animation: hero-gradient-pan 9s ease-in-out infinite;
+}
+@keyframes hero-gradient-pan {
+  50% {
+    background-position-x: 100%;
+  }
+}
+.border-beam__light {
+  offset-path: rect(0 auto auto 0 round 64px);
+  offset-distance: 0%;
+  animation: border-beam-travel 9s linear infinite paused;
+}
+.border-beam[data-animating='true'] .border-beam__light {
+  animation-play-state: running;
+}
+@keyframes border-beam-travel {
+  to {
+    offset-distance: 100%;
+  }
+}
+
+/* Editorial tokens resolve on .landing-editorial, so dark islands re-declare them. */
+:root[data-theme='light'] .landing-editorial .theme-dark {
+  --editorial-panel: #102940;
+  --editorial-soft: #092039;
+  --editorial-rule: color-mix(in srgb, #08cdef 24%, transparent);
+  --editorial-highlight: #80df6f;
+  --editorial-panel-fill:
+    radial-gradient(
+      ellipse at 100% 0%,
+      color-mix(in srgb, #0482eb 18%, transparent),
+      transparent 70%
+    ),
+    #031326;
+}
+
+/* FAQ mirrors its photo, so an even veil keeps the category tabs legible on both sides. */
+:root[data-theme='light'] .landing-editorial .faq-section {
+  --section-photo-veil: linear-gradient(90deg, #f3fbffe6, #f3fbffeb);
+}
+
+/* Light mode: clean, brand-tinted surfaces instead of veiled photographs, which read as
+   grey haze on a light page. Each section places its two glows differently. */
+:root[data-theme='light']
+  .landing-editorial
+  :is(
+    .hackathon-section,
+    .speakers-section,
+    .sponsors-section,
+    .faq-section,
+    .registration-editorial
+  ) {
+  background-color: var(--color-brand-navy);
+  background-image:
+    radial-gradient(
+      ellipse 50% 42% at var(--glow-a-at),
+      color-mix(in srgb, var(--glow-a) 16%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 46% 40% at var(--glow-b-at),
+      color-mix(in srgb, var(--glow-b) 14%, transparent),
+      transparent 70%
+    );
+}
+:root[data-theme='light'] .landing-editorial .hackathon-section {
+  --glow-a: var(--color-brand-blue);
+  --glow-a-at: 90% 22%;
+  --glow-b: var(--color-brand-turquoise);
+  --glow-b-at: 6% 78%;
+}
+:root[data-theme='light'] .landing-editorial .speakers-section {
+  --glow-a: var(--color-brand-yellow);
+  --glow-a-at: 10% 24%;
+  --glow-b: var(--color-brand-blue);
+  --glow-b-at: 92% 76%;
+}
+:root[data-theme='light'] .landing-editorial .sponsors-section {
+  --glow-a: var(--editorial-brand-lime);
+  --glow-a-at: 90% 24%;
+  --glow-b: var(--color-brand-yellow);
+  --glow-b-at: 8% 74%;
+}
+:root[data-theme='light'] .landing-editorial .faq-section {
+  --glow-a: var(--color-brand-yellow);
+  --glow-a-at: 88% 24%;
+  --glow-b: var(--color-brand-blue);
+  --glow-b-at: 10% 76%;
+}
+:root[data-theme='light'] .landing-editorial .registration-editorial {
+  --glow-a: var(--color-brand-turquoise);
+  --glow-a-at: 50% 26%;
+  --glow-b: var(--color-brand-blue);
+  --glow-b-at: 92% 74%;
+}
+
+/* Light mode: dark islands become inset rounded panels, so the change of palette reads
+   as a deliberate screen on the page rather than an abrupt band. */
+:root[data-theme='light'] .landing-editorial section.theme-dark {
+  margin: clamp(12px, 2vw, 24px) clamp(8px, 1.5vw, 24px);
+  border-radius: clamp(24px, 3vw, 40px);
+  overflow: clip;
 }

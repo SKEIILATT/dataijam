@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
-import poster from '@/assets/images/hero/data-globe.png'
-import earthMap from '@/assets/images/hero/earth-map.png'
+import poster from '@/assets/images/hero/data-globe.webp'
+import earthMap from '@/assets/images/hero/earth-map.jpg'
 import { createGlobeRenderer } from './globe-renderer'
 
 export function RotatingGlobe() {

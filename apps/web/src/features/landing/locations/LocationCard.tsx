@@ -1,7 +1,10 @@
 import { ArrowRight } from 'lucide-react'
+import { motion, useScroll, useSpring, useTransform } from 'motion/react'
+import { useRef } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'
+import { usePrefersReducedMotion } from '@/components/ui/use-prefers-reduced-motion'
 
 import type { EventLocation } from './types'
 
@@ -10,16 +13,57 @@ interface LocationCardProps {
 }
 
 export function LocationCard({ location }: LocationCardProps) {
+  const spotlightX = useSpring(0, { stiffness: 170, damping: 26 })
+  const spotlightY = useSpring(0, { stiffness: 170, damping: 26 })
+  const panoramaRef = useRef<HTMLLIElement>(null)
+  const reducedMotion = usePrefersReducedMotion()
+  // Camera pan over the city, with the outlined name drifting the opposite way.
+  const { scrollYProgress } = useScroll({
+    target: panoramaRef,
+    offset: ['start end', 'end start'],
+  })
+  const imageX = useTransform(scrollYProgress, [0, 1], ['4%', '-4%'])
+  const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.22, 1.1, 1.04])
+  const ghostX = useTransform(scrollYProgress, [0, 1], ['22%', '-42%'])
+
   return (
-    <li className="location-panorama relative isolate overflow-hidden">
-      <img
+    <li
+      ref={panoramaRef}
+      className="location-panorama relative isolate overflow-hidden"
+      onPointerMove={(event) => {
+        if (
+          event.pointerType !== 'mouse' ||
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        )
+          return
+        const bounds = event.currentTarget.getBoundingClientRect()
+        spotlightX.set((event.clientX - bounds.left - bounds.width / 2) * 0.16)
+        spotlightY.set((event.clientY - bounds.top - bounds.height / 2) * 0.16)
+      }}
+      onPointerLeave={() => {
+        spotlightX.set(0)
+        spotlightY.set(0)
+      }}
+    >
+      <motion.img
         src={location.imageSrc}
         alt={location.imageAlt}
         loading="lazy"
         className="location-panorama__image absolute inset-0 -z-20 h-full w-full object-cover"
+        style={reducedMotion ? undefined : { x: imageX, scale: imageScale }}
       />
 
       <div aria-hidden="true" className="location-panorama__shade absolute inset-0 -z-10" />
+      {!reducedMotion && (
+        <motion.span aria-hidden="true" className="location-panorama__ghost" style={{ x: ghostX }}>
+          {location.city}
+        </motion.span>
+      )}
+      <motion.div
+        aria-hidden="true"
+        className="location-panorama__spotlight"
+        style={{ x: spotlightX, y: spotlightY }}
+      />
 
       <Container className="location-panorama__content">
         <div data-reveal className="location-panorama__copy">

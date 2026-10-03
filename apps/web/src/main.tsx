@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router/dom'
 import { AppProviders } from '@/app/app-providers'
 import { router } from '@/app/router'
+import 'lenis/dist/lenis.css'
 import './index.css'
 import './features/landing/landing-editorial.css'
 

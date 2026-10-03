@@ -4,7 +4,10 @@ import type { LocationsGridProps } from './types'
 
 export function LocationsGrid({ eyebrow, heading, subheading }: LocationsGridProps) {
   return (
-    <section aria-labelledby="locations-heading" className="locations-section photo-surface">
+    <section
+      aria-labelledby="locations-heading"
+      className="locations-section photo-surface theme-dark"
+    >
       <div className="sr-only">
         {eyebrow && (
           <p className="text-sm font-medium tracking-[0.18em] text-brand-blue">{eyebrow}</p>

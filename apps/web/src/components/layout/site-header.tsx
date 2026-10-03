@@ -1,8 +1,10 @@
 import { Moon, Sun } from 'lucide-react'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import wordmark from '../../assets/brand/wordmark.png'
+import { useLocation } from 'react-router'
 import { Button } from '../ui/button'
 import { Container } from '../ui/container'
+import { Wordmark } from '../ui/Wordmark'
+import { SectionLink } from './section-link'
 
 const navigationItems = [
   { label: 'Inicio', href: '#inicio' },
@@ -12,7 +14,7 @@ const navigationItems = [
   { label: 'Speakers', href: '#speakers' },
   { label: 'Patrocinadores', href: '#patrocinadores' },
   { label: 'FAQ', href: '#faq' },
-]
+] as const
 
 export function SiteHeader() {
   const menuToggle = useRef<HTMLButtonElement>(null)
@@ -24,6 +26,9 @@ export function SiteHeader() {
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
     return window.localStorage.getItem('dataijam-theme') === 'light' ? 'light' : 'dark'
   })
+  const { pathname } = useLocation()
+  const onHome = pathname === '/'
+  const isActive = (href: string) => onHome && activeHref === href
 
   useLayoutEffect(() => {
     const list = navListRef.current
@@ -82,7 +87,7 @@ export function SiteHeader() {
 
     sections.forEach((section) => observer.observe(section))
     return () => observer.disconnect()
-  }, [])
+  }, [pathname])
 
   useEffect(() => {
     const desktop = window.matchMedia('(min-width: 1024px)')
@@ -105,30 +110,18 @@ export function SiteHeader() {
           menuToggle.current?.focus()
         }
       }}
-      className="site-header sticky top-0 z-50 bg-brand-navy/80 backdrop-blur-sm"
+      className="site-header sticky top-0 z-50 bg-brand-navy/90 backdrop-blur-sm"
     >
       <Container>
         <div className="grid min-h-24 grid-cols-[auto_1fr_auto] items-center gap-6 py-4">
-          <a
+          <SectionLink
             href="#inicio"
             aria-label="Ir al inicio de DatAIJam"
             className="shrink-0"
             onClick={closeMenu}
           >
-            <span className="relative block">
-              <img
-                src={wordmark}
-                alt="DatAIJam"
-                className="site-header__wordmark h-8 w-auto sm:h-9"
-              />
-              <img
-                src={wordmark}
-                alt=""
-                aria-hidden="true"
-                className="site-header__wordmark-accent pointer-events-none absolute inset-0 h-8 w-auto sm:h-9"
-              />
-            </span>
-          </a>
+            <Wordmark className="block" imageClassName="h-8 w-auto sm:h-9" />
+          </SectionLink>
 
           <nav aria-label="Navegación principal" className="hidden justify-center lg:flex">
             <ul ref={navListRef} className="relative flex items-center gap-5 xl:gap-6">
@@ -136,7 +129,7 @@ export function SiteHeader() {
                 aria-hidden="true"
                 className="nav-indicator"
                 style={
-                  navIndicator
+                  onHome && navIndicator
                     ? {
                         transform: `translateX(${navIndicator.left}px)`,
                         width: `${navIndicator.width}px`,
@@ -147,13 +140,13 @@ export function SiteHeader() {
               />
               {navigationItems.map((item) => (
                 <li key={item.href}>
-                  <a
+                  <SectionLink
                     href={item.href}
-                    aria-current={activeHref === item.href ? 'true' : undefined}
+                    aria-current={isActive(item.href) ? 'true' : undefined}
                     className="motion-link relative py-2 text-sm font-medium text-brand-gray hover:text-brand-white"
                   >
                     {item.label}
-                  </a>
+                  </SectionLink>
                 </li>
               ))}
             </ul>
@@ -161,8 +154,8 @@ export function SiteHeader() {
 
           <div className="col-start-3 flex items-center gap-3 justify-self-end">
             <div className="hidden lg:block">
-              <Button as="a" href="#registro" variant="primary" className="group">
-                Inscribete{' '}
+              <Button as={SectionLink} href="#registro" variant="primary" className="group">
+                Inscríbete{' '}
                 <span
                   aria-hidden="true"
                   className="transition-transform duration-[var(--motion-duration)] group-hover:translate-x-1 group-active:translate-x-0"
@@ -216,29 +209,29 @@ export function SiteHeader() {
           <ul className="flex flex-col gap-4">
             {navigationItems.map((item) => (
               <li key={item.href}>
-                <a
+                <SectionLink
                   href={item.href}
-                  aria-current={activeHref === item.href ? 'true' : undefined}
+                  aria-current={isActive(item.href) ? 'true' : undefined}
                   className={`block text-base font-medium transition-colors hover:text-brand-lime ${
-                    activeHref === item.href ? 'text-brand-lime' : 'text-brand-white'
+                    isActive(item.href) ? 'text-brand-lime' : 'text-brand-white'
                   }`}
                   onClick={closeMenu}
                 >
                   {item.label}
-                </a>
+                </SectionLink>
               </li>
             ))}
 
             <li className="pt-2">
               <Button
-                as="a"
+                as={SectionLink}
                 href="#registro"
                 variant="primary"
                 fullWidth
                 className="group"
                 onClick={closeMenu}
               >
-                Inscribete{' '}
+                Inscríbete{' '}
                 <span
                   aria-hidden="true"
                   className="transition-transform duration-[var(--motion-duration)] group-hover:translate-x-1 group-active:translate-x-0"

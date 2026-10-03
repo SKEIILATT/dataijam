@@ -1,0 +1,218 @@
+.scroll-expand {
+  --scroll-expand-inset-y: 27%;
+  --scroll-expand-inset-x: 36%;
+  --scroll-expand-radius: var(--radius-card);
+  --stream-duration: 36s;
+  --stream-panels: 6;
+  --panel-w: clamp(132px, 22vw, 340px);
+  --panel-h: calc(var(--panel-w) * 1.25);
+  --wall-x: clamp(170px, 40vw, 620px);
+  --wall-angle: 64deg;
+  --gap: calc(var(--panel-w) * 0.85);
+  position: relative;
+  height: 260vh;
+  background: var(--color-brand-navy);
+  color: var(--color-brand-white);
+}
+
+.scroll-expand__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Opacity lives here, outside the preserve-3d track, so fading never flattens the corridor. */
+.scroll-expand__corridor {
+  position: absolute;
+  inset: 0;
+  perspective: 1000px;
+  pointer-events: none;
+}
+
+.scroll-expand__track {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+.scroll-expand__panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--panel-w);
+  height: var(--panel-h);
+  margin: calc(var(--panel-h) / -2) 0 0 calc(var(--panel-w) / -2);
+  overflow: hidden;
+  border-radius: 12px;
+  opacity: 0;
+  backface-visibility: hidden;
+  animation: scroll-expand-stream var(--stream-duration) linear infinite paused;
+  /* Evenly spaced along each wall; the right wall is offset half a step. */
+  animation-delay: calc(
+    var(--stream-duration) * (var(--index) + (var(--side) + 1) / 4) / var(--stream-panels) * -1
+  );
+}
+
+.scroll-expand.is-streaming .scroll-expand__panel {
+  animation-play-state: running;
+}
+
+.scroll-expand__panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(1.1) brightness(0.85);
+}
+
+@keyframes scroll-expand-stream {
+  0% {
+    opacity: 0;
+    transform: translateX(calc(var(--side) * var(--wall-x)))
+      translateZ(calc(var(--gap) * var(--stream-panels) * -1))
+      rotateY(calc(var(--side) * var(--wall-angle) * -1));
+  }
+  14%,
+  82% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(calc(var(--side) * var(--wall-x))) translateZ(var(--gap))
+      rotateY(calc(var(--side) * var(--wall-angle) * -1));
+  }
+}
+
+.scroll-expand__media {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  clip-path: inset(
+    var(--scroll-expand-inset-y) var(--scroll-expand-inset-x) round var(--scroll-expand-radius)
+  );
+}
+
+.scroll-expand__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.scroll-expand__veil {
+  position: absolute;
+  inset: 0;
+  background: var(--color-brand-navy);
+  opacity: 0.55;
+}
+
+.scroll-expand__veil-end {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-brand-navy) 92%, transparent) 0%,
+      color-mix(in srgb, var(--color-brand-navy) 70%, transparent) 42%,
+      transparent 78%
+    ),
+    linear-gradient(
+      0deg,
+      color-mix(in srgb, var(--color-brand-navy) 75%, transparent) 0%,
+      transparent 45%
+    );
+}
+
+.scroll-expand__headline {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  pointer-events: none;
+  text-shadow: 0 2px 28px color-mix(in srgb, var(--color-brand-navy) 80%, transparent);
+}
+
+.scroll-expand__hint {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.scroll-expand__hint-icon {
+  animation: scroll-expand-nudge 1.6s var(--motion-easing) infinite;
+}
+
+@keyframes scroll-expand-nudge {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+.scroll-expand__content {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 3;
+  padding-bottom: clamp(48px, 10vh, 112px);
+}
+
+@media (max-width: 767px) {
+  .scroll-expand {
+    --scroll-expand-inset-y: 25%;
+    --scroll-expand-inset-x: 20%;
+    --wall-angle: 58deg;
+    height: 230vh;
+  }
+}
+
+.scroll-expand--static {
+  height: auto;
+}
+
+.scroll-expand--static .scroll-expand__stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 24px;
+  height: auto;
+  min-height: 100svh;
+  padding-block: 96px clamp(48px, 10vh, 112px);
+}
+
+.scroll-expand--static .scroll-expand__media {
+  clip-path: none;
+}
+
+.scroll-expand--static .scroll-expand__veil {
+  opacity: 0.2;
+}
+
+.scroll-expand--static .scroll-expand__veil-end {
+  opacity: 1;
+}
+
+.scroll-expand--static .scroll-expand__headline,
+.scroll-expand--static .scroll-expand__content {
+  position: relative;
+  inset: auto;
+  padding-bottom: 0;
+}
+
+.scroll-expand--static .scroll-expand__headline {
+  place-items: start;
+  text-align: start;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-expand__hint-icon {
+    animation: none;
+  }
+}

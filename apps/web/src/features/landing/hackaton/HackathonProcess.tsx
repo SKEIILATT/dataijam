@@ -1,11 +1,14 @@
-import { ArrowUpRight, CalendarDays, Users } from 'lucide-react'
+import { ArrowUpRight, CalendarDays, ChevronDown, Users } from 'lucide-react'
+import { AnimatePresence, motion } from 'motion/react'
+import { useId, useState } from 'react'
 
-import { Container } from '@/components/ui/container'
 import { Button } from '@/components/ui/button'
+import { Container } from '@/components/ui/container'
+import { GridPulse } from '@/components/ui/GridPulse'
+import { usePrefersReducedMotion } from '@/components/ui/use-prefers-reduced-motion'
 
 import { HackathonEvaluation } from './HackathonEvaluation'
-import { HackathonStep } from './HackathonStep'
-import { steps } from './hackathon.data'
+import { HackathonWeeks } from './HackathonWeeks'
 
 interface HackathonProcessProps {
   eyebrow: string
@@ -14,9 +17,14 @@ interface HackathonProcessProps {
 }
 
 export function HackathonProcess({ eyebrow, heading, subheading }: HackathonProcessProps) {
+  const [rubricsOpen, setRubricsOpen] = useState(false)
+  const rubricsId = useId()
+  const reducedMotion = usePrefersReducedMotion()
+
   return (
     <section aria-labelledby="hackathon-process-heading" className="ds-section hackathon-section">
-      <Container>
+      <GridPulse />
+      <Container className="hackathon-section__content">
         <div data-reveal className="hackathon-intro max-w-2xl">
           <p className="text-sm font-medium tracking-[0.18em] text-brand-cyan uppercase">
             {eyebrow}
@@ -45,20 +53,49 @@ export function HackathonProcess({ eyebrow, heading, subheading }: HackathonProc
           </div>
         </div>
 
-        <ol data-stagger className="hackathon-timeline" aria-label="Semanas del hackathon">
-          {steps.map((step, index) => (
-            <HackathonStep key={step.title} step={step} index={index} />
-          ))}
-        </ol>
+        <HackathonWeeks />
 
-        <section className="hackathon-evaluation" aria-labelledby="evaluation-heading">
+        <section
+          data-reveal
+          className="hackathon-evaluation"
+          data-open={rubricsOpen}
+          aria-labelledby="evaluation-heading"
+        >
           <header className="hackathon-evaluation__heading">
-            <h3 id="evaluation-heading" className="text-brand-white">
-              ¿Cómo se evalúan los proyectos?
-            </h3>
-            <p className="mt-2 text-sm text-brand-gray">Consulta los criterios y sus porcentajes</p>
+            <div>
+              <h3 id="evaluation-heading" className="text-brand-white">
+                ¿Cómo se evalúan los proyectos?
+              </h3>
+              <p className="mt-2 text-sm text-brand-gray">
+                Dos rúbricas: una eliminatoria en la semana 2 y la final del jurado en la semana 4.
+              </p>
+            </div>
+            <button
+              type="button"
+              aria-expanded={rubricsOpen}
+              aria-controls={rubricsId}
+              onClick={() => setRubricsOpen((open) => !open)}
+              className="ds-button ds-button--secondary hackathon-evaluation__toggle"
+            >
+              {rubricsOpen ? 'Ocultar criterios' : 'Ver criterios'}
+              <ChevronDown aria-hidden="true" className="size-4" />
+            </button>
           </header>
-          <HackathonEvaluation />
+          <AnimatePresence initial={false}>
+            {rubricsOpen && (
+              <motion.div
+                id={rubricsId}
+                key="rubrics"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: reducedMotion ? 0 : 0.45, ease: [0.22, 1, 0.36, 1] }}
+                className="overflow-hidden"
+              >
+                <HackathonEvaluation />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </section>
       </Container>
     </section>

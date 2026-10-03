@@ -1,6 +1,16 @@
-import { MoveUpRight, Plus } from 'lucide-react'
+import { MoveUpRight, Sparkles } from 'lucide-react'
+import {
+  motion,
+  useInView,
+  useMotionValueEvent,
+  useScroll,
+  useSpring,
+  useTransform,
+  useVelocity,
+} from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
 import { Container } from '@/components/ui/container'
+import { usePrefersReducedMotion } from '@/components/ui/use-prefers-reduced-motion'
 import { sponsors } from './sponsors.data'
 import type { Sponsor } from './sponsors.data'
 
@@ -37,8 +47,36 @@ function SponsorLogo({ sponsor, decorative = false }: { sponsor: Sponsor; decora
 
 export function Sponsors() {
   const viewport = useRef<HTMLDivElement>(null)
+  const track = useRef<HTMLDivElement>(null)
   const hasSponsors = sponsors.length > 0
   const itemCount = hasSponsors ? Math.ceil(6 / sponsors.length) * sponsors.length : 6
+  const reducedMotion = usePrefersReducedMotion()
+  // The ribbon reacts to scroll speed: it rushes, leans, and runs backwards when scrolling up.
+  const { scrollY } = useScroll()
+  const velocity = useSpring(useVelocity(scrollY), { damping: 50, stiffness: 300 })
+  const skewX = useTransform(velocity, [-2500, 0, 2500], [7, 0, -7], { clamp: true })
+
+  const ribbonInView = useInView(viewport, { margin: '20% 0px' })
+  const drift = useRef<{ animation: Animation | null; rate: number }>({ animation: null, rate: 1 })
+
+  // Only while the ribbon is visible, and only on real rate changes: touching a CSS
+  // animation flushes style, which must not happen on every frame of the page scroll.
+  useMotionValueEvent(velocity, 'change', (speed) => {
+    if (reducedMotion || !ribbonInView) return
+    const rate = Math.round(Math.min(6, Math.max(-4, 1 + speed / 280)) * 10) / 10
+    if (rate === drift.current.rate) return
+    const animation = drift.current.animation ?? track.current?.getAnimations()[0] ?? null
+    drift.current = { animation, rate }
+    if (animation) animation.playbackRate = rate
+  })
+
+  useEffect(() => {
+    if (ribbonInView) return
+    const { animation } = drift.current
+    if (animation) animation.playbackRate = 1
+    // Re-read next time: keyboard focus swaps the CSS animation for a new instance.
+    drift.current = { animation: null, rate: 1 }
+  }, [ribbonInView])
 
   useEffect(() => {
     const element = viewport.current
@@ -99,11 +137,15 @@ export function Sponsors() {
           role="region"
           aria-label="Patrocinadores del evento"
         >
-          <div className="sponsors-track">
+          <motion.div
+            ref={track}
+            className="sponsors-track"
+            style={reducedMotion ? undefined : { skewX }}
+          >
             {[0, 1].map((copy) => (
               <ul key={copy} className="sponsors-group" aria-hidden={copy === 1 ? true : undefined}>
                 {Array.from({ length: itemCount }, (_, index) => {
-                  const duplicate = copy === 1 || (hasSponsors && index >= sponsors.length)
+                  const duplicate = copy === 1 || index >= (hasSponsors ? sponsors.length : 1)
                   return (
                     <li
                       key={index}
@@ -116,13 +158,18 @@ export function Sponsors() {
                           decorative={duplicate}
                         />
                       ) : (
-                        <div className="sponsor-placeholder">
-                          <span className="sponsor-placeholder__number">
-                            {String(index + 1).padStart(2, '0')}
+                        <div
+                          className="sponsor-placeholder sponsor-mystery"
+                          data-variant={index % 3}
+                        >
+                          <span className="sponsor-mystery__logo" aria-hidden="true">
+                            <span className="sponsor-mystery__mark" />
+                            <span className="sponsor-mystery__word" />
                           </span>
-                          <Plus aria-hidden="true" className="size-7" />
-                          <span className="text-sm font-medium">Tu marca aquí</span>
-                          <span className="text-xs text-brand-gray">Impulsa el próximo paso</span>
+                          <span className="sponsor-mystery__label">
+                            <Sparkles aria-hidden="true" className="size-3.5" />
+                            Pronto se revelará
+                          </span>
                         </div>
                       )}
                     </li>
@@ -130,15 +177,13 @@ export function Sponsors() {
                 })}
               </ul>
             ))}
-          </div>
+          </motion.div>
         </div>
-        <Container>
-          <p className="mt-4 text-xs text-brand-gray">
-            {hasSponsors
-              ? 'Alianzas que impulsan nuestra comunidad.'
-              : 'Patrocinadores por confirmar · Espacios ilustrativos'}
-          </p>
-        </Container>
+        {hasSponsors && (
+          <Container>
+            <p className="mt-4 text-xs text-brand-gray">Alianzas que impulsan nuestra comunidad.</p>
+          </Container>
+        )}
       </div>
     </section>
   )

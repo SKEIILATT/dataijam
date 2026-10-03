@@ -1,8 +1,10 @@
-import { FaInstagram, FaLinkedinIn, FaTiktok, FaYoutube } from 'react-icons/fa6'
+import { FaInstagram } from 'react-icons/fa6'
+import { Link } from 'react-router'
 import symbol from '../../assets/brand/symbol.svg'
-import wordmark from '../../assets/brand/wordmark.png'
 import { ScrollReveal } from '../ui/scroll-reveal'
 import { Container } from '../ui/container'
+import { Wordmark } from '../ui/Wordmark'
+import { SectionLink } from './section-link'
 
 const navigationItems = [
   { label: 'Inicio', href: '#inicio' },
@@ -12,13 +14,15 @@ const navigationItems = [
   { label: 'Speakers', href: '#speakers' },
   { label: 'Patrocinadores', href: '#patrocinadores' },
   { label: 'FAQ', href: '#faq' },
-]
+] as const
 
 const socialNetworks = [
-  { label: 'LinkedIn', Icon: FaLinkedinIn },
-  { label: 'Instagram', Icon: FaInstagram },
-  { label: 'YouTube', Icon: FaYoutube },
-  { label: 'TikTok', Icon: FaTiktok },
+  {
+    label: 'Instagram',
+    handle: '@dataijam',
+    href: 'https://www.instagram.com/dataijam/',
+    Icon: FaInstagram,
+  },
 ]
 
 export function SiteFooter() {
@@ -29,7 +33,7 @@ export function SiteFooter() {
           <div data-reveal="fade" className="grid gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
             <div className="footer-brand">
               <img src={symbol} alt="" className="w-20" />
-              <img src={wordmark} alt="DatAIJam" className="footer-brand__wordmark" />
+              <Wordmark className="footer-brand__wordmark" imageClassName="h-auto w-full" />
               <p className="text-xs tracking-[0.12em] text-footer-ink/70">
                 DATOS · PERSONAS · ACCIÓN
               </p>
@@ -40,12 +44,12 @@ export function SiteFooter() {
               <ul className="mt-4 space-y-3">
                 {navigationItems.map((item) => (
                   <li key={item.href}>
-                    <a
+                    <SectionLink
                       href={item.href}
                       className="text-sm text-footer-ink/70 transition-colors hover:text-footer-accent"
                     >
                       {item.label}
-                    </a>
+                    </SectionLink>
                   </li>
                 ))}
               </ul>
@@ -54,19 +58,23 @@ export function SiteFooter() {
             <div className="lg:border-l lg:border-brand-gray/35 lg:pl-8">
               <h2 className="ds-card-title text-footer-ink">Redes</h2>
               <ul className="mt-4 flex flex-wrap gap-3">
-                {socialNetworks.map(({ label, Icon }) => (
+                {socialNetworks.map(({ label, handle, href, Icon }) => (
                   <li key={label}>
-                    <span
-                      aria-label={label}
-                      title={`${label}: enlace pendiente`}
-                      className="inline-flex size-12 items-center justify-center rounded-full border border-footer-ink/20 text-footer-ink "
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group inline-flex items-center gap-3 text-sm text-footer-ink/70 transition-colors hover:text-footer-accent"
                     >
-                      <Icon aria-hidden="true" className="size-4" />
-                    </span>
+                      <span className="inline-flex size-12 items-center justify-center rounded-full border border-footer-ink/20 text-footer-ink transition-colors group-hover:border-footer-accent group-hover:text-footer-accent">
+                        <Icon aria-hidden="true" className="size-4" />
+                      </span>
+                      {handle}
+                      <span className="sr-only"> en {label} (abre en otra pestaña)</span>
+                    </a>
                   </li>
                 ))}
               </ul>
-              <p className="mt-3 text-xs text-footer-ink/60">Canales oficiales próximamente.</p>
             </div>
 
             <div className="lg:border-l lg:border-brand-gray/35 lg:pl-8">
@@ -89,10 +97,14 @@ export function SiteFooter() {
           <div className="mt-12 flex flex-col gap-4 border-t border-footer-ink/10 pt-6 text-xs text-footer-ink/55 sm:flex-row sm:items-center sm:justify-between">
             <p>© 2026 DatAIJam. Todos los derechos reservados.</p>
 
-            <div className="flex gap-5">
-              <span title="Contenido pendiente de publicación">Términos (próximamente)</span>
-              <span title="Contenido pendiente de publicación">Privacidad (próximamente)</span>
-            </div>
+            <nav aria-label="Legal" className="flex gap-5">
+              <Link to="/terminos" className="transition-colors hover:text-footer-accent">
+                Términos y condiciones
+              </Link>
+              <Link to="/privacidad" className="transition-colors hover:text-footer-accent">
+                Política de privacidad
+              </Link>
+            </nav>
           </div>
         </Container>
       </ScrollReveal>

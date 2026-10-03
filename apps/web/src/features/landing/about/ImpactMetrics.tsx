@@ -1,3 +1,5 @@
+import { CountUp } from '@/components/ui/CountUp'
+
 import { impactMetrics } from './about.data'
 
 export function ImpactMetrics() {
@@ -19,7 +21,13 @@ export function ImpactMetrics() {
               <dd className="flex items-center gap-2 text-h3 font-semibold text-brand-white">
                 <Icon aria-hidden="true" className="size-6 text-brand-cyan" />
                 <span className={metric.value === '—' ? 'community-metric__pending' : undefined}>
-                  {metric.value === '—' ? 'Pronto' : metric.value}
+                  {metric.value === '—' ? (
+                    'Pronto'
+                  ) : /^\d+$/.test(metric.value) ? (
+                    <CountUp value={Number(metric.value)} />
+                  ) : (
+                    metric.value
+                  )}
                 </span>
               </dd>
             </div>

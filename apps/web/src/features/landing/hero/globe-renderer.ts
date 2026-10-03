@@ -13,6 +13,7 @@ uniform sampler2D earth;
 uniform float angle;
 uniform float elapsed;
 uniform vec3 accent;
+uniform float daylight;
 const float PI = 3.14159265359;
 float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1,311.7))) * 43758.5453); }
 void main() {
@@ -32,6 +33,9 @@ void main() {
   float light = .28 + .72*max(dot(n,normalize(vec3(-.5,.7,1.4))),0.);
   float land = smoothstep(.015,.09,max(albedo.r,albedo.g)-albedo.b*.75);
   vec3 color = mix(vec3(.012,.07,.16), albedo*vec3(.5,.85,1.15), .78)*light;
+  // Light theme: its own day palette (sky ocean, brand turquoise land), not a lifted night.
+  vec3 dayBase = mix(vec3(.76,.88,.98), vec3(.40,.70,.66) + albedo*.22, land)*(.8 + .2*light);
+  color = mix(color, dayBase, daylight);
   // A sparse network of great-circle routes rotates with the surface.
   float routes = 0.;
   float sparks = 0.;
@@ -136,6 +140,22 @@ export function createGlobeRenderer(canvas: HTMLCanvasElement, textureUrl: strin
   const rotation = gl.getUniformLocation(program!, 'angle')
   const clock = gl.getUniformLocation(program!, 'elapsed')
   const accent = gl.getUniformLocation(program!, 'accent')
+  const daylight = gl.getUniformLocation(program!, 'daylight')
+  let accentRgb = [0.03, 0.8, 0.94]
+  let isLight = false
+
+  // Read theme tokens only when the theme changes: getComputedStyle every frame
+  // forced a style recalculation per frame while the page was scrolling.
+  function readTheme() {
+    const token = getComputedStyle(canvas).getPropertyValue('--color-brand-cyan').trim()
+    if (/^#[0-9a-f]{6}$/i.test(token)) {
+      accentRgb = token
+        .slice(1)
+        .match(/../g)!
+        .map((value) => parseInt(value, 16) / 255)
+    }
+    isLight = document.documentElement.dataset.theme === 'light'
+  }
 
   function draw(time: number) {
     frame = 0
@@ -150,9 +170,10 @@ export function createGlobeRenderer(canvas: HTMLCanvasElement, textureUrl: strin
       elapsed = (elapsed + delta) % 120
     }
     previousTime = running ? time : 0
+    // A decorative backdrop: capping density keeps the per-pixel shader affordable.
     const size = Math.min(
-      2048,
-      Math.round(canvas.clientWidth * Math.min(window.devicePixelRatio || 1, 2)),
+      1400,
+      Math.round(canvas.clientWidth * Math.min(window.devicePixelRatio || 1, 1.5)),
     )
     if (canvas.width !== size) {
       canvas.width = size
@@ -161,14 +182,8 @@ export function createGlobeRenderer(canvas: HTMLCanvasElement, textureUrl: strin
     gl!.viewport(0, 0, canvas.width, canvas.height)
     gl!.uniform1f(rotation, angle)
     gl!.uniform1f(clock, elapsed)
-    const token = getComputedStyle(canvas).getPropertyValue('--color-brand-cyan').trim()
-    const rgb = /^#[0-9a-f]{6}$/i.test(token)
-      ? token
-          .slice(1)
-          .match(/../g)!
-          .map((value) => parseInt(value, 16) / 255)
-      : [0.03, 0.8, 0.94]
-    gl!.uniform3f(accent, rgb[0], rgb[1], rgb[2])
+    gl!.uniform3f(accent, accentRgb[0], accentRgb[1], accentRgb[2])
+    gl!.uniform1f(daylight, isLight ? 1 : 0)
     gl!.drawArrays(gl!.TRIANGLES, 0, 6)
     canvas.dataset.ready = 'true'
     if (running) frame = requestAnimationFrame(draw)
@@ -177,6 +192,7 @@ export function createGlobeRenderer(canvas: HTMLCanvasElement, textureUrl: strin
   function refresh() {
     cancelAnimationFrame(frame)
     previousTime = 0
+    readTheme()
     draw(performance.now())
   }
 

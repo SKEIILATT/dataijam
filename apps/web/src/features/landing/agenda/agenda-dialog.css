@@ -1,0 +1,287 @@
+/* Portaled to <body>, so only global tokens are available here. */
+.agenda-dialog {
+  width: min(680px, calc(100vw - 32px));
+  max-width: none;
+  max-height: min(88dvh, 860px);
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--color-brand-cyan) 28%, transparent);
+  border-radius: 28px;
+  color: var(--color-brand-white);
+  background:
+    radial-gradient(
+      ellipse at 100% 0%,
+      color-mix(in srgb, var(--color-brand-blue) 20%, transparent),
+      transparent 60%
+    ),
+    var(--color-brand-navy);
+  box-shadow: 0 24px 80px rgb(3 19 38 / 0.5);
+}
+
+.agenda-dialog[open] {
+  display: flex;
+  animation: agenda-dialog-in 420ms var(--motion-easing) both;
+}
+
+.agenda-dialog::backdrop {
+  background: rgb(3 19 38 / 0.65);
+  backdrop-filter: blur(6px);
+  animation: agenda-backdrop-in 300ms ease both;
+}
+
+.agenda-dialog[data-closing] {
+  animation: agenda-dialog-out 220ms ease-in both;
+}
+
+.agenda-dialog[data-closing]::backdrop {
+  animation: agenda-backdrop-out 220ms ease-in both;
+}
+
+.agenda-dialog__panel {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.agenda-dialog__header {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 28px 28px 20px;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-brand-cyan) 18%, transparent);
+}
+
+.agenda-dialog__header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 28px;
+  right: 28px;
+  height: 2px;
+  background: var(--edge-gradient);
+}
+
+.agenda-dialog__close {
+  display: grid;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--color-brand-cyan) 25%, transparent);
+  border-radius: 50%;
+  color: var(--color-brand-white);
+  cursor: pointer;
+  transition:
+    border-color var(--motion-duration) var(--motion-easing),
+    rotate var(--motion-normal) var(--motion-easing);
+}
+
+.agenda-dialog__close:hover {
+  border-color: var(--color-brand-cyan);
+  rotate: 90deg;
+}
+
+.agenda-dialog__list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 12px 20px;
+}
+
+.agenda-dialog__footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px 28px 24px;
+  border-top: 1px solid color-mix(in srgb, var(--color-brand-cyan) 18%, transparent);
+}
+
+.agenda-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 56px 28px minmax(0, 1fr);
+  align-items: start;
+  column-gap: 16px;
+  padding: 12px 8px;
+  border-radius: 14px;
+  transition: background-color var(--motion-duration) var(--motion-easing);
+  animation: agenda-row-in 480ms var(--motion-easing) both;
+  animation-delay: calc(140ms + var(--i) * 40ms);
+}
+
+.agenda-item:hover {
+  background: color-mix(in srgb, var(--color-brand-cyan) 6%, transparent);
+}
+
+/* Rail from this dot down to the next one. */
+.agenda-item:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  bottom: -12px;
+  left: calc(8px + 56px + 16px + 13px);
+  width: 2px;
+  background: color-mix(in srgb, var(--color-brand-cyan) 22%, transparent);
+}
+
+.agenda-item__time {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.3;
+}
+
+.agenda-item__time time + time {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-brand-gray);
+}
+
+.agenda-item__dot {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--color-brand-cyan) 35%, transparent);
+  border-radius: 50%;
+  color: var(--color-brand-cyan);
+  background: var(--color-brand-navy);
+}
+
+.agenda-item:is([data-kind='opening'], [data-kind='closing']) .agenda-item__dot {
+  border: 0;
+  color: #031326;
+  background: var(--edge-gradient);
+}
+
+.agenda-item[data-kind='break'] .agenda-item__dot {
+  border-style: dashed;
+  color: var(--color-brand-yellow);
+}
+
+.agenda-item__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.agenda-item[data-kind='break'] .agenda-item__title {
+  color: var(--color-brand-gray);
+}
+
+.agenda-item__detail {
+  margin-top: 2px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--color-brand-gray);
+}
+
+.agenda-item__redacted {
+  filter: blur(5px);
+  user-select: none;
+}
+
+.agenda-item__teaser {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border: 1px solid color-mix(in srgb, var(--color-brand-cyan) 35%, transparent);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-brand-cyan);
+}
+
+@keyframes agenda-dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+}
+
+@keyframes agenda-dialog-out {
+  to {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+}
+
+@keyframes agenda-backdrop-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes agenda-backdrop-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes agenda-row-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@media (max-width: 639px) {
+  .agenda-dialog__header {
+    padding: 24px 20px 16px;
+  }
+  .agenda-dialog__header::before {
+    left: 20px;
+    right: 20px;
+  }
+  .agenda-dialog__list {
+    padding-inline: 8px;
+  }
+  .agenda-dialog__footer {
+    padding: 14px 20px 20px;
+  }
+  .agenda-dialog__footer .ds-button {
+    width: 100%;
+    justify-content: center;
+  }
+  .agenda-item {
+    grid-template-columns: 48px 28px minmax(0, 1fr);
+    column-gap: 12px;
+  }
+  .agenda-item:not(:last-child)::before {
+    left: calc(8px + 48px + 12px + 13px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agenda-dialog[open],
+  .agenda-dialog::backdrop,
+  .agenda-item {
+    animation: none;
+  }
+  .agenda-dialog__close:hover {
+    rotate: none;
+  }
+}
+
+.agenda-dialog__list:focus-visible {
+  outline: 2px solid var(--color-brand-cyan);
+  outline-offset: -2px;
+}

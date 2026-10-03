@@ -1,8 +1,10 @@
-import { ArrowLeft, ArrowRight, Pause, Play } from 'lucide-react'
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { useScroll } from 'motion/react'
+import { useCallback, useRef, useState, useSyncExternalStore } from 'react'
 
 import { SpeakerCard } from './SpeakerCard'
-import type { Speaker } from './types'
+import { SpeakerMysteryCard } from './SpeakerMysteryCard'
+import type { Speaker, UpcomingSpeaker } from './types'
 
 const reducedMotionQuery = '(prefers-reduced-motion: reduce)'
 
@@ -22,8 +24,18 @@ function getColumns() {
       : 1
 }
 
-export function SpeakerCarousel({ speakers }: { speakers: Speaker[] }) {
+export function SpeakerCarousel({
+  speakers,
+  upcoming,
+}: {
+  speakers: Speaker[]
+  upcoming: UpcomingSpeaker[]
+}) {
   const viewport = useRef<HTMLUListElement>(null)
+  const { scrollYProgress: deal } = useScroll({
+    target: viewport,
+    offset: ['start 0.85', 'start 0.3'],
+  })
   const columns = useSyncExternalStore(subscribeLayout, getColumns, () => 4)
   const reducedMotion = useSyncExternalStore(
     subscribeLayout,
@@ -31,15 +43,8 @@ export function SpeakerCarousel({ speakers }: { speakers: Speaker[] }) {
     () => true,
   )
   const [page, setPage] = useState(0)
-  const [paused, setPaused] = useState(false)
-  const [hovered, setHovered] = useState(false)
-  const [focused, setFocused] = useState(false)
-  const [visible, setVisible] = useState(false)
-  const [hidden, setHidden] = useState(() => document.hidden)
-  const pageCount = Math.ceil(speakers.length / columns)
+  const pageCount = Math.ceil((speakers.length + upcoming.length) / columns)
   const activePage = Math.min(page, pageCount - 1)
-  const rotating =
-    pageCount > 1 && !paused && !hovered && !focused && visible && !hidden && !reducedMotion
 
   const goTo = useCallback(
     (nextPage: number) => {
@@ -56,39 +61,12 @@ export function SpeakerCarousel({ speakers }: { speakers: Speaker[] }) {
     [columns, pageCount, reducedMotion],
   )
 
-  useEffect(() => {
-    const list = viewport.current
-    if (!list) return
-    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), {
-      threshold: 0.5,
-    })
-    observer.observe(list)
-    const onVisibility = () => setHidden(document.hidden)
-    document.addEventListener('visibilitychange', onVisibility)
-    return () => {
-      observer.disconnect()
-      document.removeEventListener('visibilitychange', onVisibility)
-    }
-  }, [])
-
-  useEffect(() => {
-    if (!rotating) return
-    const timer = window.setInterval(() => goTo(activePage + 1), 6000)
-    return () => window.clearInterval(timer)
-  }, [rotating, activePage, goTo])
-
   return (
     <div
       className="speaker-carousel ds-content-gap"
       role="region"
       aria-roledescription={pageCount > 1 ? 'carrusel' : undefined}
       aria-label="Speakers del evento"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onFocus={() => setFocused(true)}
-      onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false)
-      }}
     >
       <ul
         ref={viewport}
@@ -96,11 +74,9 @@ export function SpeakerCarousel({ speakers }: { speakers: Speaker[] }) {
         className="speaker-carousel__viewport"
         aria-label="Ponentes"
         tabIndex={pageCount > 1 ? 0 : undefined}
-        onPointerDown={() => setPaused(true)}
         onKeyDown={(event) => {
           if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return
           event.preventDefault()
-          setPaused(true)
           goTo(activePage + (event.key === 'ArrowLeft' ? -1 : 1))
         }}
         onScroll={() => {
@@ -114,7 +90,22 @@ export function SpeakerCarousel({ speakers }: { speakers: Speaker[] }) {
         }}
       >
         {speakers.map((speaker, index) => (
-          <SpeakerCard key={`${speaker.name}-${index}`} speaker={speaker} />
+          <SpeakerCard
+            key={speaker.name}
+            speaker={speaker}
+            index={index}
+            columns={columns}
+            deal={deal}
+          />
+        ))}
+        {upcoming.map((speaker, index) => (
+          <SpeakerMysteryCard
+            key={speaker.name ?? `upcoming-${index}`}
+            name={speaker.name}
+            index={speakers.length + index}
+            columns={columns}
+            deal={deal}
+          />
         ))}
       </ul>
 
@@ -128,40 +119,19 @@ export function SpeakerCarousel({ speakers }: { speakers: Speaker[] }) {
                 aria-label={`Ver página ${index + 1} de ${pageCount}`}
                 aria-current={index === activePage ? 'true' : undefined}
                 aria-controls="speaker-carousel-slides"
-                onClick={() => {
-                  setPaused(true)
-                  goTo(index)
-                }}
+                onClick={() => goTo(index)}
               >
                 <span />
               </button>
             ))}
           </div>
           <div className="flex items-center gap-2">
-            {!reducedMotion && (
-              <button
-                type="button"
-                className="speaker-carousel__button"
-                aria-label={paused ? 'Activar rotación automática' : 'Pausar rotación automática'}
-                aria-pressed={paused}
-                onClick={() => setPaused(!paused)}
-              >
-                {paused ? (
-                  <Play aria-hidden="true" className="size-4" />
-                ) : (
-                  <Pause aria-hidden="true" className="size-4" />
-                )}
-              </button>
-            )}
             <button
               type="button"
               className="speaker-carousel__button"
               aria-label="Ponentes anteriores"
               aria-controls="speaker-carousel-slides"
-              onClick={() => {
-                setPaused(true)
-                goTo(activePage - 1)
-              }}
+              onClick={() => goTo(activePage - 1)}
             >
               <ArrowLeft aria-hidden="true" className="size-5" />
             </button>
@@ -170,15 +140,12 @@ export function SpeakerCarousel({ speakers }: { speakers: Speaker[] }) {
               className="speaker-carousel__button"
               aria-label="Siguientes ponentes"
               aria-controls="speaker-carousel-slides"
-              onClick={() => {
-                setPaused(true)
-                goTo(activePage + 1)
-              }}
+              onClick={() => goTo(activePage + 1)}
             >
               <ArrowRight aria-hidden="true" className="size-5" />
             </button>
           </div>
-          <span className="sr-only" aria-live={rotating ? 'off' : 'polite'} aria-atomic="true">
+          <span className="sr-only" aria-live="polite" aria-atomic="true">
             Página {activePage + 1} de {pageCount}
           </span>
         </div>

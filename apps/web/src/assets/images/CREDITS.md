@@ -2,7 +2,7 @@
 
 ## Community
 
-- File: `about/community.png`.
+- File: `about/community.jpg` (JPEG q85 conversion of the generated PNG).
 - Created with the built-in OpenAI image generation tool (imagegen skill).
 - Illustrative scene, not a photograph of an actual DatAIJam attendee or speaker.
 - Final prompt:

@@ -1,21 +1,50 @@
 import { ArrowUpRight, CalendarDays, MapPin } from 'lucide-react'
+import { motion, useScroll, useTransform } from 'motion/react'
+import { useRef } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'
+import { BorderBeam } from '@/components/ui/BorderBeam'
+import { usePrefersReducedMotion } from '@/components/ui/use-prefers-reduced-motion'
+import { ConnectionOrbit } from './ConnectionOrbit'
 
 const REGISTRATION_FORM_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLSfSW-sIAGlG3L-RHPybx89g0rdN2c5-F9AqADtLJFIv78vuuA/viewform?usp=dialog'
 
 export function Registration() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const reducedMotion = usePrefersReducedMotion()
+  // The ticket rises and tilts into place, the finale's glow growing behind it.
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'center 0.6'] })
+  const rotateX = useTransform(scrollYProgress, [0, 1], [34, 0])
+  const y = useTransform(scrollYProgress, [0, 1], [110, 0])
+  const scale = useTransform(scrollYProgress, [0, 1], [0.86, 1])
+  const glowOpacity = useTransform(scrollYProgress, [0.3, 1], [0, 1])
+  const glowScale = useTransform(scrollYProgress, [0.3, 1], [0.6, 1.1])
+
   return (
     <section
+      ref={sectionRef}
       id="registro"
       aria-labelledby="registration-heading"
       className="ds-section registration-editorial"
     >
-      <Container>
-        <div data-stagger className="registration-ticket">
+      <Container className="relative">
+        {!reducedMotion && (
+          <motion.div
+            aria-hidden="true"
+            className="registration-glow"
+            style={{ opacity: glowOpacity, scale: glowScale }}
+          />
+        )}
+        <motion.div
+          data-stagger
+          className="registration-ticket"
+          style={reducedMotion ? undefined : { rotateX, y, scale, transformPerspective: 1400 }}
+        >
+          <BorderBeam />
           <div aria-hidden="true" className="registration-ticket__orbit" />
+          <ConnectionOrbit />
           <div data-reveal>
             <p className="registration-ticket__eyebrow">El próximo paso es tuyo</p>
             <h2 id="registration-heading" className="mt-3 text-h2 font-semibold text-brand-white">
@@ -57,7 +86,7 @@ export function Registration() {
               Formulario en Google Forms · Se abre en otra pestaña.
             </p>
           </div>
-        </div>
+        </motion.div>
       </Container>
     </section>
   )

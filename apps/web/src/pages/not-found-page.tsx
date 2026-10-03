@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 export function NotFoundPage() {
   return (
     <section className="grid min-h-screen place-items-center bg-brand-navy px-6 py-16 text-center">
+      <title>Página no encontrada · DatAIJam</title>
       <div className="max-w-md">
         <p className="text-sm font-medium tracking-widest text-brand-cyan">Error 404</p>
         <h1 className="mt-3 text-h2 font-semibold text-brand-white">Página no encontrada</h1>

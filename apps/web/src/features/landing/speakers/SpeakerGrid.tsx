@@ -1,7 +1,8 @@
 import { Container } from '@/components/ui/container'
+import { CountUp } from '@/components/ui/CountUp'
 
 import { SpeakerCarousel } from './SpeakerCarousel'
-import { speakers } from './speakers.data'
+import { speakers, speakerTotal, upcomingSpeakers } from './speakers.data'
 
 interface SpeakerGridProps {
   eyebrow: string
@@ -10,7 +11,9 @@ interface SpeakerGridProps {
 }
 
 export function SpeakerGrid({ eyebrow, heading, subheading }: SpeakerGridProps) {
-  if (!speakers.length) {
+  const hiddenCount = upcomingSpeakers.filter((speaker) => !speaker.name).length
+
+  if (!speakerTotal) {
     return null
   }
 
@@ -33,14 +36,22 @@ export function SpeakerGrid({ eyebrow, heading, subheading }: SpeakerGridProps) 
             </h2>
           </div>
           <div className="max-w-sm">
-            <p className="mt-4 max-w-2xl text-body text-brand-gray">{subheading}</p>
-            <p className="mt-4 text-xs font-medium tracking-[0.12em] text-brand-cyan uppercase">
-              Próximamente · Voces 2026
+            <p className="speakers-count">
+              <span className="speakers-count__number">
+                <CountUp value={speakerTotal} />
+              </span>
+              <span className="speakers-count__label">speakers el 16 de octubre</span>
             </p>
+            <p className="mt-3 text-body text-brand-gray">{subheading}</p>
+            {hiddenCount > 0 && (
+              <p className="mt-3 text-xs font-medium tracking-[0.12em] text-brand-cyan uppercase">
+                {hiddenCount} por revelar · Pronto se revelarán
+              </p>
+            )}
           </div>
         </div>
 
-        <SpeakerCarousel speakers={speakers} />
+        <SpeakerCarousel speakers={speakers} upcoming={upcomingSpeakers} />
       </Container>
     </section>
   )

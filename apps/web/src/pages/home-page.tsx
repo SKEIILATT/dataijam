@@ -1,7 +1,7 @@
-import communityImage from '../assets/images/about/community.png'
+import communityImage from '../assets/images/about/community.jpg'
 import { ScrollReveal } from '../components/ui/scroll-reveal'
 import { About } from '../features/landing/about/About'
-import { BenefitsBand } from '../features/landing/benefits/BenefitsBand'
+import { Experience } from '../features/landing/experience/Experience'
 import { Faq } from '../features/landing/faq/Faq'
 import { HackathonProcess } from '../features/landing/hackaton/HackathonProcess'
 import { Hero } from '../features/landing/hero/Hero'
@@ -15,7 +15,7 @@ export function HomePage() {
     <ScrollReveal className="landing-flow landing-home">
       <Hero />
       <div className="landing-editorial">
-        <BenefitsBand />
+        <Experience />
 
         <div id="acerca">
           <About

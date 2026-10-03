@@ -19,12 +19,21 @@ importers:
 
   apps/web:
     dependencies:
+      '@lottiefiles/dotlottie-react':
+        specifier: ^0.19.16
+        version: 0.19.16(react@19.3.0)
       '@tanstack/react-query':
         specifier: ^5.102.8
         version: 5.102.8(react@19.3.0)
+      lenis:
+        specifier: ^1.3.26
+        version: 1.3.26(react@19.3.0)
       lucide-react:
         specifier: ^1.46.0
         version: 1.46.0(react@19.3.0)
+      motion:
+        specifier: ^14.0.0
+        version: 14.0.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       react:
         specifier: ^19.2.8
         version: 19.3.0
@@ -592,6 +601,22 @@ packages:
       {
         integrity: sha512-dXn3FZhPv0US+7dtJsIi2R+c7qWYiReoEh5zUntWCf4oSpMNib8FDhSoed6m3QyZdx5hK7iLFkYk3rNxwt8vTA==,
       }
+
+  '@lottiefiles/dotlottie-react@0.19.16':
+    resolution:
+      {
+        integrity: sha512-kf+v6tGn726XoAw6wAZb9JgVko6j+d6ppbBfe4vHlp3fjqmXoSfJt2bvxRMc6yG75c/atg8/H1uRmsViEESEeQ==,
+      }
+    engines: { node: '>=18.17.0', npm: '>=9.5.0' }
+    peerDependencies:
+      react: ^17 || ^18 || ^19
+
+  '@lottiefiles/dotlottie-web@0.80.0':
+    resolution:
+      {
+        integrity: sha512-M00APgOJfP6xPZ3kAzZAUNATxluFiMU0wD3asp6HQSXDX8qLzSDh/Jmqbo0H7+WcqfpQkN8WYBu3aOzm2y/b4g==,
+      }
+    engines: { node: '>=18.17.0', npm: '>=9.5.0' }
 
   '@oxc-project/types@0.149.0':
     resolution:
@@ -1347,6 +1372,20 @@ packages:
         integrity: sha512-5+ybhBZANEJxaH3X5evAFatUxLfEHSr7n6kYJ+1Qd0mUqr4eu9gIf6GDbWHf8RJijHrjjO8G+la14SlL2SeS1Q==,
       }
 
+  framer-motion@14.0.0:
+    resolution:
+      {
+        integrity: sha512-QAtHmybrDFSliyW1sexMtSQTQd+1jw2ajibEmzpuI4XdPVzQkn+dAzJMm2sW3pl9MJuSS4xN51djQ7huhlP/VA==,
+      }
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+
   fsevents@2.3.3:
     resolution:
       {
@@ -1515,6 +1554,23 @@ packages:
       {
         integrity: sha512-CYDD3SOtsHtyXeEORYRx2qBtpDJFjRTGXUtmNEMGyzYOKj1TE3tycdlho7kA1Ufx9OYWZzg52QFBGALTirzDSw==,
       }
+
+  lenis@1.3.26:
+    resolution:
+      {
+        integrity: sha512-s/xTCZCxTFvHbAN1OzuhNaN5YPJH2ail0XAkctKW1b+RUAG4nUL5UHLXwNko1h8aEeT2jspBXegMgPJd8zcuag==,
+      }
+    peerDependencies:
+      '@nuxt/kit': '>=3.0.0'
+      react: '>=17.0.0'
+      vue: '>=3.0.0'
+    peerDependenciesMeta:
+      '@nuxt/kit':
+        optional: true
+      react:
+        optional: true
+      vue:
+        optional: true
 
   levn@0.4.1:
     resolution:
@@ -1785,6 +1841,32 @@ packages:
       }
     engines: { node: 18 || 20 || >=22 }
 
+  motion-dom@14.0.0:
+    resolution:
+      {
+        integrity: sha512-aU3ApXo1yTpeUi3JU+jbDk2TELjxPE3MbBMUP7nZHlARb6RweJK+ojmLjpuB0YsY6zhbBl1YWGo8LMsI1/Llqw==,
+      }
+
+  motion-utils@14.0.0:
+    resolution:
+      {
+        integrity: sha512-jBsyjVxTTRZNeuvd/v+btVXr90LQkYl4HhRu9T2ARc+PMnvkmjsjRVeAg4Qm10b6TlTw+kykWI8gu/6LuvpLSQ==,
+      }
+
+  motion@14.0.0:
+    resolution:
+      {
+        integrity: sha512-oGc2lkge2lkRZCP+J8/JsnYu4NFjqP1MtXirNdetn3QbvK2JqwM9A200EdT4C598KfzDhjLT12zF21xDM4Oilw==,
+      }
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+
   ms@2.1.3:
     resolution:
       {
@@ -2052,6 +2134,12 @@ packages:
     engines: { node: '>=18.12' }
     peerDependencies:
       typescript: '>=4.8.4'
+
+  tslib@2.8.1:
+    resolution:
+      {
+        integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==,
+      }
 
   type-check@0.4.0:
     resolution:
@@ -2469,6 +2557,13 @@ snapshots:
       keyv: 5.6.0
 
   '@keyv/serialize@1.1.1': {}
+
+  '@lottiefiles/dotlottie-react@0.19.16(react@19.3.0)':
+    dependencies:
+      '@lottiefiles/dotlottie-web': 0.80.0
+      react: 19.3.0
+
+  '@lottiefiles/dotlottie-web@0.80.0': {}
 
   '@oxc-project/types@0.149.0': {}
 
@@ -2924,6 +3019,15 @@ snapshots:
 
   flatted@3.4.4: {}
 
+  framer-motion@14.0.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
+    dependencies:
+      motion-dom: 14.0.0
+      motion-utils: 14.0.0
+      tslib: 2.8.1
+    optionalDependencies:
+      react: 19.3.0
+      react-dom: 19.3.0(react@19.3.0)
+
   fsevents@2.3.3:
     optional: true
 
@@ -2985,6 +3089,10 @@ snapshots:
   keyv@5.6.0:
     dependencies:
       '@keyv/serialize': 1.1.1
+
+  lenis@1.3.26(react@19.3.0):
+    optionalDependencies:
+      react: 19.3.0
 
   levn@0.4.1:
     dependencies:
@@ -3116,6 +3224,20 @@ snapshots:
   minimatch@10.2.6:
     dependencies:
       brace-expansion: 5.0.12
+
+  motion-dom@14.0.0:
+    dependencies:
+      motion-utils: 14.0.0
+
+  motion-utils@14.0.0: {}
+
+  motion@14.0.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
+    dependencies:
+      framer-motion: 14.0.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      tslib: 2.8.1
+    optionalDependencies:
+      react: 19.3.0
+      react-dom: 19.3.0(react@19.3.0)
 
   ms@2.1.3: {}
 
@@ -3257,6 +3379,8 @@ snapshots:
   ts-api-utils@2.5.0(typescript@6.0.3):
     dependencies:
       typescript: 6.0.3
+
+  tslib@2.8.1: {}
 
   type-check@0.4.0:
     dependencies:

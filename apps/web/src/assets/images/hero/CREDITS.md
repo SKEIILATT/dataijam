@@ -1,6 +1,6 @@
 # Earth texture
 
-`earth-map.png`: NASA/Goddard Space Flight Center Scientific Visualization Studio.
+`earth-map.jpg` (JPEG q90 conversion of the original PNG): NASA/Goddard Space Flight Center Scientific Visualization Studio.
 Blue Marble data courtesy of Reto Stockli (NASA/GSFC) and NASA's Earth Observatory.
 
 Source: https://svs.gsfc.nasa.gov/2915/
