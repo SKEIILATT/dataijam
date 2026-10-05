@@ -22,7 +22,7 @@ export const agenda: AgendaItem[] = [
     title: 'Break',
     detail: 'Pausa',
   },
-  { start: '11:25', end: '12:00', duration: '35 min', kind: 'talk', title: 'Fabricio Layedra' },
+  { start: '11:25', end: '12:00', duration: '35 min', kind: 'talk' },
   { start: '12:00', end: '12:35', duration: '35 min', kind: 'talk' },
   { start: '12:35', end: '13:10', duration: '35 min', kind: 'talk' },
   { start: '13:10', end: '13:45', duration: '35 min', kind: 'talk' },

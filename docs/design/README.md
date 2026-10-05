@@ -7,6 +7,9 @@ Esta carpeta es la referencia visual para el equipo. Las imagenes aqui incluidas
 ```text
 docs/design/
 ├─ README.md
+├─ brand/source/
+│  ├─ logo-full-color.png
+│  └─ logo-source.ai
 └─ references/
    ├─ logo.jpeg
    ├─ paleta.jpeg
@@ -17,13 +20,14 @@ docs/design/
 
 ## Referencias disponibles
 
-| Archivo                                                      | Uso para el equipo                                                                                                |
-| ------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- |
-| [`references/logo.jpeg`](references/logo.jpeg)               | Referencia del logotipo, icono de tortuga y lema `Datos + Personas + Accion`.                                     |
-| [`references/paleta_logo.jpeg`](references/paleta_logo.jpeg) | Fuente canonica de los colores y de sus usos sugeridos.                                                           |
-| [`references/paleta.jpeg`](references/paleta.jpeg)           | Variaciones tonales complementarias para ilustraciones y acentos.                                                 |
-| [`references/ref_page.jpeg`](references/ref_page.jpeg)       | Referencia de jerarquia, ritmo, atmosfera y secciones de la landing. No es una maqueta para copiar pixel a pixel. |
-| [`references/tipografia.png`](references/tipografia.png)     | Fuente de verdad para familias, pesos, escalas y jerarquia tipografica.                                           |
+| Archivo                                                                | Uso para el equipo                                                                                                |
+| ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| [`brand/source/logo-full-color.png`](brand/source/logo-full-color.png) | Logo oficial vigente (colores correctos, fondo transparente). Fuente de los recursos de marca de la web.          |
+| [`references/logo.jpeg`](references/logo.jpeg)                         | Referencia anterior del logotipo; sus colores quedaron reemplazados por `logo-full-color.png`.                    |
+| [`references/paleta_logo.jpeg`](references/paleta_logo.jpeg)           | Fuente canonica de los colores y de sus usos sugeridos.                                                           |
+| [`references/paleta.jpeg`](references/paleta.jpeg)                     | Variaciones tonales complementarias para ilustraciones y acentos.                                                 |
+| [`references/ref_page.jpeg`](references/ref_page.jpeg)                 | Referencia de jerarquia, ritmo, atmosfera y secciones de la landing. No es una maqueta para copiar pixel a pixel. |
+| [`references/tipografia.png`](references/tipografia.png)               | Fuente de verdad para familias, pesos, escalas y jerarquia tipografica.                                           |
 
 ## Identidad visual
 
@@ -79,6 +83,20 @@ La informacion real del evento siempre tiene prioridad sobre la imagen de refere
 - Usar `font-display`, `font-heading` y `font-body`, o los tamanos `text-h1` a `text-h4` y `text-body`, en lugar de crear escalas tipograficas aisladas.
 - `ref_page.jpeg` es una referencia de diseno; no debe copiarse a `apps/web/src/assets` ni mostrarse como contenido final.
 - Si se aprueba un recurso de marca para produccion, exportarlo en el formato adecuado y guardarlo en `apps/web/src/assets/` con un nombre descriptivo. No usar estas imagenes JPEG de referencia como sustituto automatico de un logo optimizado.
+
+### Logo en la web
+
+La web no usa el logo completo de una pieza: lo separa en partes generadas desde `brand/source/logo-full-color.png` y guardadas en `apps/web/src/assets/brand/`.
+
+| Archivo                | Uso                                                                                        |
+| ---------------------- | ------------------------------------------------------------------------------------------ |
+| `symbol.webp`          | Tortuga del hero y del footer.                                                             |
+| `wordmark.webp`        | Letras `DATAI JAM` (componente `Wordmark`). En modo claro se tinen de azul marino por CSS. |
+| `wordmark-accent.webp` | Solo el `AI` en color, alineado al wordmark, para conservarlo en color en modo claro.      |
+| `tagline-mask.webp`    | Letras del lema, usadas como mascara para que sigan el color del tema.                     |
+| `tagline-accent.webp`  | Los `+` en color del lema, superpuestos a la mascara.                                      |
+
+`apps/web/public/` contiene `favicon.png`, `apple-touch-icon.png` y `og-image.jpg` (imagen al compartir el enlace), tambien con el logo vigente. Si el logo cambia otra vez, hay que regenerar todos estos archivos manteniendo sus proporciones.
 
 ## Proceso para cambios visuales
 

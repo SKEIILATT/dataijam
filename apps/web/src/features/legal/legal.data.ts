@@ -166,7 +166,7 @@ export const termsOfUse: LegalDocument = {
           list: [
             'La inscripción se realiza únicamente a través del formulario oficial enlazado en este sitio.',
             'Debes proporcionar información veraz y mantenerla actualizada.',
-            'Las condiciones de inscripción, incluido cualquier costo, se comunicarán antes de abrir el registro definitivo.',
+            'La participación en DatAIJam es gratuita; no se cobra ningún valor por la inscripción.',
           ],
         },
       ],

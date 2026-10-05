@@ -6,6 +6,7 @@ export const locations: EventLocation[] = [
   {
     id: 'guayaquil',
     city: 'Guayaquil',
+    venue: 'Auditorio de ESPAE · Campus ESPOL Peñas',
     date: '16 de octubre de 2026',
     description:
       'Innovación, industria y talento. Nos encontramos para compartir ideas y construir lo que viene.',

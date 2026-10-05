@@ -1,6 +1,7 @@
 export interface EventLocation {
   id: string
   city: string
+  venue: string
   date: string
   description: string
   ctaLabel: string

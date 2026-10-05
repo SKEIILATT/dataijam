@@ -1,8 +1,9 @@
-import { ArrowRight, CalendarDays, MapPin } from 'lucide-react'
+import { ArrowRight, CalendarDays, MapPin, Ticket } from 'lucide-react'
 import { useEffect, useRef } from 'react'
 
-import symbol from '@/assets/brand/symbol.svg'
-import tagline from '@/assets/brand/tagline-light.svg'
+import symbol from '@/assets/brand/symbol.webp'
+import taglineAccent from '@/assets/brand/tagline-accent.webp'
+import taglineMask from '@/assets/brand/tagline-mask.webp'
 import { RotatingGlobe } from './RotatingGlobe'
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'
@@ -64,7 +65,7 @@ export function Hero({
               Un encuentro para aprender, colaborar y convertir ideas en soluciones con impacto.
             </p>
 
-            <dl className="mt-8 flex flex-col gap-4 text-sm sm:flex-row sm:gap-8">
+            <dl className="mt-8 flex flex-col gap-4 text-sm sm:flex-row sm:flex-wrap sm:gap-x-8 sm:gap-y-3">
               <div className="text-brand-white">
                 <dt className="sr-only">Fecha</dt>
                 <dd className="flex items-center gap-3">
@@ -77,6 +78,13 @@ export function Hero({
                 <dd className="flex items-center gap-3">
                   <MapPin aria-hidden="true" className="size-5 text-brand-cyan" />
                   {locationLabel}
+                </dd>
+              </div>
+              <div className="text-brand-white">
+                <dt className="sr-only">Costo</dt>
+                <dd className="flex items-center gap-3">
+                  <Ticket aria-hidden="true" className="size-5 text-brand-cyan" />
+                  Entrada gratuita
                 </dd>
               </div>
             </dl>
@@ -104,8 +112,13 @@ export function Hero({
               role="img"
               aria-label="Datos, personas, acción"
               className="hero-brand-lockup__tagline"
-              style={{ maskImage: `url(${tagline})` }}
-            />
+            >
+              <span
+                className="hero-brand-lockup__tagline-text"
+                style={{ maskImage: `url(${taglineMask})` }}
+              />
+              <img src={taglineAccent} alt="" className="hero-brand-lockup__tagline-accent" />
+            </span>
           </div>
         </div>
       </Container>

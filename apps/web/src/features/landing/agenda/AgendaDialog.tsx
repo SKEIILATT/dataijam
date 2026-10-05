@@ -110,7 +110,7 @@ export function AgendaDialog() {
             <header className="agenda-dialog__header">
               <div>
                 <p className="text-xs font-medium tracking-[0.18em] text-brand-cyan uppercase">
-                  {agendaDate} · Guayaquil
+                  {agendaDate} · Auditorio ESPAE, Guayaquil
                 </p>
                 <h2 id={titleId} className="mt-2 text-h3 font-semibold text-brand-white">
                   Agenda de conferencias

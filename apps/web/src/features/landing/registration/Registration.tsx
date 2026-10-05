@@ -1,4 +1,4 @@
-import { ArrowUpRight, CalendarDays, MapPin } from 'lucide-react'
+import { ArrowUpRight, CalendarDays, MapPin, Ticket } from 'lucide-react'
 import { motion, useScroll, useTransform } from 'motion/react'
 import { useRef } from 'react'
 
@@ -63,7 +63,11 @@ export function Registration() {
               </span>
               <span>
                 <MapPin aria-hidden="true" className="size-4" />
-                Guayaquil, Ecuador
+                Auditorio ESPAE · ESPOL Peñas, Guayaquil
+              </span>
+              <span>
+                <Ticket aria-hidden="true" className="size-4" />
+                Entrada gratuita
               </span>
             </div>
           </div>

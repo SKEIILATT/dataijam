@@ -1,6 +1,6 @@
 import { FaInstagram } from 'react-icons/fa6'
 import { Link } from 'react-router'
-import symbol from '../../assets/brand/symbol.svg'
+import symbol from '../../assets/brand/symbol.webp'
 import { ScrollReveal } from '../ui/scroll-reveal'
 import { Container } from '../ui/container'
 import { Wordmark } from '../ui/Wordmark'

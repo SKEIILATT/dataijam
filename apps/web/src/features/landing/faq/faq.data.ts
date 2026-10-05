@@ -5,8 +5,7 @@ export interface FaqItem {
 }
 
 // Contenido ilustrativo para poder mostrar la sección ya armada. Las
-// respuestas evitan inventar datos que todavía no están definidos (costo,
-// premios): esos se marcan como pendientes en vez de fabricar una cifra falsa.
+// respuestas evitan inventar datos que todavía no están definidos (premios): esos se marcan como pendientes en vez de fabricar una cifra falsa.
 export const faqItems: FaqItem[] = [
   {
     question: '¿Qué es DatAIJam?',
@@ -46,7 +45,7 @@ export const faqItems: FaqItem[] = [
   {
     question: '¿Dónde será el evento?',
     category: 'evento',
-    answer: 'DatAIJam se vive en Guayaquil, Ecuador.',
+    answer: 'En el auditorio de ESPAE, campus ESPOL Peñas, en Guayaquil, Ecuador.',
   },
   {
     question: '¿Cuándo es el evento?',
@@ -57,7 +56,7 @@ export const faqItems: FaqItem[] = [
     question: '¿Cuánto cuesta participar?',
     category: 'inscripcion',
     answer:
-      'Estamos definiendo los detalles de inscripción. Te lo comunicaremos con anticipación antes de abrir el registro definitivo.',
+      'Nada, el evento es gratuito. Solo necesitas inscribirte en el formulario oficial para reservar tu lugar.',
   },
   {
     question: '¿Habrá certificados o premios?',

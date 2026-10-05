@@ -25,6 +25,6 @@ export const speakers: Speaker[] = [
 ]
 
 // Seven talks in the agenda: names stay hidden until each speaker is announced.
-export const upcomingSpeakers: UpcomingSpeaker[] = [{ name: 'Fabricio Layedra' }, {}, {}, {}, {}]
+export const upcomingSpeakers: UpcomingSpeaker[] = [{}, {}, {}, {}, {}]
 
 export const speakerTotal = speakers.length + upcomingSpeakers.length

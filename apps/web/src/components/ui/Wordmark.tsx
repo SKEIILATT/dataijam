@@ -1,5 +1,5 @@
-import wordmark from '@/assets/brand/wordmark.png'
-import wordmarkAccent from '@/assets/brand/wordmark-accent.png'
+import wordmark from '@/assets/brand/wordmark.webp'
+import wordmarkAccent from '@/assets/brand/wordmark-accent.webp'
 
 type WordmarkProps = {
   className?: string

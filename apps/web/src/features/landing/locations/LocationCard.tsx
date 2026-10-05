@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, MapPin } from 'lucide-react'
 import { motion, useScroll, useSpring, useTransform } from 'motion/react'
 import { useRef } from 'react'
 
@@ -81,6 +81,11 @@ export function LocationCard({ location }: LocationCardProps) {
             {location.city}
             <span className="text-brand-cyan">.</span>
           </h3>
+
+          <p className="mt-3 flex items-center gap-2 text-sm font-medium text-brand-white">
+            <MapPin aria-hidden="true" className="size-4 shrink-0 text-brand-cyan" />
+            {location.venue}
+          </p>
 
           <p className="mt-4 max-w-sm text-body text-brand-gray">{location.description}</p>
 
