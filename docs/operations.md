@@ -9,3 +9,7 @@
 5. Comprueba que el proxy preserve las cabeceras de seguridad, redirija HTTP a HTTPS y emita HSTS solo después de validar el certificado y las rutas HTTPS.
 
 HTTPS y secretos de producción se configuran en el servidor, nunca en Git.
+
+## Vercel
+
+El proyecto de vista previa de Vercel usa `apps/web` como directorio raíz. Su `vercel.json` aplica las mismas cabeceras de seguridad y permite abrir directamente las rutas de la SPA. Antes de promover una versión a producción, comprueba las rutas, el formulario y las cabeceras en el dominio final; las vistas previas pueden estar protegidas por inicio de sesión.

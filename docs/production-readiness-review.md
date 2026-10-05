@@ -41,12 +41,13 @@ Capturas del contenedor final: [móvil de 320 px](review/production-mobile.png) 
 - Fuentes Inter, Sora y Space Grotesk servidas por la propia web, con licencias incluidas. El globo deja de procesarse continuamente en pantallas pequeñas y cuando se solicita movimiento reducido.
 - Eliminada la dependencia de React Query, que no tenía consultas en la aplicación.
 - `robots.txt`, caché de recursos con versión, cabeceras de seguridad y errores 404 para recursos ausentes. El contenedor escucha por defecto solo en la interfaz local para usar un proxy HTTPS delante.
+- Configuración de Vercel en `apps/web/vercel.json` con cabeceras de seguridad y rutas directas para la SPA. La vista previa requiere inicio de sesión, por lo que sus respuestas de la aplicación no pudieron auditarse desde fuera.
 - Política de privacidad actualizada para describir las fuentes locales y los campos observados en el formulario de inscripción.
 
 ## Pendiente antes de publicar
 
 1. **Aviso de privacidad.** Identificar a la persona o entidad responsable con nombre legal, domicilio, teléfono y correo; especificar la base jurídica y el plazo de conservación aplicables; revisar que el aviso mostrado al recopilar datos en Google Forms coincida con la política. El formulario pide cédula. El [artículo 12 de la Ley Orgánica de Protección de Datos Personales](https://spdp.gob.ec/wp-content/uploads/2024/12/03.pdf.pdf) enumera la información que debe recibir la persona titular. Estos datos y decisiones no se pueden inventar desde el código; requieren confirmación del organizador y revisión jurídica.
-2. **Infraestructura real.** Configurar DNS, certificado TLS, redirección HTTP→HTTPS y proxy hacia `127.0.0.1:8080`. Probar las rutas, las cabeceras y el botón de inscripción en el dominio final. El contenedor local solo sirve HTTP detrás del proxy. Habilitar HSTS en el proxy cuando HTTPS esté validado.
+2. **Infraestructura real.** Confirmar si se publicará con Vercel o Docker. En Docker, configurar DNS, certificado TLS, redirección HTTP→HTTPS y proxy hacia `127.0.0.1:8080`; habilitar HSTS cuando HTTPS esté validado. En Vercel, validar que el dominio final aplique `apps/web/vercel.json`. En ambos casos, probar las rutas, las cabeceras y el botón de inscripción en el dominio final. La vista previa de Vercel está protegida por inicio de sesión, así que no confirma estas respuestas públicas.
 3. **Canal de contacto.** Se encontró registro MX para `dataijam.com`, pero eso no prueba que `registros@dataijam.com` reciba y responda mensajes. Hacer una prueba de envío y respuesta.
 4. **Contenido del evento.** Hay cinco ponentes aún ocultos, patrocinadores sin confirmar, asistentes estimados marcados como «Pronto» y premios pendientes. Confirmar que este estado sea el que se desea mostrar el día del lanzamiento. La agenda nombra a Pablo Estrada, mientras que Josue Davalos figura entre los ponentes anunciados sin aparecer aún por nombre en esa agenda.
 
