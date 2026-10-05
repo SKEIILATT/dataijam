@@ -38,7 +38,7 @@ export function ScrollExpandMedia({
   const headingId = useId()
   const reducedMotion = usePrefersReducedMotion()
   const animated = !reducedMotion
-  const streaming = useInView(sectionRef, { margin: '25% 0px' })
+  const streaming = useInView(sectionRef, { margin: '0px 0px -10% 0px' })
   const lenis = useLenis()
 
   const { scrollYProgress } = useScroll({
@@ -88,7 +88,7 @@ export function ScrollExpandMedia({
       className={`scroll-expand ${animated ? '' : 'scroll-expand--static'} ${streaming ? 'is-streaming' : ''} ${className}`}
     >
       <div className="scroll-expand__stage">
-        {panels.length > 0 && (
+        {panels.length > 0 && streaming && (
           <motion.div
             aria-hidden="true"
             className="scroll-expand__corridor"

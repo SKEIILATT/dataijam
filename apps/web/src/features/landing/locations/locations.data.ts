@@ -1,4 +1,4 @@
-import guayaquilPhoto from '@/assets/images/locations/guayaquil-aerial.jpg'
+import guayaquilPhoto from '@/assets/images/locations/guayaquil-aerial.webp'
 
 import type { EventLocation } from './types'
 

@@ -1,5 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Sora:wght@500;600&family=Space+Grotesk:wght@600;700&display=swap');
 @import 'tailwindcss';
+
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url('/fonts/inter-v20-latin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Sora;
+  font-style: normal;
+  font-weight: 500 600;
+  font-display: optional;
+  src: url('/fonts/sora-v17-latin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 600 700;
+  font-display: swap;
+  src: url('/fonts/space-grotesk-v22-latin.woff2') format('woff2');
+}
 
 .site-scroll-progress {
   position: fixed;
@@ -158,7 +181,8 @@
   }
 
   .hero-world__canvas,
-  .hero-world__poster {
+  .hero-world__poster,
+  .hero-world__poster img {
     position: absolute;
     inset: 0;
     display: block;

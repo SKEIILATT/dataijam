@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react'
-import poster from '@/assets/images/hero/data-globe.webp'
-import earthMap from '@/assets/images/hero/earth-map.jpg'
+import earthMap from '@/assets/images/hero/earth-map.webp'
 import { createGlobeRenderer } from './globe-renderer'
 
 export function RotatingGlobe() {
@@ -8,9 +7,18 @@ export function RotatingGlobe() {
   const renderer = useRef<ReturnType<typeof createGlobeRenderer>>(null)
 
   useEffect(() => {
-    if (!canvas.current) return
-    renderer.current = createGlobeRenderer(canvas.current, earthMap)
+    const still = window.matchMedia('(max-width: 639px), (prefers-reduced-motion: reduce)')
+    const update = () => {
+      renderer.current?.destroy()
+      renderer.current = null
+      if (canvas.current && !still.matches) {
+        renderer.current = createGlobeRenderer(canvas.current, earthMap)
+      }
+    }
+    update()
+    still.addEventListener('change', update)
     return () => {
+      still.removeEventListener('change', update)
       renderer.current?.destroy()
       renderer.current = null
     }
@@ -19,14 +27,17 @@ export function RotatingGlobe() {
   return (
     <div className="hero-world">
       <canvas ref={canvas} className="hero-world__canvas" aria-hidden="true" />
-      <img
-        src={poster}
-        alt=""
-        width={1254}
-        height={1254}
-        className="hero-world__poster"
-        decoding="async"
-      />
+      <picture className="hero-world__poster">
+        <source media="(max-width: 639px)" srcSet="/hero/data-globe-mobile-v1.webp" />
+        <img
+          src="/hero/data-globe-v1.webp"
+          alt=""
+          width={1254}
+          height={1254}
+          fetchPriority="high"
+          decoding="async"
+        />
+      </picture>
     </div>
   )
 }

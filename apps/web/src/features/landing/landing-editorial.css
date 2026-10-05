@@ -779,19 +779,19 @@
   --section-photo-veil: linear-gradient(90deg, #f3fbfff5 5%, #f3fbffdb 58%, #f3fbffb8);
 }
 .landing-editorial .speakers-section {
-  --section-photo: url('../../assets/images/editorial/auditorium.jpg');
+  --section-photo: url('../../assets/images/editorial/auditorium.webp');
 }
 .landing-editorial .registration-editorial {
-  --section-photo: url('../../assets/images/editorial/welcome.jpg');
+  --section-photo: url('../../assets/images/editorial/welcome.webp');
 }
 .landing-editorial .hackathon-section {
-  --section-photo: url('../../assets/images/editorial/teamwork.jpg');
+  --section-photo: url('../../assets/images/editorial/teamwork.webp');
 }
 .landing-editorial .sponsors-section {
-  --section-photo: url('../../assets/images/editorial/partnerships.jpg');
+  --section-photo: url('../../assets/images/editorial/partnerships.webp');
 }
 .landing-editorial .faq-section {
-  --section-photo: url('../../assets/images/editorial/guidance.jpg');
+  --section-photo: url('../../assets/images/editorial/guidance.webp');
 }
 
 /* Patrocinadores, FAQ y Registro comparten fotografía de personas con una
@@ -881,14 +881,14 @@
 .site-footer-editorial {
   background-image:
     linear-gradient(180deg, #031326, transparent 96px),
-    linear-gradient(90deg, #031326f5, #031326d9), url('../../assets/images/editorial/global.jpg');
+    linear-gradient(90deg, #031326f5, #031326d9), url('../../assets/images/editorial/global.webp');
   background-size: cover;
   background-position: center;
 }
 :root[data-theme='light'] .site-footer-editorial {
   background-image:
     linear-gradient(180deg, #f3fbff, transparent 96px),
-    linear-gradient(90deg, #f3fbfff5, #f3fbffde), url('../../assets/images/editorial/global.jpg');
+    linear-gradient(90deg, #f3fbfff5, #f3fbffde), url('../../assets/images/editorial/global.webp');
 }
 @media (max-width: 639px) {
   .landing-editorial {

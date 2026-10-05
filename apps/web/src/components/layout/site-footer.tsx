@@ -32,7 +32,7 @@ export function SiteFooter() {
         <Container>
           <div data-reveal="fade" className="grid gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
             <div className="footer-brand">
-              <img src={symbol} alt="" className="w-20" />
+              <img src={symbol} alt="" width={704} height={504} className="w-20" />
               <Wordmark className="footer-brand__wordmark" imageClassName="h-auto w-full" />
               <p className="text-xs tracking-[0.12em] text-footer-ink/70">
                 DATOS · PERSONAS · ACCIÓN

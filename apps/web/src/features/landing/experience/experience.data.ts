@@ -1,11 +1,10 @@
-import auditorium from '@/assets/images/editorial/auditorium.jpg'
-import connections from '@/assets/images/editorial/connections.jpg'
-import globalLinks from '@/assets/images/editorial/global.jpg'
-import guidance from '@/assets/images/editorial/guidance.jpg'
-import partnerships from '@/assets/images/editorial/partnerships.jpg'
-import teamwork from '@/assets/images/editorial/teamwork.jpg'
-import welcome from '@/assets/images/editorial/welcome.jpg'
-import guayaquilAerial from '@/assets/images/locations/guayaquil-aerial.jpg'
+import auditorium from '@/assets/images/editorial/auditorium.webp'
+import connections from '@/assets/images/editorial/connections.webp'
+import globalLinks from '@/assets/images/editorial/global.webp'
+import guidance from '@/assets/images/editorial/guidance.webp'
+import partnerships from '@/assets/images/editorial/partnerships.webp'
+import teamwork from '@/assets/images/editorial/teamwork.webp'
+import welcome from '@/assets/images/editorial/welcome.webp'
 import type { ExperienceContent } from './types'
 
 export const experienceContent: ExperienceContent = {
@@ -17,7 +16,7 @@ export const experienceContent: ExperienceContent = {
     src: auditorium,
     alt: 'Ilustración generada con IA de un auditorio durante una conferencia de tecnología',
   },
-  stream: [welcome, teamwork, connections, partnerships, guidance, globalLinks, guayaquilAerial],
+  stream: [welcome, teamwork, connections, partnerships, guidance, globalLinks],
   label: 'Conferencias + Hackathon',
   heading: 'Del escenario al prototipo.',
   description:

@@ -40,12 +40,12 @@ export const privacyPolicy: LegalDocument = {
       blocks: [
         {
           list: [
-            'Inscripción: los datos que ingresas en el formulario oficial, como tu nombre, tus datos de contacto y la información adicional que el formulario solicite.',
+            'Inscripción: los datos que ingresas en el formulario oficial, incluidos nombres, apellidos, cédula, correo electrónico, institución o empresa, rol o carrera, temas de interés y cómo conociste el evento.',
             'Comunicaciones: tu correo y el contenido de los mensajes que nos envíes.',
             'Fotos y video: imágenes tomadas durante el evento (ver la sección dedicada más abajo).',
           ],
         },
-        'Este sitio web no usa cookies de seguimiento ni herramientas de analítica. Solo guarda en tu navegador tu preferencia de tema (claro u oscuro), que no sale de tu dispositivo. Para mostrar las tipografías, el sitio carga fuentes desde Google Fonts, por lo que tu navegador se conecta a servidores de Google. Como cualquier sitio, el servidor que lo aloja puede registrar datos técnicos de acceso, como la dirección IP, por motivos de seguridad.',
+        'Este sitio web no usa cookies de seguimiento ni herramientas de analítica. Solo guarda en tu navegador tu preferencia de tema (claro u oscuro), que no sale de tu dispositivo. Las tipografías se sirven desde este mismo sitio. Como cualquier sitio, el servidor que lo aloja puede registrar datos técnicos de acceso, como la dirección IP, por motivos de seguridad.',
       ],
     },
     {

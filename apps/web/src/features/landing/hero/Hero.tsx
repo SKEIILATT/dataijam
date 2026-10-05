@@ -105,7 +105,13 @@ export function Hero({
           <div ref={brandRef} data-brand-ready="false" className="hero-brand-lockup hidden lg:flex">
             <div className="hero-brand-lockup__arrival">
               <span className="hero-brand-lockup__orbit" aria-hidden="true" />
-              <img src={symbol} alt="" className="hero-brand-lockup__symbol" />
+              <img
+                src={symbol}
+                alt=""
+                width={704}
+                height={504}
+                className="hero-brand-lockup__symbol"
+              />
             </div>
             <Wordmark className="hero-brand-lockup__wordmark" imageClassName="h-auto w-full" />
             <span
@@ -117,7 +123,13 @@ export function Hero({
                 className="hero-brand-lockup__tagline-text"
                 style={{ maskImage: `url(${taglineMask})` }}
               />
-              <img src={taglineAccent} alt="" className="hero-brand-lockup__tagline-accent" />
+              <img
+                src={taglineAccent}
+                alt=""
+                width={1185}
+                height={45}
+                className="hero-brand-lockup__tagline-accent"
+              />
             </span>
           </div>
         </div>
