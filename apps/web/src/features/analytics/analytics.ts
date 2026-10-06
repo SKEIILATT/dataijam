@@ -8,7 +8,7 @@ const rawMeasurementId = import.meta.env.VITE_GA_MEASUREMENT_ID?.trim() ?? ''
 export const measurementId = /^G-[A-Z0-9]+$/.test(rawMeasurementId) ? rawMeasurementId : null
 
 type GoogleTagWindow = Window & {
-  dataLayer?: unknown[][]
+  dataLayer?: unknown[]
   gtag?: (...args: unknown[]) => void
 }
 
@@ -63,7 +63,11 @@ export function startAnalytics() {
 
   const browser = window as GoogleTagWindow
   browser.dataLayer ??= []
-  browser.gtag = (...args: unknown[]) => browser.dataLayer?.push(args)
+  // gtag.js only processes Arguments objects; plain arrays are silently ignored.
+  browser.gtag = function gtag() {
+    // eslint-disable-next-line prefer-rest-params
+    browser.dataLayer?.push(arguments)
+  }
 
   // Nothing is requested from Google until the visitor explicitly accepts.
   gtag('consent', 'default', {
