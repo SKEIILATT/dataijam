@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'
 import { BorderBeam } from '@/components/ui/BorderBeam'
 import { usePrefersReducedMotion } from '@/components/ui/use-prefers-reduced-motion'
+import { trackRegistrationFormOpen } from '@/features/analytics/analytics'
 import { ConnectionOrbit } from './ConnectionOrbit'
 
 const REGISTRATION_FORM_URL =
@@ -76,6 +77,7 @@ export function Registration() {
             <Button
               as="a"
               href={REGISTRATION_FORM_URL}
+              onClick={trackRegistrationFormOpen}
               target="_blank"
               rel="noopener noreferrer"
               variant="primary"

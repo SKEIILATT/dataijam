@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router/dom'
 import { AppProviders } from '@/app/app-providers'
 import { router } from '@/app/router'
+import { AnalyticsGate } from '@/features/analytics/AnalyticsGate'
 import 'lenis/dist/lenis.css'
 import './index.css'
 import './features/landing/landing-editorial.css'
@@ -16,6 +17,7 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <AppProviders>
       <RouterProvider router={router} />
+      <AnalyticsGate />
     </AppProviders>
   </StrictMode>,
 )

@@ -2,7 +2,8 @@ import type { LegalDocument } from './types'
 
 export const contactEmail = 'registros@dataijam.com'
 
-const updated = '3 de octubre de 2026'
+const privacyUpdated = '5 de octubre de 2026'
+const termsUpdated = '3 de octubre de 2026'
 
 export const privacyPolicy: LegalDocument = {
   path: '/privacidad',
@@ -10,7 +11,7 @@ export const privacyPolicy: LegalDocument = {
   title: 'Política de privacidad',
   intro:
     'Cómo tratamos los datos personales de quienes se inscriben y participan en DatAIJam, conforme a la Ley Orgánica de Protección de Datos Personales del Ecuador.',
-  updated,
+  updated: privacyUpdated,
   highlights: [
     {
       title: 'No compartimos con patrocinadores',
@@ -43,9 +44,10 @@ export const privacyPolicy: LegalDocument = {
             'Inscripción: los datos que ingresas en el formulario oficial, incluidos nombres, apellidos, cédula, correo electrónico, institución o empresa, rol o carrera, temas de interés y cómo conociste el evento.',
             'Comunicaciones: tu correo y el contenido de los mensajes que nos envíes.',
             'Fotos y video: imágenes tomadas durante el evento (ver la sección dedicada más abajo).',
+            'Analítica opcional: si la aceptas, páginas visitadas y datos generales del navegador, dispositivo y ubicación aproximada.',
           ],
         },
-        'Este sitio web no usa cookies de seguimiento ni herramientas de analítica. Solo guarda en tu navegador tu preferencia de tema (claro u oscuro), que no sale de tu dispositivo. Las tipografías se sirven desde este mismo sitio. Como cualquier sitio, el servidor que lo aloja puede registrar datos técnicos de acceso, como la dirección IP, por motivos de seguridad.',
+        'Solo si aceptas la analítica, el sitio carga Google Analytics 4, que puede guardar las cookies propias _ga y _ga_<id> para reconocer visitas. Antes de aceptar no se carga la etiqueta de Google ni se envían datos de analítica. También guardamos en tu navegador tu preferencia de tema y tu decisión sobre analítica. Las tipografías se sirven desde este mismo sitio. El servidor que lo aloja puede registrar datos técnicos de acceso, como la dirección IP, por motivos de seguridad.',
       ],
     },
     {
@@ -58,6 +60,7 @@ export const privacyPolicy: LegalDocument = {
             'Enviarte información logística, recordatorios y avisos de cambios en el programa.',
             'Organizar los equipos, las mentorías y la evaluación del hackathon.',
             'Responder tus consultas.',
+            'Medir el uso general del sitio para mejorarlo, únicamente si aceptas la analítica.',
             'Difundir el evento con fotos y video, según se explica más abajo.',
           ],
         },
@@ -72,10 +75,19 @@ export const privacyPolicy: LegalDocument = {
         {
           list: [
             'Google, que aloja el formulario de inscripción (Google Forms) y procesa los datos por cuenta nuestra.',
+            'Google Analytics 4, solo si aceptas la analítica del sitio. No enviamos a Analytics los datos escritos en el formulario externo.',
             'Mentores y jurado del hackathon, solo en lo necesario para acompañar y evaluar a tu equipo y su proyecto.',
             'Autoridades competentes, únicamente cuando la ley lo exija.',
           ],
         },
+      ],
+    },
+    {
+      id: 'analitica',
+      title: 'Analítica opcional',
+      blocks: [
+        'Puedes aceptar o rechazar Google Analytics 4 sin perder acceso al sitio. La etiqueta se descarga solo después de aceptar. Puedes cambiar tu decisión desde «Preferencias de analítica» en el pie de página; si retiras el consentimiento, detenemos la medición futura y eliminamos las cookies de Analytics de este sitio.',
+        'Usamos la medición para conocer visitas, páginas consultadas y clics en el botón que abre el formulario externo. Desactivamos las funciones de señales de Google y personalización publicitaria en la etiqueta. No podemos medir desde aquí si completaste el registro.',
       ],
     },
     {
@@ -134,7 +146,7 @@ export const termsOfUse: LegalDocument = {
   title: 'Términos y condiciones',
   intro:
     'Las reglas para participar en DatAIJam, sus conferencias y su hackathon. Al inscribirte o participar, aceptas estos términos.',
-  updated,
+  updated: termsUpdated,
   highlights: [
     {
       title: 'Tu proyecto es tuyo',

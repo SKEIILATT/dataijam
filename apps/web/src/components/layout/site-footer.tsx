@@ -1,5 +1,6 @@
 import { FaInstagram } from 'react-icons/fa6'
 import { Link } from 'react-router'
+import { measurementId, openAnalyticsPreferences } from '@/features/analytics/analytics'
 import symbol from '../../assets/brand/symbol.webp'
 import { ScrollReveal } from '../ui/scroll-reveal'
 import { Container } from '../ui/container'
@@ -97,13 +98,22 @@ export function SiteFooter() {
           <div className="mt-12 flex flex-col gap-4 border-t border-footer-ink/10 pt-6 text-xs text-footer-ink/55 sm:flex-row sm:items-center sm:justify-between">
             <p>© 2026 DatAIJam. Todos los derechos reservados.</p>
 
-            <nav aria-label="Legal" className="flex gap-5">
+            <nav aria-label="Legal" className="flex flex-wrap gap-x-5 gap-y-2">
               <Link to="/terminos" className="transition-colors hover:text-footer-accent">
                 Términos y condiciones
               </Link>
               <Link to="/privacidad" className="transition-colors hover:text-footer-accent">
                 Política de privacidad
               </Link>
+              {measurementId && (
+                <button
+                  type="button"
+                  onClick={openAnalyticsPreferences}
+                  className="text-left transition-colors hover:text-footer-accent"
+                >
+                  Preferencias de analítica
+                </button>
+              )}
             </nav>
           </div>
         </Container>
