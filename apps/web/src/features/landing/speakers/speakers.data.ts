@@ -1,4 +1,5 @@
 import fabricioLayedraPhoto from '@/assets/images/speakers/fabricio-layedra.jpg'
+import georgeGuerreroPhoto from '@/assets/images/speakers/george-guerrero.jpg'
 import josueDavalosPhoto from '@/assets/images/speakers/josue-davalos.jpg'
 
 import type { Speaker, UpcomingSpeaker } from './types'
@@ -26,9 +27,10 @@ export const speakers: Speaker[] = [
   {
     name: 'George Guerrero',
     role: 'Data Scientist - Claro',
-    education: 'Ing. Ciencias Computacionales',
-    bio: '',
+    education: '-',
+    bio: 'Esta información estará disponible pronto.',
     linkedin: 'https://ec.linkedin.com/in/gguerrero-ec',
+    imageSrc: georgeGuerreroPhoto,
     imageAlt: 'Retrato de George Guerrero',
   },
 ]
