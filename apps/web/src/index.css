@@ -1507,14 +1507,6 @@ summary {
 .hackathon-intro {
   max-width: 48rem;
 }
-.hackathon-evaluation {
-  margin-top: 40px;
-  border-block: 1px solid var(--color-border);
-}
-.hackathon-evaluation .ds-card:hover {
-  transform: none;
-  filter: none;
-}
 .speakers-heading {
   display: flex;
   justify-content: space-between;
