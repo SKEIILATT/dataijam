@@ -228,10 +228,10 @@
   text-shadow: 0 2px 18px rgb(3 19 38 / 0.5);
 }
 
-.landing-editorial :is(.community-metrics, .hackathon-evaluation, .faq-contact) {
+.landing-editorial :is(.community-metrics, .faq-contact) {
   position: relative;
 }
-.landing-editorial :is(.community-metrics, .hackathon-evaluation, .faq-contact)::before {
+.landing-editorial :is(.community-metrics, .faq-contact)::before {
   content: '';
   position: absolute;
   top: 0;
@@ -277,115 +277,6 @@
 .landing-editorial .hackathon-section {
   border-bottom: 0;
 }
-.landing-editorial .hackathon-evaluation {
-  margin-top: 48px;
-  border: 1px solid var(--editorial-rule);
-  border-radius: var(--editorial-radius-panel);
-  background: var(--editorial-panel-fill);
-}
-.hackathon-evaluation__content {
-  padding: clamp(16px, 2.5vw, 28px);
-}
-.rubric-selector {
-  display: inline-flex;
-  gap: 6px;
-  padding: 5px;
-  border: 1px solid var(--editorial-rule);
-  border-radius: 14px;
-}
-.rubric-selector button {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 6px 12px;
-  padding: 12px 18px;
-  border-radius: 9px;
-  color: var(--color-brand-gray);
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-}
-.rubric-selector button span {
-  font-size: 13px;
-  font-weight: 400;
-}
-.rubric-selector button[aria-pressed='true'] {
-  background: var(--editorial-accent-gradient);
-  color: var(--editorial-brand-navy);
-}
-.rubric-selector button:hover {
-  box-shadow: inset 0 0 0 1px var(--color-brand-cyan);
-}
-.rubric-panel {
-  display: grid;
-  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.4fr);
-  gap: clamp(24px, 5vw, 72px);
-  padding-top: 32px;
-}
-.rubric-panel__intro {
-  max-width: 350px;
-}
-.rubric-panel__total {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-top: 28px;
-  color: var(--color-brand-gray);
-  font-size: 12px;
-}
-.rubric-panel__total strong {
-  font: 600 32px var(--font-display);
-  color: var(--color-brand-white);
-}
-.rubric-panel__total span {
-  max-width: 130px;
-}
-.rubric-criteria {
-  display: grid;
-  gap: 24px;
-}
-.rubric-criteria__label {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 16px;
-  font-size: 15px;
-  color: var(--color-brand-white);
-}
-.rubric-criteria__label strong {
-  color: var(--color-brand-cyan);
-}
-.rubric-criteria__track {
-  height: 5px;
-  overflow: hidden;
-  margin-top: 10px;
-  border-radius: 999px;
-  background: var(--editorial-rule);
-}
-.rubric-criteria__track > div {
-  height: 100%;
-  border-radius: inherit;
-  background: var(--editorial-accent-gradient);
-  transform-origin: left;
-}
-@media (max-width: 767px) {
-  .rubric-panel {
-    grid-template-columns: 1fr;
-  }
-  .rubric-selector {
-    display: flex;
-  }
-  .rubric-selector button {
-    flex: 1;
-    flex-direction: column;
-    align-items: start;
-    padding: 10px 14px;
-  }
-  .rubric-panel__total {
-    margin-top: 16px;
-  }
-}
-
 /* The speaker cards retain their carousel and a coherent stage-like finish. */
 .landing-editorial .speakers-section.ds-section {
   background: var(--editorial-soft);
@@ -915,24 +806,6 @@
 .landing-editorial .faq-section > div {
   transform: scaleX(-1);
 }
-.landing-editorial .hackathon-evaluation {
-  background: var(--color-brand-navy);
-}
-.hackathon-evaluation__heading {
-  padding: 28px clamp(20px, 3vw, 36px) 24px;
-  border-bottom: 1px solid var(--editorial-rule);
-}
-.hackathon-evaluation__heading h3 {
-  font-size: clamp(22px, 2.3vw, 30px);
-  line-height: 1.25;
-  scroll-margin-top: 120px;
-}
-.hackathon-evaluation__content {
-  padding: clamp(20px, 3vw, 36px);
-}
-.rubric-selector {
-  scroll-margin-top: 200px;
-}
 .site-footer-editorial {
   background-image:
     linear-gradient(180deg, #031326, transparent 96px),
@@ -955,7 +828,7 @@
 }
 
 /* Short, deliberate feedback; the established scroll reveals remain in charge of entry. */
-.landing-editorial :is(.rubric-selector button, .faq-categories button, .speaker-carousel__button) {
+.landing-editorial :is(.faq-categories button, .speaker-carousel__button) {
   transition:
     box-shadow 180ms ease,
     color 180ms ease;
@@ -964,56 +837,11 @@
   border-color: var(--color-brand-cyan);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-brand-cyan) 14%, transparent);
 }
-@media (prefers-reduced-motion: no-preference) {
-  .rubric-criteria__track > div {
-    animation: rubric-weight-enter 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-  .rubric-criteria li:nth-child(2) .rubric-criteria__track > div {
-    animation-delay: 50ms;
-  }
-  .rubric-criteria li:nth-child(3) .rubric-criteria__track > div {
-    animation-delay: 100ms;
-  }
-  .rubric-criteria li:nth-child(4) .rubric-criteria__track > div {
-    animation-delay: 150ms;
-  }
-  .rubric-criteria li:nth-child(5) .rubric-criteria__track > div {
-    animation-delay: 200ms;
-  }
-  @keyframes rubric-weight-enter {
-    from {
-      transform: scaleX(0);
-    }
-    to {
-      transform: scaleX(1);
-    }
-  }
-}
-
 /* Motion accents are intentionally assigned one job per section. */
 .hero__gradient-text {
   width: fit-content;
   max-width: 100%;
   background-size: 220% 100%;
-}
-.hero-event-label {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.hero-event-label__pulse {
-  width: 8px;
-  height: 8px;
-  flex: 0 0 auto;
-  border-radius: 50%;
-  background: var(--color-brand-lime);
-  box-shadow: 0 0 0 5px color-mix(in srgb, var(--color-brand-lime) 14%, transparent);
-  animation: hero-signal-pulse 2.8s ease-in-out infinite;
-}
-@keyframes hero-signal-pulse {
-  50% {
-    box-shadow: 0 0 0 9px color-mix(in srgb, var(--color-brand-lime) 4%, transparent);
-  }
 }
 
 .faq-categories button {
@@ -1113,8 +941,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-brand-lockup__orbit,
-  .hero-event-label__pulse {
+  .hero-brand-lockup__orbit {
     animation: none !important;
   }
   .location-panorama__spotlight {
@@ -1244,7 +1071,7 @@
   }
 }
 
-/* Hackathon: compact week stepper; one week's detail and the rubrics on demand. */
+/* Hackathon: compact week stepper with one week's detail at a time. */
 .hackathon-weeks {
   margin-top: clamp(40px, 5vw, 64px);
 }
@@ -1376,37 +1203,6 @@
   border-radius: var(--editorial-radius);
   background: color-mix(in srgb, var(--color-brand-cyan) 6%, transparent);
 }
-.hackathon-evaluation .hackathon-evaluation__heading {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px 24px;
-  border-bottom-color: transparent;
-  transition: border-color var(--motion-duration) var(--motion-easing);
-}
-.hackathon-evaluation[data-open='true'] .hackathon-evaluation__heading {
-  border-bottom-color: var(--editorial-rule);
-}
-.hackathon-evaluation__reveal:not([hidden]) {
-  animation: hackathon-rubrics-in 220ms var(--motion-easing) both;
-}
-@keyframes hackathon-rubrics-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.hackathon-evaluation__toggle svg {
-  transition: transform var(--motion-normal) var(--motion-easing);
-}
-.hackathon-evaluation__toggle[aria-expanded='true'] svg {
-  transform: rotate(180deg);
-}
 
 @media (max-width: 767px) {
   .hackathon-weeks__rail {
@@ -1447,9 +1243,6 @@
 @media (prefers-reduced-motion: reduce) {
   .hackathon-week:hover .hackathon-week__marker {
     transform: none;
-  }
-  .hackathon-evaluation__reveal:not([hidden]) {
-    animation: none;
   }
 }
 

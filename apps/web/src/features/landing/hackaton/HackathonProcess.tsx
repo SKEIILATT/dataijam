@@ -1,11 +1,8 @@
-import { ArrowUpRight, CalendarDays, ChevronDown, Users } from 'lucide-react'
-import { useId, useState } from 'react'
+import { ArrowUpRight, CalendarDays, Users } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'
 import { GridPulse } from '@/components/ui/GridPulse'
-
-import { HackathonEvaluation } from './HackathonEvaluation'
 import { HackathonWeeks } from './HackathonWeeks'
 
 interface HackathonProcessProps {
@@ -15,9 +12,6 @@ interface HackathonProcessProps {
 }
 
 export function HackathonProcess({ eyebrow, heading, subheading }: HackathonProcessProps) {
-  const [rubricsOpen, setRubricsOpen] = useState(false)
-  const rubricsId = useId()
-
   return (
     <section aria-labelledby="hackathon-process-heading" className="ds-section hackathon-section">
       <GridPulse />
@@ -51,37 +45,6 @@ export function HackathonProcess({ eyebrow, heading, subheading }: HackathonProc
         </div>
 
         <HackathonWeeks />
-
-        <section
-          data-reveal
-          className="hackathon-evaluation"
-          data-open={rubricsOpen}
-          aria-labelledby="evaluation-heading"
-        >
-          <header className="hackathon-evaluation__heading">
-            <div>
-              <h3 id="evaluation-heading" className="text-brand-white">
-                ¿Cómo se evalúan los proyectos?
-              </h3>
-              <p className="mt-2 text-sm text-brand-gray">
-                Dos rúbricas: una eliminatoria en la semana 2 y la final del jurado en la semana 4.
-              </p>
-            </div>
-            <button
-              type="button"
-              aria-expanded={rubricsOpen}
-              aria-controls={rubricsId}
-              onClick={() => setRubricsOpen((open) => !open)}
-              className="ds-button ds-button--secondary hackathon-evaluation__toggle"
-            >
-              {rubricsOpen ? 'Ocultar criterios' : 'Ver criterios'}
-              <ChevronDown aria-hidden="true" className="size-4" />
-            </button>
-          </header>
-          <div id={rubricsId} hidden={!rubricsOpen} className="hackathon-evaluation__reveal">
-            <HackathonEvaluation />
-          </div>
-        </section>
       </Container>
     </section>
   )

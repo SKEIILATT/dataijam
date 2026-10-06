@@ -1013,15 +1013,12 @@
   animation: surface-enter var(--motion-reveal) var(--motion-easing) both;
 }
 .hero-copy > :nth-child(2) {
-  animation-delay: 80ms;
-}
-.hero-copy > :nth-child(3) {
   animation-delay: 160ms;
 }
-.hero-copy > :nth-child(4) {
+.hero-copy > :nth-child(3) {
   animation-delay: 240ms;
 }
-.hero-copy > :nth-child(5) {
+.hero-copy > :nth-child(4) {
   animation-delay: 320ms;
 }
 .hero-copy > :focus-within {
@@ -1509,14 +1506,6 @@ summary {
 }
 .hackathon-intro {
   max-width: 48rem;
-}
-.hackathon-evaluation {
-  margin-top: 40px;
-  border-block: 1px solid var(--color-border);
-}
-.hackathon-evaluation .ds-card:hover {
-  transform: none;
-  filter: none;
 }
 .speakers-heading {
   display: flex;

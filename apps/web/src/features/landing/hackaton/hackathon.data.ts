@@ -1,6 +1,6 @@
 import { Code2, GraduationCap, Target, Trophy } from 'lucide-react'
 
-import type { HackathonStep, Rubric } from './types'
+import type { HackathonStep } from './types'
 
 // Fuente: docs/Propuesta de Estructura - Hackathon 4 Semanas.pdf
 export const steps: HackathonStep[] = [
@@ -35,67 +35,5 @@ export const steps: HackathonStep[] = [
       'Refinamiento y comunicación del valor: clínica de pitch, Demo Day y Gran Final ante un jurado de inversionistas y líderes de la industria.',
     deliverable: 'Solución final, documentación y presentación en vivo',
     icon: Trophy,
-  },
-]
-
-export const rubrics: Rubric[] = [
-  {
-    title: 'Rúbrica eliminatoria',
-    stage: 'Semana 2',
-    summary: 'Prioriza la identificación del problema y la cohesión del equipo.',
-    criteria: [
-      {
-        name: 'Identificación del problema',
-        description: 'Claridad en el dolor del usuario y relevancia social/económica.',
-        weight: 30,
-      },
-      {
-        name: 'Originalidad',
-        description: 'Diferenciación respecto a soluciones existentes.',
-        weight: 25,
-      },
-      {
-        name: 'Capacidad de ejecución',
-        description: 'Perfiles técnicos y de negocio balanceados dentro del equipo.',
-        weight: 25,
-      },
-      {
-        name: 'Validación temprana',
-        description: 'Evidencia de investigación o entrevistas con usuarios potenciales.',
-        weight: 20,
-      },
-    ],
-  },
-  {
-    title: 'Rúbrica final',
-    stage: 'Semana 4',
-    summary: 'La usa el jurado experto para determinar a los ganadores globales.',
-    criteria: [
-      {
-        name: 'Calidad técnica',
-        description: 'Robustez del código, arquitectura y uso eficiente de herramientas.',
-        weight: 30,
-      },
-      {
-        name: 'Impacto y escalabilidad',
-        description: 'Potencial de crecimiento y capacidad de generar un cambio real.',
-        weight: 25,
-      },
-      {
-        name: 'Experiencia de usuario',
-        description: 'Diseño intuitivo, estética y facilidad de navegación del prototipo.',
-        weight: 20,
-      },
-      {
-        name: 'Modelo de negocio',
-        description: 'Viabilidad financiera y estrategia de implementación a corto plazo.',
-        weight: 15,
-      },
-      {
-        name: 'Presentación (pitch)',
-        description: 'Capacidad de persuasión, manejo de preguntas y calidad visual.',
-        weight: 10,
-      },
-    ],
   },
 ]
