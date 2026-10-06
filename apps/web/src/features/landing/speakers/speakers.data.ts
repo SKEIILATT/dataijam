@@ -7,7 +7,7 @@ import type { Speaker, UpcomingSpeaker } from './types'
 export const speakers: Speaker[] = [
   {
     name: 'Fabricio Layedra',
-    role: 'Consultor Senior en Nuevos Negocios e Inteligencia Artificial · Zererbralab',
+    role: 'Gerente Regional de Inversiones Inteligentes en Rappi Turbo',
     education: 'Máster en Marketing Digital y Comercio Electrónico · Universidad de Barcelona',
     bio: 'Graduado en Ciencias de la Computación por ESPOL y máster en Marketing Digital y Comercio Electrónico por la Universidad de Barcelona. Fue Microsoft Research Intern en Simon Fraser University, Canadá, y es alumni de Google Summer of Code. Ha liderado proyectos de adopción digital y nuevos productos en Ecuador y más de siete países de Latinoamérica con multinacionales de retail y logística de última milla. Integra procesos, personas y tecnología para resolver problemas empresariales complejos. Ha trabajado para Inmobiliaria del Sol, Anheuser Busch Inbev y Rappi Latinoamérica.',
     linkedin: 'https://www.linkedin.com/in/fabriciolayedra/',

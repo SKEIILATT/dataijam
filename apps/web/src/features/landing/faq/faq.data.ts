@@ -55,7 +55,7 @@ export const faqItems: FaqItem[] = [
     question: '¿Cuánto cuesta participar?',
     category: 'inscripcion',
     answer:
-      'Nada, el evento es gratuito. Solo necesitas inscribirte en el formulario oficial para reservar tu lugar.',
+      'Las conferencias son gratuitas: solo necesitas inscribirte en el formulario oficial para reservar tu lugar. El taller de Claude Cowork (13:30 a 15:30) tiene un valor de $30 y su pago se completa en el mismo formulario.',
   },
   {
     question: '¿Habrá certificados o premios?',

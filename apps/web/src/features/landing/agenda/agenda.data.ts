@@ -9,7 +9,7 @@ export const agenda: AgendaItem[] = [
     start: '10:00',
     kind: 'talk',
     title: 'Fabricio Layedra',
-    detail: 'Gerente de experimentos de datos · Rappi · LATAM',
+    detail: 'Gerente Regional de Inversiones Inteligentes · Rappi Turbo',
   },
   { start: '10:40', kind: 'talk', title: 'Josué Dávalos' },
   {
@@ -19,6 +19,11 @@ export const agenda: AgendaItem[] = [
     detail: 'Data Scientist · CLARO',
   },
   { start: '12:00', kind: 'break', title: 'Almuerzo' },
-  { start: '13:30', kind: 'workshop', title: 'Taller: Claude cowork' },
+  {
+    start: '13:30',
+    kind: 'workshop',
+    title: 'Taller: Claude Cowork',
+    detail: 'Kevin Baque Chernez · Analista de IA en Pycca · $30',
+  },
   { start: '15:30', kind: 'closing', title: 'Cierre y lanzamiento de próximo evento' },
 ]
