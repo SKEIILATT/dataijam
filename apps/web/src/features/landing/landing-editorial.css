@@ -89,7 +89,7 @@
     contain-intrinsic-size: auto 670px;
   }
   .landing-editorial > #hackathon {
-    contain-intrinsic-size: auto 2510px;
+    contain-intrinsic-size: auto 1440px;
   }
   .landing-editorial > #speakers {
     contain-intrinsic-size: auto 910px;
@@ -113,7 +113,7 @@
     contain-intrinsic-size: auto 720px;
   }
   .landing-editorial > #hackathon {
-    contain-intrinsic-size: auto 2600px;
+    contain-intrinsic-size: auto 1550px;
   }
   .landing-editorial > #speakers {
     contain-intrinsic-size: auto 990px;
@@ -126,18 +126,6 @@
   }
   .landing-editorial > #registro {
     contain-intrinsic-size: auto 640px;
-  }
-}
-
-@media (max-width: 639px) and (max-height: 699px) {
-  .landing-editorial > #hackathon {
-    contain-intrinsic-size: auto 1440px;
-  }
-}
-
-@media (max-width: 359px) and (max-height: 699px) {
-  .landing-editorial > #hackathon {
-    contain-intrinsic-size: auto 1550px;
   }
 }
 
@@ -1117,6 +1105,11 @@
     height: 72px;
     opacity: 0.45;
   }
+  .registration-connection-orbit__static {
+    width: 52px;
+    height: 52px;
+    margin: 10px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1321,9 +1314,14 @@
   border-radius: 50%;
   background: var(--editorial-accent-gradient);
   box-shadow: 0 0 28px color-mix(in srgb, var(--color-brand-cyan) 45%, transparent);
+  opacity: 0;
+  transition: opacity var(--motion-duration) var(--motion-easing);
 }
 .hackathon-week[aria-selected='true'] .hackathon-week__marker {
   color: var(--editorial-brand-navy);
+}
+.hackathon-week[aria-selected='true'] .hackathon-week__glow {
+  opacity: 1;
 }
 .hackathon-week__label {
   font-size: 12px;
@@ -1390,6 +1388,19 @@
 .hackathon-evaluation[data-open='true'] .hackathon-evaluation__heading {
   border-bottom-color: var(--editorial-rule);
 }
+.hackathon-evaluation__reveal:not([hidden]) {
+  animation: hackathon-rubrics-in 220ms var(--motion-easing) both;
+}
+@keyframes hackathon-rubrics-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .hackathon-evaluation__toggle svg {
   transition: transform var(--motion-normal) var(--motion-easing);
 }
@@ -1436,6 +1447,9 @@
 @media (prefers-reduced-motion: reduce) {
   .hackathon-week:hover .hackathon-week__marker {
     transform: none;
+  }
+  .hackathon-evaluation__reveal:not([hidden]) {
+    animation: none;
   }
 }
 
@@ -1653,11 +1667,6 @@
 .hackathon-weeks-scroller[data-pinned='true'] .hackathon-weeks-scroller__stage {
   position: sticky;
   top: max(104px, calc(50svh - var(--stage-h, 0px) / 2 + 44px));
-}
-@media (max-width: 767px) {
-  .hackathon-weeks-scroller[data-pinned='true'] .hackathon-weeks-scroller__stage {
-    top: max(88px, calc(50svh - var(--stage-h, 0px) / 2 + 40px));
-  }
 }
 .hackathon-weeks__hint {
   display: flex;

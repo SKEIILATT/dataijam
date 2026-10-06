@@ -1,13 +1,6 @@
 import { useLenis } from 'lenis/react'
 import { FileCheck2, MousePointer2 } from 'lucide-react'
-import {
-  AnimatePresence,
-  motion,
-  useInView,
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-} from 'motion/react'
+import { motion, useInView, useMotionValueEvent, useScroll, useTransform } from 'motion/react'
 import { useEffect, useId, useRef, useState, useSyncExternalStore } from 'react'
 import type { KeyboardEvent } from 'react'
 
@@ -15,36 +8,40 @@ import { usePrefersReducedMotion } from '@/components/ui/use-prefers-reduced-mot
 import { steps } from './hackathon.data'
 
 const ease = [0.22, 1, 0.36, 1] as const
-const tallViewport = '(min-height: 700px)'
+const pinnedViewport = '(min-width: 768px) and (min-height: 700px)'
 
 const weekLabel = (index: number) => String(index + 1).padStart(2, '0')
 
 function subscribeViewport(callback: () => void) {
-  const media = window.matchMedia(tallViewport)
+  const media = window.matchMedia(pinnedViewport)
   media.addEventListener('change', callback)
   return () => media.removeEventListener('change', callback)
 }
 
 export function HackathonWeeks() {
   const [[active, direction], setActive] = useState<[number, number]>([0, 0])
+  const activeRef = useRef(0)
+  const selectedScroll = useRef<{ target: number; token: number } | null>(null)
+  const selectedScrollTimer = useRef(0)
+  const selectionToken = useRef(0)
   const tabs = useRef<(HTMLButtonElement | null)[]>([])
   const scrollerRef = useRef<HTMLDivElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
   const railRef = useRef<HTMLSpanElement>(null)
   const railInView = useInView(railRef, { once: true, margin: '0px 0px -15% 0px' })
   const reducedMotion = usePrefersReducedMotion()
-  const tallEnough = useSyncExternalStore(
+  const canPin = useSyncExternalStore(
     subscribeViewport,
-    () => window.matchMedia(tallViewport).matches,
+    () => window.matchMedia(pinnedViewport).matches,
     () => false,
   )
-  // The weeks pin while scroll walks through them; short screens keep tap-only tabs.
-  const pinned = !reducedMotion && tallEnough
+  // Keep the scroll-driven stage on wide screens; phone-sized stages nearly fill the viewport.
+  const pinned = !reducedMotion && canPin
   const lenis = useLenis()
   const baseId = useId()
   const step = steps[active]
   const last = steps.length - 1
-  const shift = reducedMotion ? 0 : 48
+  const shift = reducedMotion ? 0 : 24
 
   const { scrollYProgress } = useScroll({
     target: scrollerRef,
@@ -67,22 +64,62 @@ export function HackathonWeeks() {
     return () => observer.disconnect()
   }, [pinned])
 
+  useEffect(() => {
+    if (!pinned) return
+    const interrupt = () => {
+      selectedScroll.current = null
+      window.clearTimeout(selectedScrollTimer.current)
+    }
+    window.addEventListener('wheel', interrupt, { passive: true })
+    window.addEventListener('touchstart', interrupt, { passive: true })
+    return () => {
+      window.removeEventListener('wheel', interrupt)
+      window.removeEventListener('touchstart', interrupt)
+      interrupt()
+    }
+  }, [pinned])
+
   useMotionValueEvent(scrollYProgress, 'change', (progress) => {
     if (!pinned) return
     const next = Math.min(last, Math.floor(progress * steps.length))
-    setActive((current) => (current[0] === next ? current : [next, next > current[0] ? 1 : -1]))
+    if (selectedScroll.current) {
+      if (next !== selectedScroll.current.target) return
+      selectedScroll.current = null
+      window.clearTimeout(selectedScrollTimer.current)
+    }
+    if (next === activeRef.current) return
+    const previous = activeRef.current
+    activeRef.current = next
+    setActive([next, next > previous ? 1 : -1])
   })
 
   function select(index: number, focus = false) {
-    if (index !== active) setActive([index, index > active ? 1 : -1])
+    const changed = index !== activeRef.current
+    if (index !== activeRef.current) {
+      const previous = activeRef.current
+      activeRef.current = index
+      setActive([index, index > previous ? 1 : -1])
+    }
     if (focus) tabs.current[index]?.focus({ preventScroll: true })
     const scroller = scrollerRef.current
-    if (!pinned || !scroller) return
+    if (!pinned || !scroller || !changed) return
     const bounds = scroller.getBoundingClientRect()
     const travel = bounds.height - window.innerHeight
     const top = window.scrollY + bounds.top + ((index + 0.5) / steps.length) * travel
-    if (lenis) lenis.scrollTo(top, { duration: 0.9 })
-    else window.scrollTo({ top, behavior: 'smooth' })
+    const token = ++selectionToken.current
+    selectedScroll.current = { target: index, token }
+    const finish = () => {
+      if (selectedScroll.current?.token !== token) return
+      selectedScroll.current = null
+      window.clearTimeout(selectedScrollTimer.current)
+    }
+    window.clearTimeout(selectedScrollTimer.current)
+    selectedScrollTimer.current = window.setTimeout(finish, 1200)
+    if (lenis) lenis.scrollTo(top, { duration: 0.7, onComplete: finish })
+    else {
+      window.addEventListener('scrollend', finish, { once: true })
+      window.scrollTo({ top, behavior: 'smooth' })
+    }
   }
 
   function onKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
@@ -142,13 +179,7 @@ export function HackathonWeeks() {
                     className="hackathon-week"
                   >
                     <span className="hackathon-week__marker" aria-hidden="true">
-                      {selected && (
-                        <motion.span
-                          layoutId={`${baseId}-glow`}
-                          className="hackathon-week__glow"
-                          transition={{ duration: reducedMotion ? 0 : 0.45, ease }}
-                        />
-                      )}
+                      <span className="hackathon-week__glow" />
                       <Icon className="relative size-5" />
                     </span>
                     <span className="hackathon-week__label">Semana {weekLabel(index)}</span>
@@ -166,39 +197,30 @@ export function HackathonWeeks() {
             aria-labelledby={`${baseId}-tab-${active}`}
             className="hackathon-week-detail"
           >
-            <AnimatePresence mode="wait" initial={false} custom={direction}>
-              <motion.div
-                key={active}
-                custom={direction}
-                variants={{
-                  enter: (dir: number) => ({ opacity: 0, x: dir * shift }),
-                  center: { opacity: 1, x: 0 },
-                  exit: (dir: number) => ({ opacity: 0, x: dir * -shift }),
-                }}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: reducedMotion ? 0 : 0.32, ease }}
-                className="hackathon-week-detail__body"
-              >
-                <span className="hackathon-week-detail__number" aria-hidden="true">
-                  {weekLabel(active)}
-                </span>
+            <motion.div
+              key={active}
+              initial={reducedMotion ? false : { opacity: 0.55, x: direction * shift }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: reducedMotion ? 0 : 0.24, ease }}
+              className="hackathon-week-detail__body"
+            >
+              <span className="hackathon-week-detail__number" aria-hidden="true">
+                {weekLabel(active)}
+              </span>
+              <div>
+                <h3 className="text-h4 font-semibold text-brand-white">{step.title}</h3>
+                <p className="mt-3 text-body text-brand-gray">{step.description}</p>
+              </div>
+              <div className="hackathon-week-detail__deliverable">
+                <FileCheck2 aria-hidden="true" className="size-5 shrink-0 text-brand-cyan" />
                 <div>
-                  <h3 className="text-h4 font-semibold text-brand-white">{step.title}</h3>
-                  <p className="mt-3 text-body text-brand-gray">{step.description}</p>
+                  <p className="text-xs font-medium tracking-[0.14em] text-brand-cyan uppercase">
+                    Entregable
+                  </p>
+                  <p className="mt-1 text-sm leading-6 text-brand-white">{step.deliverable}</p>
                 </div>
-                <div className="hackathon-week-detail__deliverable">
-                  <FileCheck2 aria-hidden="true" className="size-5 shrink-0 text-brand-cyan" />
-                  <div>
-                    <p className="text-xs font-medium tracking-[0.14em] text-brand-cyan uppercase">
-                      Entregable
-                    </p>
-                    <p className="mt-1 text-sm leading-6 text-brand-white">{step.deliverable}</p>
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+              </div>
+            </motion.div>
           </div>
         </div>
         {pinned && (

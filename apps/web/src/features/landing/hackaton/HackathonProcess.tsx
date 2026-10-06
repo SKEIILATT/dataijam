@@ -1,11 +1,9 @@
 import { ArrowUpRight, CalendarDays, ChevronDown, Users } from 'lucide-react'
-import { AnimatePresence, motion } from 'motion/react'
 import { useId, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'
 import { GridPulse } from '@/components/ui/GridPulse'
-import { usePrefersReducedMotion } from '@/components/ui/use-prefers-reduced-motion'
 
 import { HackathonEvaluation } from './HackathonEvaluation'
 import { HackathonWeeks } from './HackathonWeeks'
@@ -19,7 +17,6 @@ interface HackathonProcessProps {
 export function HackathonProcess({ eyebrow, heading, subheading }: HackathonProcessProps) {
   const [rubricsOpen, setRubricsOpen] = useState(false)
   const rubricsId = useId()
-  const reducedMotion = usePrefersReducedMotion()
 
   return (
     <section aria-labelledby="hackathon-process-heading" className="ds-section hackathon-section">
@@ -81,21 +78,9 @@ export function HackathonProcess({ eyebrow, heading, subheading }: HackathonProc
               <ChevronDown aria-hidden="true" className="size-4" />
             </button>
           </header>
-          <AnimatePresence initial={false}>
-            {rubricsOpen && (
-              <motion.div
-                id={rubricsId}
-                key="rubrics"
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: reducedMotion ? 0 : 0.45, ease: [0.22, 1, 0.36, 1] }}
-                className="overflow-hidden"
-              >
-                <HackathonEvaluation />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <div id={rubricsId} hidden={!rubricsOpen} className="hackathon-evaluation__reveal">
+            <HackathonEvaluation />
+          </div>
         </section>
       </Container>
     </section>

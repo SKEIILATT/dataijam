@@ -33,14 +33,14 @@ Lighthouse 13.5, Chromium/Edge sin caché, sobre el contenedor local:
 
 Son mediciones de laboratorio sobre un servidor local y pueden variar entre ejecuciones. No representan la latencia de usuarios reales ni sustituyen una medición tras publicar el sitio. La versión inicial transfería aproximadamente 2.933 KiB en la prueba móvil comparable; las imágenes optimizadas, las fuentes locales y la eliminación de una dependencia sin uso redujeron esa carga.
 
-Tras incorporar la agenda y la foto de Fabricio, una ejecución sobre `vite preview` local obtuvo rendimiento 69 en móvil y 92 en escritorio. Después de optimizar la carga móvil, la última ejecución sobre `vite preview` obtuvo 80 en móvil y 96 en escritorio; accesibilidad, prácticas recomendadas y SEO quedaron en 100 en ambos. Las mediciones locales pueden variar entre ejecuciones.
+Tras incorporar la agenda y la foto de Fabricio, una ejecución sobre `vite preview` local obtuvo rendimiento 69 en móvil y 92 en escritorio. Después de optimizar la carga móvil, una ejecución obtuvo 80 en móvil y 96 en escritorio. Tras ajustar las animaciones, las dos últimas ejecuciones obtuvieron 79 y 80 en móvil, y 96 en escritorio; accesibilidad, prácticas recomendadas y SEO quedaron en 100 en ambos. Las mediciones locales pueden variar entre ejecuciones.
 
 | Métrica móvil tras actualizar la agenda | Antes de optimizar | Versión actual |
 | --------------------------------------- | -----------------: | -------------: |
 | Rendimiento                             |                 69 |             80 |
 | Primer contenido (FCP)                  |              2,1 s |          2,0 s |
 | Elemento principal (LCP)                |              5,8 s |          4,9 s |
-| Bloqueo total (TBT)                     |             330 ms |         100 ms |
+| Bloqueo total (TBT)                     |             330 ms |          96 ms |
 | Movimiento de diseño (CLS)              |                  0 |              0 |
 | Transferencia total                     |          1.491 KiB |        943 KiB |
 
@@ -49,6 +49,10 @@ Capturas del contenedor final: [móvil de 320 px](review/production-mobile.png) 
 Capturas de la agenda y Fabricio tras la actualización: [agenda móvil](review/agenda-mobile.png), [agenda de escritorio](review/agenda-desktop.png), [tarjeta móvil](review/fabricio-mobile.png) y [tarjeta de escritorio](review/fabricio-desktop.png).
 
 Captura del tramo de experiencia optimizado en [móvil](review/mobile-experience-optimized.png).
+
+Captura del selector de semanas del hackathon en [móvil](review/hackathon-mobile-smooth.png).
+
+Captura de la tarjeta de registro con el adorno estático en [móvil](review/registration-mobile-static.png).
 
 ## Cambios aplicados
 
@@ -60,6 +64,8 @@ Captura del tramo de experiencia optimizado en [móvil](review/mobile-experience
 - Política de privacidad actualizada para describir las fuentes locales y los campos observados en el formulario de inscripción.
 - Agenda actualizada con los ocho horarios facilitados por la organización; perfiles ordenados según las charlas. Se añadió la foto y trayectoria de Fabricio Layedra, y George Guerrero aparece con el cargo indicado en la agenda mientras se completa su perfil.
 - El renderizador WebGL del globo y las páginas legales se cargan en módulos separados; los teléfonos omiten los paneles decorativos animados del corredor. Las secciones móviles fuera de pantalla conservan su espacio mientras se aplaza su pintado. Se verificó navegación, desplazamiento a registro y ausencia de saltos relevantes en 320, 390, 768 y 1440 px.
+- El hackathon muestra sus semanas en flujo normal en teléfonos y cambia el detalle en 240 ms sin esperar la salida del anterior. En tableta y escritorio mantiene el recorrido fijado y evita que un clic en una semana pase visualmente por las intermedias durante el desplazamiento. La rúbrica se monta oculta desde el inicio y aparece con una transición de opacidad y posición, sin animar la altura de toda la tabla. Se comprobaron interacciones a 320, 390, 768 y 1440 px, teclado y movimiento reducido. Con CPU simulada cuatro veces más lenta, la apertura de la rúbrica pasó de aproximadamente 50 a 22 ms en el percentil 95 de tiempo entre fotogramas en escritorio; todavía hubo un fotograma lento al mostrarla por primera vez.
+- En teléfonos, la tarjeta de registro usa el adorno estático existente en lugar de cargar y reproducir la animación Lottie en canvas. En tres desplazamientos simulados a 390 px con CPU cuatro veces más lenta, el peor intervalo entre fotogramas bajó de 78 a 17 ms y desaparecieron las tareas largas observadas; a partir de 768 px se conserva la animación.
 
 ## Pendiente antes de publicar
 
