@@ -4,7 +4,8 @@ export interface Speaker {
   education: string
   bio: string
   linkedin: string
-  imageSrc: string
+  /** Without a photo the card shows the mystery silhouette. */
+  imageSrc?: string
   imageAlt: string
   imagePosition?: string
 }

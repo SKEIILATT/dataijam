@@ -43,8 +43,11 @@ export function SpeakerCarousel({
     () => true,
   )
   const [page, setPage] = useState(0)
-  const pageCount = Math.ceil((speakers.length + upcoming.length) / columns)
+  const total = speakers.length + upcoming.length
+  const pageCount = Math.ceil(total / columns)
   const activePage = Math.min(page, pageCount - 1)
+  // A single short page is centered, so the deal fans out from the cards actually shown.
+  const dealt = Math.min(columns, total)
 
   const goTo = useCallback(
     (nextPage: number) => {
@@ -72,6 +75,7 @@ export function SpeakerCarousel({
         ref={viewport}
         id="speaker-carousel-slides"
         className="speaker-carousel__viewport"
+        data-centered={pageCount === 1 ? true : undefined}
         aria-label="Ponentes"
         tabIndex={pageCount > 1 ? 0 : undefined}
         onKeyDown={(event) => {
@@ -94,7 +98,7 @@ export function SpeakerCarousel({
             key={speaker.name}
             speaker={speaker}
             index={index}
-            columns={columns}
+            columns={dealt}
             deal={deal}
           />
         ))}
@@ -104,7 +108,7 @@ export function SpeakerCarousel({
             name={speaker.name}
             role={speaker.role}
             index={speakers.length + index}
-            columns={columns}
+            columns={dealt}
             deal={deal}
           />
         ))}

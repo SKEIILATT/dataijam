@@ -27,12 +27,12 @@ export const speakers: Speaker[] = [
     name: 'George Guerrero',
     role: 'Data Scientist - Claro',
     education: 'Ing. Ciencias Computacionales',
-    bio: ' ',
+    bio: '',
     linkedin: 'https://ec.linkedin.com/in/gguerrero-ec',
-    imageAlt: 'Retrato de Josué Dávalos',
+    imageAlt: 'Retrato de George Guerrero',
   },
 ]
 
-export const upcomingSpeakers: UpcomingSpeaker[] = [{ name: '', role: '' }]
+export const upcomingSpeakers: UpcomingSpeaker[] = []
 
 export const speakerTotal = speakers.length + upcomingSpeakers.length

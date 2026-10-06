@@ -1709,6 +1709,9 @@ summary {
   scrollbar-width: none;
   border-radius: 12px;
 }
+.speaker-carousel__viewport[data-centered] {
+  justify-content: center;
+}
 
 .speaker-carousel__viewport::-webkit-scrollbar {
   display: none;
