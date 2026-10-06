@@ -17,7 +17,7 @@ export const experienceContent: ExperienceContent = {
     alt: 'Ilustración generada con IA de un auditorio durante una conferencia de tecnología',
   },
   stream: [welcome, teamwork, connections, partnerships, guidance, globalLinks],
-  label: 'Conferencias + Hackathon',
+  label: '',
   heading: 'Del escenario al prototipo.',
   description:
     'Conferencias con voces expertas y un hackathon de cuatro semanas para convertir ideas en soluciones con impacto.',

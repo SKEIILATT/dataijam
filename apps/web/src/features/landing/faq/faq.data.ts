@@ -22,8 +22,7 @@ export const faqItems: FaqItem[] = [
   {
     question: '¿Necesito experiencia previa en programación o IA?',
     category: 'evento',
-    answer:
-      'No es obligatorio. Habrá contenido pensado para distintos niveles, y puedes armar tu equipo con personas que complementen tus habilidades.',
+    answer: 'No es obligatorio. Habrá contenido pensado para distintos niveles.',
   },
   {
     question: '¿Puedo inscribirme al hackathon sin equipo?',
