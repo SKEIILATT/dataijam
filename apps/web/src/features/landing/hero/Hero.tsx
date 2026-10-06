@@ -12,13 +12,11 @@ import { RevealWords } from '@/components/ui/RevealWords'
 import { Wordmark } from '@/components/ui/Wordmark'
 
 type HeroProps = {
-  eventLabel?: string
   dateLabel?: string
   locationLabel?: string
 }
 
 export function Hero({
-  eventLabel = 'Conferencias + Hackathon',
   dateLabel = '16 de octubre de 2026',
   locationLabel = 'Guayaquil, Ecuador',
 }: HeroProps) {
@@ -51,18 +49,15 @@ export function Hero({
       <Container>
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div className="hero-copy">
-            <p className="hero-event-label text-sm font-medium tracking-[0.18em] text-brand-cyan uppercase">
-              <span className="hero-event-label__pulse" aria-hidden="true" />
-              {eventLabel}
-            </p>
-            <h1 id="hero-heading" className="mt-4 max-w-2xl text-h1 font-bold text-brand-white">
+            <h1 id="hero-heading" className="max-w-2xl text-h1 font-bold text-brand-white">
               <RevealWords text="El conocimiento viaja." />
               <GradientText>
                 <RevealWords text="El talento nos conecta." delay={0.24} />
               </GradientText>
             </h1>
             <p className="mt-6 max-w-xl text-base leading-7 text-brand-gray sm:text-lg sm:leading-8">
-              Un encuentro para aprender, colaborar y convertir ideas en soluciones con impacto.
+              Conferencias y un hackathon de cuatro semanas sobre datos e IA para aprender,
+              colaborar y convertir ideas en soluciones con impacto.
             </p>
 
             <dl className="mt-8 flex flex-col gap-4 text-sm sm:flex-row sm:flex-wrap sm:gap-x-8 sm:gap-y-3">

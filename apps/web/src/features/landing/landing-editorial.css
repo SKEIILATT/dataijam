@@ -996,25 +996,6 @@
   max-width: 100%;
   background-size: 220% 100%;
 }
-.hero-event-label {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.hero-event-label__pulse {
-  width: 8px;
-  height: 8px;
-  flex: 0 0 auto;
-  border-radius: 50%;
-  background: var(--color-brand-lime);
-  box-shadow: 0 0 0 5px color-mix(in srgb, var(--color-brand-lime) 14%, transparent);
-  animation: hero-signal-pulse 2.8s ease-in-out infinite;
-}
-@keyframes hero-signal-pulse {
-  50% {
-    box-shadow: 0 0 0 9px color-mix(in srgb, var(--color-brand-lime) 4%, transparent);
-  }
-}
 
 .faq-categories button {
   position: relative;
@@ -1113,8 +1094,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-brand-lockup__orbit,
-  .hero-event-label__pulse {
+  .hero-brand-lockup__orbit {
     animation: none !important;
   }
   .location-panorama__spotlight {
