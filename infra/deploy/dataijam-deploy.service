@@ -1,0 +1,14 @@
+[Unit]
+Description=Deploy de dataijam.com desde la rama main
+Wants=network-online.target
+After=network-online.target docker.service
+
+[Service]
+Type=oneshot
+# Dueno de /opt/dataijam y miembro del grupo docker.
+User=bootcamp
+Group=bootcamp
+WorkingDirectory=/opt/dataijam
+ExecStart=/usr/bin/bash /opt/dataijam/infra/deploy/deploy.sh
+TimeoutStartSec=15min
+Nice=10

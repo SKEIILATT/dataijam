@@ -1,0 +1,10 @@
+[Unit]
+Description=Revisa main cada 2 minutos y despliega dataijam.com si hay cambios
+
+[Timer]
+OnBootSec=2min
+OnUnitInactiveSec=2min
+RandomizedDelaySec=15s
+
+[Install]
+WantedBy=timers.target
