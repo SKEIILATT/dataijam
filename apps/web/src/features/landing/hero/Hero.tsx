@@ -79,7 +79,7 @@ export function Hero({
                 <dt className="sr-only">Costo</dt>
                 <dd className="flex items-center gap-3">
                   <Ticket aria-hidden="true" className="size-5 text-brand-cyan" />
-                  Entrada gratuita
+                  Conferencias gratuitas · Taller $30
                 </dd>
               </div>
             </dl>
