@@ -13,6 +13,7 @@ const navigationItems = [
   { label: 'Conferencias', href: '#sedes' },
   { label: 'Hackathon', href: '#hackathon' },
   { label: 'Speakers', href: '#speakers' },
+  { label: 'Taller', href: '#taller' },
   { label: 'Patrocinadores', href: '#patrocinadores' },
   { label: 'FAQ', href: '#faq' },
 ] as const

@@ -9,6 +9,7 @@ import { LocationsGrid } from '../features/landing/locations/LocationsGrid'
 import { Registration } from '../features/landing/registration/Registration'
 import { SpeakerGrid } from '../features/landing/speakers/SpeakerGrid'
 import { Sponsors } from '../features/landing/sponsors/Sponsors'
+import { Workshop } from '../features/landing/workshop/Workshop'
 
 export function HomePage() {
   return (
@@ -48,6 +49,7 @@ export function HomePage() {
             subheading="Expertos que nos acompañarán para inspirar nuevas ideas y conexiones."
           />
         </div>
+        <Workshop />
         <Sponsors />
         <Faq />
         <Registration />

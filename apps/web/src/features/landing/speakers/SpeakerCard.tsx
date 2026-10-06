@@ -15,36 +15,48 @@ interface SpeakerCardProps {
 export function SpeakerCard({ speaker, index, columns, deal }: SpeakerCardProps) {
   const [bioOpen, setBioOpen] = useState(false)
   const bioId = useId()
+  const hasBio = speaker.bio.trim() !== ''
 
   return (
     <SpeakerCardShell index={index} columns={columns} deal={deal}>
       <div className="speaker-editorial__portrait">
-        <img
-          src={speaker.imageSrc}
-          alt={speaker.imageAlt}
-          loading="lazy"
-          decoding="async"
-          className="speaker-editorial__photo"
-          style={speaker.imagePosition ? { objectPosition: speaker.imagePosition } : undefined}
-        />
-        <div id={bioId} className="speaker-editorial__bio" data-open={bioOpen}>
-          <p>{speaker.bio}</p>
-        </div>
+        {speaker.imageSrc ? (
+          <img
+            src={speaker.imageSrc}
+            alt={speaker.imageAlt}
+            loading="lazy"
+            decoding="async"
+            className="speaker-editorial__photo"
+            style={speaker.imagePosition ? { objectPosition: speaker.imagePosition } : undefined}
+          />
+        ) : (
+          <svg aria-hidden="true" viewBox="0 0 200 220" className="speaker-mystery__silhouette">
+            <circle cx="100" cy="78" r="44" />
+            <path d="M20 220c0-52 36-86 80-86s80 34 80 86z" />
+          </svg>
+        )}
+        {hasBio && (
+          <div id={bioId} className="speaker-editorial__bio" data-open={bioOpen}>
+            <p>{speaker.bio}</p>
+          </div>
+        )}
       </div>
       <div className="speaker-editorial__info">
         <h3 className="font-heading text-base font-semibold">{speaker.name}</h3>
         <p className="mt-2 text-sm leading-5">{speaker.role}</p>
         <p className="mt-1 text-xs">{speaker.education}</p>
         <div className="speaker-editorial__actions">
-          <button
-            type="button"
-            aria-expanded={bioOpen}
-            aria-controls={bioId}
-            onClick={() => setBioOpen((open) => !open)}
-            className="speaker-editorial__bio-toggle"
-          >
-            {bioOpen ? 'Cerrar trayectoria' : 'Ver trayectoria'}
-          </button>
+          {hasBio && (
+            <button
+              type="button"
+              aria-expanded={bioOpen}
+              aria-controls={bioId}
+              onClick={() => setBioOpen((open) => !open)}
+              className="speaker-editorial__bio-toggle"
+            >
+              {bioOpen ? 'Cerrar trayectoria' : 'Ver trayectoria'}
+            </button>
+          )}
           <a
             href={speaker.linkedin}
             target="_blank"

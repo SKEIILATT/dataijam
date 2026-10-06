@@ -68,7 +68,7 @@ export function Registration() {
               </span>
               <span>
                 <Ticket aria-hidden="true" className="size-4" />
-                Entrada gratuita
+                Conferencias gratuitas · Taller $30
               </span>
             </div>
           </div>
