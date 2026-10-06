@@ -1,23 +1,34 @@
 import { useEffect, useRef } from 'react'
 import earthMap from '@/assets/images/hero/earth-map.webp'
-import { createGlobeRenderer } from './globe-renderer'
 
 export function RotatingGlobe() {
   const canvas = useRef<HTMLCanvasElement>(null)
-  const renderer = useRef<ReturnType<typeof createGlobeRenderer>>(null)
+  const renderer = useRef<{ destroy: () => void } | null>(null)
 
   useEffect(() => {
     const still = window.matchMedia('(max-width: 639px), (prefers-reduced-motion: reduce)')
+    let disposed = false
+    let version = 0
     const update = () => {
+      const currentVersion = ++version
       renderer.current?.destroy()
       renderer.current = null
       if (canvas.current && !still.matches) {
-        renderer.current = createGlobeRenderer(canvas.current, earthMap)
+        void import('./globe-renderer')
+          .then(({ createGlobeRenderer }) => {
+            if (disposed || currentVersion !== version || !canvas.current || still.matches) return
+            renderer.current = createGlobeRenderer(canvas.current, earthMap)
+          })
+          .catch((error: unknown) => {
+            console.warn('Globe unavailable; using the static illustration.', error)
+          })
       }
     }
     update()
     still.addEventListener('change', update)
     return () => {
+      disposed = true
+      version++
       still.removeEventListener('change', update)
       renderer.current?.destroy()
       renderer.current = null

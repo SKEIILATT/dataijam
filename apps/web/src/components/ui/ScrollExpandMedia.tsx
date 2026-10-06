@@ -1,7 +1,7 @@
 import { useLenis } from 'lenis/react'
 import { ArrowDown } from 'lucide-react'
 import { motion, useInView, useMotionTemplate, useScroll, useTransform } from 'motion/react'
-import { useId, useRef } from 'react'
+import { useId, useRef, useSyncExternalStore } from 'react'
 import type { CSSProperties, FocusEvent, ReactNode } from 'react'
 
 import { Container } from './container'
@@ -9,6 +9,13 @@ import { usePrefersReducedMotion } from './use-prefers-reduced-motion'
 import './scroll-expand-media.css'
 
 const PANELS_PER_WALL = 6
+const corridorViewport = '(min-width: 768px)'
+
+function subscribeCorridor(callback: () => void) {
+  const media = window.matchMedia(corridorViewport)
+  media.addEventListener('change', callback)
+  return () => media.removeEventListener('change', callback)
+}
 
 type ScrollExpandMediaProps = {
   mediaSrc: string
@@ -38,6 +45,11 @@ export function ScrollExpandMedia({
   const headingId = useId()
   const reducedMotion = usePrefersReducedMotion()
   const animated = !reducedMotion
+  const showCorridor = useSyncExternalStore(
+    subscribeCorridor,
+    () => window.matchMedia(corridorViewport).matches,
+    () => false,
+  )
   const streaming = useInView(sectionRef, { margin: '0px 0px -10% 0px' })
   const lenis = useLenis()
 
@@ -71,7 +83,7 @@ export function ScrollExpandMedia({
   }
 
   const panels =
-    animated && streamImages.length > 0
+    animated && showCorridor && streamImages.length > 0
       ? [-1, 1].flatMap((side) =>
           Array.from({ length: PANELS_PER_WALL }, (_, index) => ({
             side,

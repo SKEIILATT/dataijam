@@ -74,6 +74,73 @@
   border-top: 0;
 }
 
+@media (max-width: 639px) {
+  /* Keep offscreen sections in the DOM while skipping their initial paint.
+     The reserved heights match the rendered phone layouts to avoid scroll jumps. */
+  .landing-editorial
+    > :is(#acerca, #sedes, #hackathon, #speakers, #patrocinadores, #faq, #registro) {
+    content-visibility: auto;
+  }
+
+  .landing-editorial > #acerca {
+    contain-intrinsic-size: auto 950px;
+  }
+  .landing-editorial > #sedes {
+    contain-intrinsic-size: auto 670px;
+  }
+  .landing-editorial > #hackathon {
+    contain-intrinsic-size: auto 2510px;
+  }
+  .landing-editorial > #speakers {
+    contain-intrinsic-size: auto 910px;
+  }
+  .landing-editorial > #patrocinadores {
+    contain-intrinsic-size: auto 460px;
+  }
+  .landing-editorial > #faq {
+    contain-intrinsic-size: auto 860px;
+  }
+  .landing-editorial > #registro {
+    contain-intrinsic-size: auto 600px;
+  }
+}
+
+@media (max-width: 359px) {
+  .landing-editorial > #acerca {
+    contain-intrinsic-size: auto 1040px;
+  }
+  .landing-editorial > #sedes {
+    contain-intrinsic-size: auto 720px;
+  }
+  .landing-editorial > #hackathon {
+    contain-intrinsic-size: auto 2600px;
+  }
+  .landing-editorial > #speakers {
+    contain-intrinsic-size: auto 990px;
+  }
+  .landing-editorial > #patrocinadores {
+    contain-intrinsic-size: auto 520px;
+  }
+  .landing-editorial > #faq {
+    contain-intrinsic-size: auto 990px;
+  }
+  .landing-editorial > #registro {
+    contain-intrinsic-size: auto 640px;
+  }
+}
+
+@media (max-width: 639px) and (max-height: 699px) {
+  .landing-editorial > #hackathon {
+    contain-intrinsic-size: auto 1440px;
+  }
+}
+
+@media (max-width: 359px) and (max-height: 699px) {
+  .landing-editorial > #hackathon {
+    contain-intrinsic-size: auto 1550px;
+  }
+}
+
 .landing-editorial .ds-section h2.text-h2 {
   font-family: var(--font-display);
   font-weight: 600;

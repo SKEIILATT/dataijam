@@ -4,7 +4,7 @@ Fecha: 5 de octubre de 2026. Base revisada: `f223733` más los cambios de esta r
 
 ## Dictamen
 
-**Pendiente de aprobación para publicar.** El frontend y el contenedor funcionan en las pruebas locales. Quedan dos verificaciones necesarias que no pueden hacerse desde el repositorio: completar y aprobar el aviso de privacidad con los datos reales del responsable, y validar el dominio con HTTPS y el correo en el servidor de producción. El rendimiento móvil también merece una mejora posterior, aunque no se detectó un fallo funcional.
+**Pendiente de aprobación para publicar.** El frontend y el contenedor funcionan en las pruebas locales. Quedan dos verificaciones necesarias que no pueden hacerse desde el repositorio: completar y aprobar el aviso de privacidad con los datos reales del responsable, y validar el dominio con HTTPS y el correo en el servidor de producción. El rendimiento móvil mejoró, aunque el pintado del elemento principal todavía tiene margen de mejora.
 
 ## Pruebas realizadas
 
@@ -33,11 +33,22 @@ Lighthouse 13.5, Chromium/Edge sin caché, sobre el contenedor local:
 
 Son mediciones de laboratorio sobre un servidor local y pueden variar entre ejecuciones. No representan la latencia de usuarios reales ni sustituyen una medición tras publicar el sitio. La versión inicial transfería aproximadamente 2.933 KiB en la prueba móvil comparable; las imágenes optimizadas, las fuentes locales y la eliminación de una dependencia sin uso redujeron esa carga.
 
-Tras incorporar la agenda y la foto de Fabricio, una nueva ejecución sobre `vite preview` local obtuvo rendimiento 69 en móvil y 92 en escritorio; accesibilidad, prácticas recomendadas y SEO quedaron en 100 en ambos. El LCP fue 5,8 s en móvil y 1,4 s en escritorio. Son ejecuciones en servidores locales distintos, así que estas puntuaciones no permiten atribuir la variación al cambio de contenido.
+Tras incorporar la agenda y la foto de Fabricio, una ejecución sobre `vite preview` local obtuvo rendimiento 69 en móvil y 92 en escritorio. Después de optimizar la carga móvil, la última ejecución sobre `vite preview` obtuvo 80 en móvil y 96 en escritorio; accesibilidad, prácticas recomendadas y SEO quedaron en 100 en ambos. Las mediciones locales pueden variar entre ejecuciones.
+
+| Métrica móvil tras actualizar la agenda | Antes de optimizar | Versión actual |
+| --------------------------------------- | -----------------: | -------------: |
+| Rendimiento                             |                 69 |             80 |
+| Primer contenido (FCP)                  |              2,1 s |          2,0 s |
+| Elemento principal (LCP)                |              5,8 s |          4,9 s |
+| Bloqueo total (TBT)                     |             330 ms |         100 ms |
+| Movimiento de diseño (CLS)              |                  0 |              0 |
+| Transferencia total                     |          1.491 KiB |        943 KiB |
 
 Capturas del contenedor final: [móvil de 320 px](review/production-mobile.png) y [escritorio de 1440 px](review/production-desktop.png).
 
 Capturas de la agenda y Fabricio tras la actualización: [agenda móvil](review/agenda-mobile.png), [agenda de escritorio](review/agenda-desktop.png), [tarjeta móvil](review/fabricio-mobile.png) y [tarjeta de escritorio](review/fabricio-desktop.png).
+
+Captura del tramo de experiencia optimizado en [móvil](review/mobile-experience-optimized.png).
 
 ## Cambios aplicados
 
@@ -48,6 +59,7 @@ Capturas de la agenda y Fabricio tras la actualización: [agenda móvil](review/
 - Configuración de Vercel en `apps/web/vercel.json` con cabeceras de seguridad y rutas directas para la SPA. La vista previa requiere inicio de sesión, por lo que sus respuestas de la aplicación no pudieron auditarse desde fuera.
 - Política de privacidad actualizada para describir las fuentes locales y los campos observados en el formulario de inscripción.
 - Agenda actualizada con los ocho horarios facilitados por la organización; perfiles ordenados según las charlas. Se añadió la foto y trayectoria de Fabricio Layedra, y George Guerrero aparece con el cargo indicado en la agenda mientras se completa su perfil.
+- El renderizador WebGL del globo y las páginas legales se cargan en módulos separados; los teléfonos omiten los paneles decorativos animados del corredor. Las secciones móviles fuera de pantalla conservan su espacio mientras se aplaza su pintado. Se verificó navegación, desplazamiento a registro y ausencia de saltos relevantes en 320, 390, 768 y 1440 px.
 
 ## Pendiente antes de publicar
 
@@ -58,7 +70,7 @@ Capturas de la agenda y Fabricio tras la actualización: [agenda móvil](review/
 
 ## Mejoras posteriores recomendadas
 
-- Reducir el JavaScript inicial (aprox. 586 KiB minificados, 186 KiB con gzip) separando código de secciones que no se ven al abrir la página. Repetir la prueba móvil tras el cambio.
+- Seguir reduciendo el JavaScript inicial (ahora aprox. 570 KiB minificados, 181 KiB con gzip) y el LCP móvil de 4,9 s. Los módulos del globo y de páginas legales ya se cargan por separado; las secciones de la portada aún comparten el archivo inicial.
 - Servir variantes de menor resolución para la fotografía de Guayaquil y otras imágenes decorativas; Lighthouse aún estima ahorro de imágenes.
 - Configurar las URL absolutas de metadatos sociales cuando se conozca el dominio definitivo. Verificar cómo se comparte la página en redes.
 
