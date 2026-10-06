@@ -6,7 +6,7 @@ export function RotatingGlobe() {
   const renderer = useRef<{ destroy: () => void } | null>(null)
 
   useEffect(() => {
-    const still = window.matchMedia('(max-width: 639px), (prefers-reduced-motion: reduce)')
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)')
     let disposed = false
     let version = 0
     const update = () => {
