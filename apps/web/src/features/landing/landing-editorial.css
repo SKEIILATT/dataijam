@@ -370,16 +370,16 @@
   padding-block: 8px;
 }
 
-/* Organizers open the section as a still credit line, ruled off from the moving sponsor ribbon. */
+/* Organizers sit between the heading and the moving ribbon as a still credit band, ruled on both sides. */
 .organizers {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 24px 56px;
-  padding-bottom: 40px;
-  margin-bottom: 56px;
-  border-bottom: 1px solid var(--editorial-rule);
+  margin-top: 48px;
+  padding-block: 32px;
+  border-block: 1px solid var(--editorial-rule);
 }
 .organizers__group {
   display: flex;
@@ -406,13 +406,13 @@
 .organizer {
   display: inline-flex;
 }
+/* One box for every logo: compact marks fill the height, wide wordmarks stop at the width,
+   so a long name like ESPOL doesn't outweigh a square mark like TAWS. */
 .organizer img {
   width: auto;
-  height: 56px;
+  max-width: 132px;
+  height: 60px;
   object-fit: contain;
-}
-.organizer--lead img {
-  height: 64px;
 }
 .organizer__name {
   font-family: var(--font-heading);
@@ -429,10 +429,6 @@
 :root[data-theme='light'] .organizer__logo--light {
   display: block;
 }
-/* The light AEFCSH mark carries the full name under it, so it needs more height to match. */
-:root[data-theme='light'] .organizer:not(.organizer--lead) .organizer__logo--light {
-  height: 68px;
-}
 @media (max-width: 767px) {
   .organizers {
     flex-direction: column;
@@ -445,7 +441,13 @@
     flex-direction: column;
     gap: 12px;
   }
+  .organizers__list {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px 32px;
+  }
   .organizer img {
+    max-width: 104px;
     height: 48px;
   }
 }
