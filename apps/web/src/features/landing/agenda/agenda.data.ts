@@ -4,12 +4,7 @@ export const agendaDate = '16 de octubre de 2026'
 
 export const agenda: AgendaItem[] = [
   { start: '09:00', kind: 'opening', title: 'Bienvenida' },
-  {
-    start: '09:10',
-    kind: 'talk',
-    title: 'Pablo Estrada',
-    detail: 'Quantitative Modeler · Capital One · USA',
-  },
+  { start: '09:10', kind: 'talk', title: '' },
   {
     start: '10:00',
     kind: 'talk',

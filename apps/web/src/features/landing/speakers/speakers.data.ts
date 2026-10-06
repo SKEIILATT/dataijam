@@ -1,19 +1,10 @@
 import fabricioLayedraPhoto from '@/assets/images/speakers/fabricio-layedra.jpg'
+import georgeGuerreroPhoto from '@/assets/images/speakers/george-guerrero.jpg'
 import josueDavalosPhoto from '@/assets/images/speakers/josue-davalos.jpg'
-import pabloEstradaPhoto from '@/assets/images/speakers/pablo-estrada.jpg'
 
 import type { Speaker, UpcomingSpeaker } from './types'
 
 export const speakers: Speaker[] = [
-  {
-    name: 'Pablo Estrada',
-    role: 'Quantitative Modeler en Capital One',
-    education: 'Ph.D. en Economía',
-    bio: 'Economista enfocado en inferencia causal, machine learning y econometría aplicada. Realizó pasantías en la unidad de investigación del Banco Mundial y en Google Summer of Code, donde desarrolló un paquete open source en Python para estimar efectos de derrame (spillover). Ha publicado investigación sobre efectos de pares, análisis de redes, brechas salariales y contagio financiero. Hoy en Capital One desarrolla modelos econométricos y de machine learning para pronosticar riesgo crediticio.',
-    linkedin: 'https://www.linkedin.com/in/pabloestradac',
-    imageSrc: pabloEstradaPhoto,
-    imageAlt: 'Retrato de Pablo Estrada',
-  },
   {
     name: 'Fabricio Layedra',
     role: 'Consultor Senior en Nuevos Negocios e Inteligencia Artificial · Zererbralab',
@@ -33,10 +24,17 @@ export const speakers: Speaker[] = [
     imageSrc: josueDavalosPhoto,
     imageAlt: 'Retrato de Josué Dávalos',
   },
+  {
+    name: 'George Guerrero',
+    role: 'Data Scientist - Claro',
+    education: '-',
+    bio: 'Esta información estará disponible pronto.',
+    linkedin: 'https://ec.linkedin.com/in/gguerrero-ec',
+    imageSrc: georgeGuerreroPhoto,
+    imageAlt: 'Retrato de George Guerrero',
+  },
 ]
 
-export const upcomingSpeakers: UpcomingSpeaker[] = [
-  { name: 'George Guerrero', role: 'Data Scientist · CLARO' },
-]
+export const upcomingSpeakers: UpcomingSpeaker[] = []
 
 export const speakerTotal = speakers.length + upcomingSpeakers.length

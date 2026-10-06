@@ -11,8 +11,28 @@ import {
 import { useEffect, useRef, useState } from 'react'
 import { Container } from '@/components/ui/container'
 import { usePrefersReducedMotion } from '@/components/ui/use-prefers-reduced-motion'
+import { coOrganizers, leadOrganizers } from './organizers.data'
+import type { Organizer } from './organizers.data'
 import { sponsors } from './sponsors.data'
 import type { Sponsor } from './sponsors.data'
+
+function OrganizerLogo({ organizer }: { organizer: Organizer }) {
+  if (!organizer.logo) {
+    return <span className="organizer organizer__name">{organizer.name}</span>
+  }
+  return (
+    <span className="organizer">
+      <img
+        src={organizer.logo}
+        alt={organizer.name}
+        className={organizer.logoLight ? 'organizer__logo--dark' : undefined}
+      />
+      {organizer.logoLight && (
+        <img src={organizer.logoLight} alt={organizer.name} className="organizer__logo--light" />
+      )}
+    </span>
+  )
+}
 
 function SponsorLogo({ sponsor, decorative = false }: { sponsor: Sponsor; decorative?: boolean }) {
   const [failed, setFailed] = useState(false)
@@ -126,6 +146,30 @@ export function Sponsors() {
             >
               Quiero sumar mi marca <MoveUpRight aria-hidden="true" className="size-4" />
             </a>
+          </div>
+        </div>
+
+        {/* The organizers read as a fixed credit line, ruled off from the heading and the ribbon. */}
+        <div data-reveal className="organizers" aria-label="Organizadores">
+          <div className="organizers__group">
+            <p className="organizers__label">Organiza</p>
+            <ul className="organizers__list">
+              {leadOrganizers.map((organizer) => (
+                <li key={organizer.id}>
+                  <OrganizerLogo organizer={organizer} />
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="organizers__group">
+            <p className="organizers__label">Junto a</p>
+            <ul className="organizers__list">
+              {coOrganizers.map((organizer) => (
+                <li key={organizer.id}>
+                  <OrganizerLogo organizer={organizer} />
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </Container>
