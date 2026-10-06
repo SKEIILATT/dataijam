@@ -25,3 +25,29 @@ La analítica permanece apagada si no se configura `VITE_GA_MEASUREMENT_ID`. El 
 5. Comprueba en el dominio final que **Rechazar** no carga `gtag.js` ni envía peticiones a Google; **Aceptar analítica** debe registrar una vista por ruta en Tiempo real o DebugView. El botón **Quiero participar** debe registrar `registration_form_open` solo después de aceptar. Verifica que cambiar a **Rechazar** desde el pie de página detenga nuevas peticiones y elimine las cookies `_ga*`.
 
 El evento `registration_form_open` mide aperturas del formulario externo, no inscripciones completadas. Esa conversión requeriría acceso y configuración del formulario o un flujo de registro propio.
+
+## Flujo de ramas y deploy automático
+
+| Rama        | Destino                         | Cómo llega                                         |
+| ----------- | ------------------------------- | -------------------------------------------------- |
+| `feature/*` | Vista previa de Vercel por rama | Push a la rama                                     |
+| `develop`   | Entorno de pruebas en Vercel    | Pull Request desde `feature/*`, `fix/*` o `docs/*` |
+| `main`      | Producción (`dataijam.com`)     | Pull Request desde `develop` (o un hotfix)         |
+
+En el VPS, `dataijam-deploy.timer` ejecuta [`infra/deploy/deploy.sh`](../infra/deploy/deploy.sh) cada 2 minutos como el usuario `bootcamp`. Si `origin/main` tiene un commit que todavía no se desplegó, actualiza `/opt/dataijam`, reconstruye con `docker compose -f compose.production.yaml --env-file .env.production up -d --build` y comprueba `/` y `/terminos`. Si el build falla, el contenedor anterior sigue sirviendo el sitio y ese commit no se reintenta hasta que llegue uno nuevo.
+
+- Ver lo que hizo: `journalctl -u dataijam-deploy -n 50`
+- Forzar una revisión ahora: `sudo systemctl start dataijam-deploy`
+- Redesplegar el mismo commit: `sudo systemctl set-environment FORCE_DEPLOY=1 && sudo systemctl start dataijam-deploy; sudo systemctl unset-environment FORCE_DEPLOY`
+- Pausar los deploys: `sudo systemctl stop dataijam-deploy.timer` (`start` para reanudar)
+- Volver a una versión anterior: revertir el commit en `main` con un Pull Request; el timer lo despliega.
+
+Instalación de las unidades (solo la primera vez, o si cambian):
+
+```bash
+sudo cp /opt/dataijam/infra/deploy/dataijam-deploy.{service,timer} /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now dataijam-deploy.timer
+```
+
+`main` está protegida por un ruleset que impide borrarla y hacer force-push. Como cada commit en `main` se publica solo, el dueño de la repo debería exigir además un Pull Request y el check `quality` de CI antes de mergear.
