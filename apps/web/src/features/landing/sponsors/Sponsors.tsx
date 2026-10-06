@@ -11,8 +11,29 @@ import {
 import { useEffect, useRef, useState } from 'react'
 import { Container } from '@/components/ui/container'
 import { usePrefersReducedMotion } from '@/components/ui/use-prefers-reduced-motion'
+import { coOrganizers, leadOrganizer } from './organizers.data'
+import type { Organizer } from './organizers.data'
 import { sponsors } from './sponsors.data'
 import type { Sponsor } from './sponsors.data'
+
+function OrganizerLogo({ organizer, lead = false }: { organizer: Organizer; lead?: boolean }) {
+  const className = lead ? 'organizer organizer--lead' : 'organizer'
+  if (!organizer.logo) {
+    return <span className={`${className} organizer__name`}>{organizer.name}</span>
+  }
+  return (
+    <span className={className}>
+      <img
+        src={organizer.logo}
+        alt={organizer.name}
+        className={organizer.logoLight ? 'organizer__logo--dark' : undefined}
+      />
+      {organizer.logoLight && (
+        <img src={organizer.logoLight} alt={organizer.name} className="organizer__logo--light" />
+      )}
+    </span>
+  )
+}
 
 function SponsorLogo({ sponsor, decorative = false }: { sponsor: Sponsor; decorative?: boolean }) {
   const [failed, setFailed] = useState(false)
@@ -105,6 +126,24 @@ export function Sponsors() {
       className="ds-section sponsors-section"
     >
       <Container>
+        {/* The organizers read as a fixed credit line, set apart from the sponsor ribbon below. */}
+        <div data-reveal className="organizers" aria-label="Organizadores">
+          <div className="organizers__group">
+            <p className="organizers__label">Organiza</p>
+            <OrganizerLogo organizer={leadOrganizer} lead />
+          </div>
+          <div className="organizers__group">
+            <p className="organizers__label">Junto a</p>
+            <ul className="organizers__list">
+              {coOrganizers.map((organizer) => (
+                <li key={organizer.id}>
+                  <OrganizerLogo organizer={organizer} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
         <div data-reveal className="sponsors-editorial__heading">
           <div className="max-w-xl">
             <p className="text-sm font-medium tracking-[0.18em] text-brand-cyan uppercase">

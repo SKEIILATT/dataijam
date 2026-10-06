@@ -370,6 +370,86 @@
   padding-block: 8px;
 }
 
+/* Organizers open the section as a still credit line, ruled off from the moving sponsor ribbon. */
+.organizers {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 24px 56px;
+  padding-bottom: 40px;
+  margin-bottom: 56px;
+  border-bottom: 1px solid var(--editorial-rule);
+}
+.organizers__group {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.organizers__group + .organizers__group {
+  padding-left: 56px;
+  border-left: 1px solid var(--editorial-rule);
+}
+.organizers__label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-brand-gray);
+}
+.organizers__list {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+.organizer {
+  display: inline-flex;
+}
+.organizer img {
+  width: auto;
+  height: 56px;
+  object-fit: contain;
+}
+.organizer--lead img {
+  height: 64px;
+}
+.organizer__name {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-brand-white);
+}
+.organizer__logo--light {
+  display: none;
+}
+:root[data-theme='light'] .organizer__logo--dark {
+  display: none;
+}
+:root[data-theme='light'] .organizer__logo--light {
+  display: block;
+}
+/* The light AEFCSH mark carries the full name under it, so it needs more height to match. */
+:root[data-theme='light'] .organizer:not(.organizer--lead) .organizer__logo--light {
+  height: 68px;
+}
+@media (max-width: 767px) {
+  .organizers {
+    flex-direction: column;
+  }
+  .organizers__group + .organizers__group {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .organizers__group {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .organizer img {
+    height: 48px;
+  }
+}
+
 /* An indexed FAQ with real filtering, keeping every answer available. */
 .landing-editorial .faq-section.ds-section {
   background: var(--editorial-soft);
