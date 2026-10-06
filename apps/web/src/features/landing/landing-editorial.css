@@ -1372,7 +1372,7 @@
   }
 }
 
-/* Speakers: confirmed portraits reveal their bio in place; pending slots stay a teaser. */
+/* Speakers: portraits reveal their bio in place; pending profiles show known details. */
 .speaker-editorial__photo {
   position: absolute;
   inset: 0;
@@ -1470,10 +1470,6 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-}
-.speaker-mystery__redacted {
-  filter: blur(5px);
-  user-select: none;
 }
 @keyframes speaker-mystery-breathe {
   50% {

@@ -1,5 +1,9 @@
 # Landing photography
 
+## Speakers
+
+- `speakers/fabricio-layedra.jpg`: portrait supplied by the event organizer for Fabricio Layedra's speaker profile.
+
 ## Community
 
 - File: `about/community.jpg` (JPEG q85 conversion of the generated PNG).

@@ -11,8 +11,6 @@ interface SpeakerGridProps {
 }
 
 export function SpeakerGrid({ eyebrow, heading, subheading }: SpeakerGridProps) {
-  const hiddenCount = upcomingSpeakers.filter((speaker) => !speaker.name).length
-
   if (!speakerTotal) {
     return null
   }
@@ -43,11 +41,6 @@ export function SpeakerGrid({ eyebrow, heading, subheading }: SpeakerGridProps) 
               <span className="speakers-count__label">speakers el 16 de octubre</span>
             </p>
             <p className="mt-3 text-body text-brand-gray">{subheading}</p>
-            {hiddenCount > 0 && (
-              <p className="mt-3 text-xs font-medium tracking-[0.12em] text-brand-cyan uppercase">
-                {hiddenCount} por revelar · Pronto se revelarán
-              </p>
-            )}
           </div>
         </div>
 

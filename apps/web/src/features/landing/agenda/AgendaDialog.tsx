@@ -1,4 +1,4 @@
-import { ArrowRight, CalendarClock, Coffee, Flag, Mic, Sparkles, X } from 'lucide-react'
+import { ArrowRight, CalendarClock, Flag, Mic, UtensilsCrossed, Wrench, X } from 'lucide-react'
 import { useLenis } from 'lenis/react'
 import { useId, useRef } from 'react'
 import type { AnimationEvent, CSSProperties } from 'react'
@@ -11,42 +11,24 @@ import { agenda, agendaDate } from './agenda.data'
 import type { AgendaItem } from './types'
 import './agenda-dialog.css'
 
-const icons = { opening: Flag, talk: Mic, break: Coffee, closing: Flag }
+const icons = { opening: Flag, talk: Mic, break: UtensilsCrossed, workshop: Wrench, closing: Flag }
 
 function AgendaRow({ item, index }: { item: AgendaItem; index: number }) {
   const Icon = icons[item.kind]
   const role = speakers.find((speaker) => speaker.name === item.title)?.role
-  const unannounced = item.kind === 'talk' && !item.title
-  const detail = item.detail ?? role ?? 'Charla'
+  const detail = item.detail ?? (item.kind === 'talk' ? role : undefined)
 
   return (
     <li className="agenda-item" data-kind={item.kind} style={{ '--i': index } as CSSProperties}>
       <p className="agenda-item__time">
-        <time>{item.start}</time>
-        <span className="sr-only"> a </span>
-        <time>{item.end}</time>
+        <time dateTime={`2026-10-16T${item.start}`}>{item.start}</time>
       </p>
       <span className="agenda-item__dot" aria-hidden="true">
         <Icon className="size-3.5" />
       </span>
       <div className="min-w-0">
-        {unannounced ? (
-          <p className="agenda-item__title">
-            <span className="sr-only">Ponente por revelar</span>
-            <span aria-hidden="true" className="agenda-item__redacted">
-              Nombre del ponente
-            </span>
-            <span aria-hidden="true" className="agenda-item__teaser">
-              <Sparkles className="size-3" />
-              Pronto se revelará
-            </span>
-          </p>
-        ) : (
-          <p className="agenda-item__title">{item.title}</p>
-        )}
-        <p className="agenda-item__detail">
-          {detail} · {item.duration}
-        </p>
+        <p className="agenda-item__title">{item.title}</p>
+        {detail && <p className="agenda-item__detail">{detail}</p>}
       </div>
     </li>
   )
@@ -110,13 +92,13 @@ export function AgendaDialog() {
             <header className="agenda-dialog__header">
               <div>
                 <p className="text-xs font-medium tracking-[0.18em] text-brand-cyan uppercase">
-                  {agendaDate} · Auditorio ESPAE, Guayaquil
+                  {agendaDate} · Campus Peñas, Auditorio ESPAE · Guayaquil
                 </p>
                 <h2 id={titleId} className="mt-2 text-h3 font-semibold text-brand-white">
-                  Agenda de conferencias
+                  Agenda del evento
                 </h2>
                 <p className="mt-2 text-sm text-brand-gray">
-                  Cada charla: 30 min de exposición + 5 min de preguntas.
+                  Conferencias, almuerzo y taller en un día de ideas y conexiones.
                 </p>
               </div>
               <button

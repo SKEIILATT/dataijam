@@ -25,6 +25,7 @@ export function SpeakerCard({ speaker, index, columns, deal }: SpeakerCardProps)
           loading="lazy"
           decoding="async"
           className="speaker-editorial__photo"
+          style={speaker.imagePosition ? { objectPosition: speaker.imagePosition } : undefined}
         />
         <div id={bioId} className="speaker-editorial__bio" data-open={bioOpen}>
           <p>{speaker.bio}</p>

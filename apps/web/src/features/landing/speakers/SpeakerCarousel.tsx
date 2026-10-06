@@ -100,8 +100,9 @@ export function SpeakerCarousel({
         ))}
         {upcoming.map((speaker, index) => (
           <SpeakerMysteryCard
-            key={speaker.name ?? `upcoming-${index}`}
+            key={speaker.name}
             name={speaker.name}
+            role={speaker.role}
             index={speakers.length + index}
             columns={columns}
             deal={deal}

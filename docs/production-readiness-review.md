@@ -33,7 +33,11 @@ Lighthouse 13.5, Chromium/Edge sin caché, sobre el contenedor local:
 
 Son mediciones de laboratorio sobre un servidor local y pueden variar entre ejecuciones. No representan la latencia de usuarios reales ni sustituyen una medición tras publicar el sitio. La versión inicial transfería aproximadamente 2.933 KiB en la prueba móvil comparable; las imágenes optimizadas, las fuentes locales y la eliminación de una dependencia sin uso redujeron esa carga.
 
+Tras incorporar la agenda y la foto de Fabricio, una nueva ejecución sobre `vite preview` local obtuvo rendimiento 69 en móvil y 92 en escritorio; accesibilidad, prácticas recomendadas y SEO quedaron en 100 en ambos. El LCP fue 5,8 s en móvil y 1,4 s en escritorio. Son ejecuciones en servidores locales distintos, así que estas puntuaciones no permiten atribuir la variación al cambio de contenido.
+
 Capturas del contenedor final: [móvil de 320 px](review/production-mobile.png) y [escritorio de 1440 px](review/production-desktop.png).
+
+Capturas de la agenda y Fabricio tras la actualización: [agenda móvil](review/agenda-mobile.png), [agenda de escritorio](review/agenda-desktop.png), [tarjeta móvil](review/fabricio-mobile.png) y [tarjeta de escritorio](review/fabricio-desktop.png).
 
 ## Cambios aplicados
 
@@ -43,13 +47,14 @@ Capturas del contenedor final: [móvil de 320 px](review/production-mobile.png) 
 - `robots.txt`, caché de recursos con versión, cabeceras de seguridad y errores 404 para recursos ausentes. El contenedor escucha por defecto solo en la interfaz local para usar un proxy HTTPS delante.
 - Configuración de Vercel en `apps/web/vercel.json` con cabeceras de seguridad y rutas directas para la SPA. La vista previa requiere inicio de sesión, por lo que sus respuestas de la aplicación no pudieron auditarse desde fuera.
 - Política de privacidad actualizada para describir las fuentes locales y los campos observados en el formulario de inscripción.
+- Agenda actualizada con los ocho horarios facilitados por la organización; perfiles ordenados según las charlas. Se añadió la foto y trayectoria de Fabricio Layedra, y George Guerrero aparece con el cargo indicado en la agenda mientras se completa su perfil.
 
 ## Pendiente antes de publicar
 
 1. **Aviso de privacidad.** Identificar a la persona o entidad responsable con nombre legal, domicilio, teléfono y correo; especificar la base jurídica y el plazo de conservación aplicables; revisar que el aviso mostrado al recopilar datos en Google Forms coincida con la política. El formulario pide cédula. El [artículo 12 de la Ley Orgánica de Protección de Datos Personales](https://spdp.gob.ec/wp-content/uploads/2024/12/03.pdf.pdf) enumera la información que debe recibir la persona titular. Estos datos y decisiones no se pueden inventar desde el código; requieren confirmación del organizador y revisión jurídica.
 2. **Infraestructura real.** Confirmar si se publicará con Vercel o Docker. En Docker, configurar DNS, certificado TLS, redirección HTTP→HTTPS y proxy hacia `127.0.0.1:8080`; habilitar HSTS cuando HTTPS esté validado. En Vercel, validar que el dominio final aplique `apps/web/vercel.json`. En ambos casos, probar las rutas, las cabeceras y el botón de inscripción en el dominio final. La vista previa de Vercel está protegida por inicio de sesión, así que no confirma estas respuestas públicas.
 3. **Canal de contacto.** Se encontró registro MX para `dataijam.com`, pero eso no prueba que `registros@dataijam.com` reciba y responda mensajes. Hacer una prueba de envío y respuesta.
-4. **Contenido del evento.** Hay cinco ponentes aún ocultos, patrocinadores sin confirmar, asistentes estimados marcados como «Pronto» y premios pendientes. Confirmar que este estado sea el que se desea mostrar el día del lanzamiento. La agenda nombra a Pablo Estrada, mientras que Josue Davalos figura entre los ponentes anunciados sin aparecer aún por nombre en esa agenda.
+4. **Contenido del evento.** Los cuatro ponentes de la agenda ya aparecen por nombre; el retrato y la biografía de George Guerrero siguen pendientes. Hay patrocinadores sin confirmar, asistentes estimados marcados como «Pronto» y premios pendientes. La agenda facilitada presenta a Fabricio Layedra como «Gerente de experimentos de datos · Rappi · LATAM», mientras que su ficha actual indica «Consultor Senior en Nuevos Negocios e Inteligencia Artificial · Zererbralab»; confirmar qué cargo debe comunicarse en la agenda antes de publicar. La línea de Pablo en la imagen contiene una grafía confusa, por lo que la web usa el cargo ya documentado en su perfil: «Quantitative Modeler en Capital One».
 
 ## Mejoras posteriores recomendadas
 

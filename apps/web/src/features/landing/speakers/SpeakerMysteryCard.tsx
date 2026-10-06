@@ -4,13 +4,14 @@ import type { MotionValue } from 'motion/react'
 import { SpeakerCardShell } from './SpeakerCardShell'
 
 interface SpeakerMysteryCardProps {
-  name?: string
+  name: string
+  role: string
   index: number
   columns: number
   deal: MotionValue<number>
 }
 
-export function SpeakerMysteryCard({ name, index, columns, deal }: SpeakerMysteryCardProps) {
+export function SpeakerMysteryCard({ name, role, index, columns, deal }: SpeakerMysteryCardProps) {
   return (
     <SpeakerCardShell index={index} columns={columns} deal={deal} className="speaker-mystery">
       <div className="speaker-editorial__portrait">
@@ -21,27 +22,12 @@ export function SpeakerMysteryCard({ name, index, columns, deal }: SpeakerMyster
         <span className="speaker-mystery__scan" aria-hidden="true" />
         <span className="speaker-editorial__label speaker-mystery__label">
           <Sparkles aria-hidden="true" className="size-3.5" />
-          Pronto se revelará
+          Perfil próximamente
         </span>
       </div>
       <div className="speaker-editorial__info">
-        {name ? (
-          <h3 className="font-heading text-base font-semibold">{name}</h3>
-        ) : (
-          <>
-            <h3 className="sr-only">Speaker por revelar</h3>
-            <p
-              aria-hidden="true"
-              className="speaker-mystery__redacted font-heading text-base font-semibold"
-            >
-              Nombre del speaker
-            </p>
-          </>
-        )}
-        <p aria-hidden="true" className="speaker-mystery__redacted mt-2 text-sm leading-5">
-          Cargo y organización
-        </p>
-        {name && <p className="sr-only">Perfil por revelar</p>}
+        <h3 className="font-heading text-base font-semibold">{name}</h3>
+        <p className="mt-2 text-sm leading-5">{role}</p>
       </div>
     </SpeakerCardShell>
   )

@@ -6,8 +6,10 @@ export interface Speaker {
   linkedin: string
   imageSrc: string
   imageAlt: string
+  imagePosition?: string
 }
 
 export interface UpcomingSpeaker {
-  name?: string
+  name: string
+  role: string
 }
