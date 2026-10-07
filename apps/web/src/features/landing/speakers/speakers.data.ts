@@ -27,8 +27,8 @@ export const speakers: Speaker[] = [
   {
     name: 'George Guerrero',
     role: 'Data Scientist - Claro',
-    education: '-',
-    bio: 'Esta información estará disponible pronto.',
+    education: 'Economista',
+    bio: 'Hola! Soy un economista particularmente interesado en la tecnología. Desde que inicié mi carrera, he logrado disfrutar de ambos mundos a través de la programación, me permite aprender a diario sobre inteligencia artificial y la ciencia de datos, campos que abordo con entusiasmo como parte de mis actividades profesionales. A partir de entonces, me apasiona colaborar en la toma de decisiones orientadas por los datos, generar insights, automatizar procesos, e incluso crear estrategias que permitan cumplir objetivos a las organizaciones. Dentro de mis principales aficiones, definitivamente está la investigación, el mercado bursátil, la econometría y el crecimiento organizacional. Conectemos si es de tu interés discutir cómo puedo contribuir a tus proyectos o explorar oportunidades de colaboración.',
     linkedin: 'https://ec.linkedin.com/in/gguerrero-ec',
     imageSrc: georgeGuerreroPhoto,
     imageAlt: 'Retrato de George Guerrero',

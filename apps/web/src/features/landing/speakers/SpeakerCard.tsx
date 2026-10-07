@@ -1,9 +1,11 @@
 import type { MotionValue } from 'motion/react'
-import { useId, useState } from 'react'
+import { useRef, useState } from 'react'
 import { FaLinkedinIn } from 'react-icons/fa6'
 
+import { SpeakerBioDialog } from './SpeakerBioDialog'
 import { SpeakerCardShell } from './SpeakerCardShell'
 import type { Speaker } from './types'
+import './speaker-bio-dialog.css'
 
 interface SpeakerCardProps {
   speaker: Speaker
@@ -14,11 +16,17 @@ interface SpeakerCardProps {
 
 export function SpeakerCard({ speaker, index, columns, deal }: SpeakerCardProps) {
   const [bioOpen, setBioOpen] = useState(false)
-  const bioId = useId()
+  const [origin, setOrigin] = useState<HTMLElement | null>(null)
+  const toggleRef = useRef<HTMLButtonElement>(null)
   const hasBio = speaker.bio.trim() !== ''
 
+  function openBio() {
+    setOrigin(toggleRef.current?.closest<HTMLElement>('.speaker-editorial') ?? null)
+    setBioOpen(true)
+  }
+
   return (
-    <SpeakerCardShell index={index} columns={columns} deal={deal}>
+    <SpeakerCardShell index={index} columns={columns} deal={deal} lifted={bioOpen}>
       <div className="speaker-editorial__portrait">
         {speaker.imageSrc ? (
           <img
@@ -35,11 +43,6 @@ export function SpeakerCard({ speaker, index, columns, deal }: SpeakerCardProps)
             <path d="M20 220c0-52 36-86 80-86s80 34 80 86z" />
           </svg>
         )}
-        {hasBio && (
-          <div id={bioId} className="speaker-editorial__bio" data-open={bioOpen}>
-            <p>{speaker.bio}</p>
-          </div>
-        )}
       </div>
       <div className="speaker-editorial__info">
         <h3 className="font-heading text-base font-semibold">{speaker.name}</h3>
@@ -48,13 +51,13 @@ export function SpeakerCard({ speaker, index, columns, deal }: SpeakerCardProps)
         <div className="speaker-editorial__actions">
           {hasBio && (
             <button
+              ref={toggleRef}
               type="button"
-              aria-expanded={bioOpen}
-              aria-controls={bioId}
-              onClick={() => setBioOpen((open) => !open)}
+              aria-haspopup="dialog"
+              onClick={openBio}
               className="speaker-editorial__bio-toggle"
             >
-              {bioOpen ? 'Cerrar trayectoria' : 'Ver trayectoria'}
+              Ver trayectoria
             </button>
           )}
           <a
@@ -68,6 +71,14 @@ export function SpeakerCard({ speaker, index, columns, deal }: SpeakerCardProps)
           </a>
         </div>
       </div>
+      {hasBio && (
+        <SpeakerBioDialog
+          speaker={speaker}
+          origin={origin}
+          open={bioOpen}
+          onClosed={() => setBioOpen(false)}
+        />
+      )}
     </SpeakerCardShell>
   )
 }

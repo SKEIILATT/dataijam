@@ -697,14 +697,36 @@
   font-size: 13px;
   font-family: var(--font-display);
 }
+/* As wide as the tagline, so the symbol and wordmark center over it. */
 .footer-brand {
   display: flex;
-  align-items: start;
+  align-items: center;
   flex-direction: column;
   gap: 12px;
+  width: 280px;
 }
 .footer-brand__wordmark {
-  width: 210px;
+  width: 230px;
+}
+/* The hero's tagline art, so the colored "+" match. Its letters are widely tracked,
+   so it runs wider than the wordmark to stay legible. */
+.footer-brand__tagline {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1185 / 45;
+}
+.footer-brand__tagline-text,
+.footer-brand__tagline-accent {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.footer-brand__tagline-text {
+  background-color: var(--color-footer-ink);
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
 }
 
 @media (max-width: 1023px) {
@@ -781,7 +803,7 @@
     gap: 16px;
   }
   .footer-brand {
-    align-items: center;
+    margin-inline: auto;
   }
 }
 
@@ -1341,34 +1363,19 @@
 .speaker-editorial:hover .speaker-editorial__photo {
   transform: scale(1.05);
 }
-.speaker-editorial__bio {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  overflow-y: auto;
-  padding: 20px;
-  font-size: 13px;
-  line-height: 1.55;
-  color: var(--editorial-brand-white);
-  background: color-mix(in srgb, var(--editorial-brand-navy) 90%, transparent);
-  backdrop-filter: blur(10px);
-  translate: 0 100%;
-  visibility: hidden;
-  transition:
-    translate var(--motion-normal) var(--motion-easing),
-    visibility 0s linear var(--motion-normal);
-}
-.speaker-editorial__bio[data-open='true'] {
-  translate: 0 0;
-  visibility: visible;
-  transition: translate var(--motion-normal) var(--motion-easing);
+/* The actions sit on the card's bottom edge, so they line up across cards whatever the
+   length of the role and education above them. */
+.speaker-editorial__info {
+  display: flex;
+  flex-direction: column;
 }
 .speaker-editorial__actions {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-top: 12px;
+  margin-top: auto;
+  padding-top: 12px;
 }
 .speaker-editorial__bio-toggle {
   min-height: 40px;

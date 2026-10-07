@@ -2,6 +2,8 @@ import { FaInstagram } from 'react-icons/fa6'
 import { Link } from 'react-router'
 import { measurementId, openAnalyticsPreferences } from '@/features/analytics/analytics'
 import symbol from '../../assets/brand/symbol.webp'
+import taglineAccent from '../../assets/brand/tagline-accent.webp'
+import taglineMask from '../../assets/brand/tagline-mask.webp'
 import { ScrollReveal } from '../ui/scroll-reveal'
 import { Container } from '../ui/container'
 import { Wordmark } from '../ui/Wordmark'
@@ -33,12 +35,27 @@ export function SiteFooter() {
       <ScrollReveal className="footer-motion">
         <Container>
           <div data-reveal="fade" className="grid gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
+            {/* Compact lockup with the hero's official tagline art, colored "+" included. */}
             <div className="footer-brand">
               <img src={symbol} alt="" width={704} height={504} className="w-20" />
               <Wordmark className="footer-brand__wordmark" imageClassName="h-auto w-full" />
-              <p className="text-xs tracking-[0.12em] text-footer-ink/70">
-                DATOS · PERSONAS · ACCIÓN
-              </p>
+              <span
+                role="img"
+                aria-label="Datos, personas, acción"
+                className="footer-brand__tagline"
+              >
+                <span
+                  className="footer-brand__tagline-text"
+                  style={{ maskImage: `url(${taglineMask})` }}
+                />
+                <img
+                  src={taglineAccent}
+                  alt=""
+                  width={1185}
+                  height={45}
+                  className="footer-brand__tagline-accent"
+                />
+              </span>
             </div>
 
             <div className="lg:border-l lg:border-brand-gray/35 lg:pl-8">
