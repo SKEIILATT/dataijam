@@ -15,7 +15,7 @@ export const agenda: AgendaItem[] = [
     start: '11:20',
     kind: 'talk',
     title: 'George Guerrero',
-    detail: 'Data Scientist · CLARO',
+    detail: 'Especialista de Analítica de Datos · Claro',
   },
   { start: '12:00', kind: 'break', title: 'Almuerzo' },
   {

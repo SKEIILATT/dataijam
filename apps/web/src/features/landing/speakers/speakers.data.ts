@@ -25,13 +25,13 @@ export const speakers: Speaker[] = [
     imageAlt: 'Retrato de Josué Dávalos',
   },
   {
-    name: 'George Guerrero',
-    role: 'Data Scientist - Claro',
-    education: 'Economista',
-    bio: 'Hola! Soy un economista particularmente interesado en la tecnología. Desde que inicié mi carrera, he logrado disfrutar de ambos mundos a través de la programación, me permite aprender a diario sobre inteligencia artificial y la ciencia de datos, campos que abordo con entusiasmo como parte de mis actividades profesionales. A partir de entonces, me apasiona colaborar en la toma de decisiones orientadas por los datos, generar insights, automatizar procesos, e incluso crear estrategias que permitan cumplir objetivos a las organizaciones. Dentro de mis principales aficiones, definitivamente está la investigación, el mercado bursátil, la econometría y el crecimiento organizacional. Conectemos si es de tu interés discutir cómo puedo contribuir a tus proyectos o explorar oportunidades de colaboración.',
+    name: 'George Alejandro Guerrero Cáceres',
+    role: 'Especialista de Analítica de Datos en Claro',
+    education: 'Economía · ESPOL',
+    bio: 'Economista graduado de ESPOL en 2024, con experiencia en investigación, inteligencia de negocios, análisis financiero y analítica de datos. Inició su carrera como Asistente de Investigación en ESPAE y posteriormente se desempeñó como Analista de Inteligencia de Negocios en una importante empresa del sector de alimentos. Su trayectoria continuó en Claro, donde trabajó en Análisis y Planeación Financiera y donde actualmente es Especialista de Analítica de Datos, combinando el análisis cuantitativo y el uso de herramientas de datos para generar información que contribuya a la toma de decisiones y al desarrollo de iniciativas de negocio.',
     linkedin: 'https://ec.linkedin.com/in/gguerrero-ec',
     imageSrc: georgeGuerreroPhoto,
-    imageAlt: 'Retrato de George Guerrero',
+    imageAlt: 'Retrato de George Alejandro Guerrero Cáceres',
   },
 ]
 
