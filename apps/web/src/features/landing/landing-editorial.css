@@ -697,11 +697,13 @@
   font-size: 13px;
   font-family: var(--font-display);
 }
+/* As wide as the wordmark, so the symbol centers over the wordmark and tagline. */
 .footer-brand {
   display: flex;
-  align-items: start;
+  align-items: center;
   flex-direction: column;
   gap: 12px;
+  width: 210px;
 }
 .footer-brand__wordmark {
   width: 210px;
@@ -800,7 +802,7 @@
     gap: 16px;
   }
   .footer-brand {
-    align-items: center;
+    margin-inline: auto;
   }
 }
 
