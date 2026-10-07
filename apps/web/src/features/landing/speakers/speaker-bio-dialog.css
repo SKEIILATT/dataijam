@@ -1,0 +1,11 @@
+.speaker-bio-dialog::backdrop {
+  background: transparent;
+}
+
+.speaker-editorial[data-lifted] {
+  opacity: 0;
+}
+
+html:has(.speaker-bio-dialog[open]) {
+  overflow: hidden;
+}

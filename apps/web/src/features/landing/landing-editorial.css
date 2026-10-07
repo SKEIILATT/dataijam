@@ -1341,34 +1341,19 @@
 .speaker-editorial:hover .speaker-editorial__photo {
   transform: scale(1.05);
 }
-.speaker-editorial__bio {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  overflow-y: auto;
-  padding: 20px;
-  font-size: 13px;
-  line-height: 1.55;
-  color: var(--editorial-brand-white);
-  background: color-mix(in srgb, var(--editorial-brand-navy) 90%, transparent);
-  backdrop-filter: blur(10px);
-  translate: 0 100%;
-  visibility: hidden;
-  transition:
-    translate var(--motion-normal) var(--motion-easing),
-    visibility 0s linear var(--motion-normal);
-}
-.speaker-editorial__bio[data-open='true'] {
-  translate: 0 0;
-  visibility: visible;
-  transition: translate var(--motion-normal) var(--motion-easing);
+/* The actions sit on the card's bottom edge, so they line up across cards whatever the
+   length of the role and education above them. */
+.speaker-editorial__info {
+  display: flex;
+  flex-direction: column;
 }
 .speaker-editorial__actions {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-top: 12px;
+  margin-top: auto;
+  padding-top: 12px;
 }
 .speaker-editorial__bio-toggle {
   min-height: 40px;
