@@ -408,6 +408,13 @@
   );
 }
 
+/* While a dialog pauses Lenis, it locks the page with overflow: clip, which drops a classic
+   scrollbar and shifts the whole layout sideways. Hidden locks it too and keeps the gutter. */
+html.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}
+
 /* Phones and tablets: shorter, snappier entrances that keep up with touch flings. */
 @media (hover: none), (max-width: 1023px) {
   :root {
