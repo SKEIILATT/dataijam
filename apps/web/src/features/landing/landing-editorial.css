@@ -697,24 +697,19 @@
   font-size: 13px;
   font-family: var(--font-display);
 }
-/* Mirrors the hero lockup at footer scale, so the brand reads the same at both ends of the page. */
 .footer-brand {
   display: flex;
-  align-items: center;
+  align-items: start;
   flex-direction: column;
-  gap: 10px;
-  width: min(100%, 280px);
-}
-.footer-brand__symbol {
-  width: 85%;
-  height: auto;
+  gap: 12px;
 }
 .footer-brand__wordmark {
-  width: 100%;
+  width: 210px;
 }
+/* The hero's tagline art, so the colored "+" match; sized to sit under the wordmark. */
 .footer-brand__tagline {
   position: relative;
-  width: 90%;
+  width: 210px;
   aspect-ratio: 1185 / 45;
 }
 .footer-brand__tagline-text,
@@ -805,7 +800,7 @@
     gap: 16px;
   }
   .footer-brand {
-    margin-inline: auto;
+    align-items: center;
   }
 }
 

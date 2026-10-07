@@ -35,9 +35,9 @@ export function SiteFooter() {
       <ScrollReveal className="footer-motion">
         <Container>
           <div data-reveal="fade" className="grid gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
-            {/* Same lockup as the hero: symbol over the wordmark, with the official tagline art. */}
+            {/* Compact lockup with the hero's official tagline art, colored "+" included. */}
             <div className="footer-brand">
-              <img src={symbol} alt="" width={704} height={504} className="footer-brand__symbol" />
+              <img src={symbol} alt="" width={704} height={504} className="w-20" />
               <Wordmark className="footer-brand__wordmark" imageClassName="h-auto w-full" />
               <span
                 role="img"
