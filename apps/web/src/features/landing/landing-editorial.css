@@ -697,14 +697,36 @@
   font-size: 13px;
   font-family: var(--font-display);
 }
+/* As wide as the tagline, so the symbol and wordmark center over it. */
 .footer-brand {
   display: flex;
-  align-items: start;
+  align-items: center;
   flex-direction: column;
   gap: 12px;
+  width: 280px;
 }
 .footer-brand__wordmark {
-  width: 210px;
+  width: 230px;
+}
+/* The hero's tagline art, so the colored "+" match. Its letters are widely tracked,
+   so it runs wider than the wordmark to stay legible. */
+.footer-brand__tagline {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1185 / 45;
+}
+.footer-brand__tagline-text,
+.footer-brand__tagline-accent {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.footer-brand__tagline-text {
+  background-color: var(--color-footer-ink);
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
 }
 
 @media (max-width: 1023px) {
@@ -781,7 +803,7 @@
     gap: 16px;
   }
   .footer-brand {
-    align-items: center;
+    margin-inline: auto;
   }
 }
 
