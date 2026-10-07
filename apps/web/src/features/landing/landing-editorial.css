@@ -697,21 +697,22 @@
   font-size: 13px;
   font-family: var(--font-display);
 }
-/* As wide as the wordmark, so the symbol centers over the wordmark and tagline. */
+/* As wide as the tagline, so the symbol and wordmark center over it. */
 .footer-brand {
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 12px;
-  width: 210px;
+  width: 280px;
 }
 .footer-brand__wordmark {
-  width: 210px;
+  width: 230px;
 }
-/* The hero's tagline art, so the colored "+" match; sized to sit under the wordmark. */
+/* The hero's tagline art, so the colored "+" match. Its letters are widely tracked,
+   so it runs wider than the wordmark to stay legible. */
 .footer-brand__tagline {
   position: relative;
-  width: 210px;
+  width: 100%;
   aspect-ratio: 1185 / 45;
 }
 .footer-brand__tagline-text,
