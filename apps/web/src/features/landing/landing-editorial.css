@@ -150,9 +150,6 @@
   border-radius: 999px;
   font-family: var(--font-body);
 }
-.landing-editorial .ds-button--secondary {
-  border-color: var(--editorial-rule);
-}
 
 :root[data-theme='light'] .landing-editorial .ds-section h2.text-h2 {
   background: none;

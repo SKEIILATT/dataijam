@@ -1,6 +1,5 @@
-import { ArrowUpRight, CalendarDays, Users } from 'lucide-react'
+import { CalendarDays, Users } from 'lucide-react'
 
-import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'
 import { GridPulse } from '@/components/ui/GridPulse'
 import { HackathonWeeks } from './HackathonWeeks'
@@ -38,10 +37,15 @@ export function HackathonProcess({ eyebrow, heading, subheading }: HackathonProc
                 Equipos de 3 a 4 personas
               </li>
             </ul>
-            <Button as="a" href="#registro" variant="secondary">
-              Quiero ser parte <ArrowUpRight aria-hidden="true" className="size-4" />
-            </Button>
+            <p className="hackathon-soon">
+              <span aria-hidden="true" className="hackathon-soon__dot" />
+              Inscripciones próximamente
+            </p>
           </div>
+          <p className="mt-4 text-sm text-brand-gray">
+            El formulario actual es para las conferencias y el taller: no incluye ni cobra el
+            hackathon.
+          </p>
         </div>
 
         <HackathonWeeks />
