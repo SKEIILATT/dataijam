@@ -935,9 +935,10 @@ html.lenis:not(.lenis-autoToggle).lenis-stopped {
 }
 
 .ds-button--secondary {
-  border-color: var(--color-border);
+  border: 1.5px solid color-mix(in srgb, var(--color-brand-cyan) 80%, transparent);
   color: var(--color-brand-white);
-  background: transparent;
+  background: color-mix(in srgb, var(--color-brand-cyan) 12%, transparent);
+  font-weight: 600;
 }
 
 .ds-button--ghost {
@@ -1513,6 +1514,37 @@ summary {
 }
 .hackathon-intro {
   max-width: 48rem;
+}
+/* A status pill, not a button: no border/hover so it never reads as clickable. */
+.hackathon-soon {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--color-brand-lime) 14%, transparent);
+  color: var(--color-brand-white);
+  font: 600 13px/20px var(--font-body);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.hackathon-soon__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-lime);
+  animation: hackathon-soon-pulse 1.8s ease-in-out infinite;
+}
+@keyframes hackathon-soon-pulse {
+  50% {
+    opacity: 0.35;
+    scale: 0.7;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hackathon-soon__dot {
+    animation: none;
+  }
 }
 .speakers-heading {
   display: flex;
