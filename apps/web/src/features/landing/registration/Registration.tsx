@@ -89,6 +89,7 @@ export function Registration() {
             </Button>
 
             <p id="registration-note" className="mt-4 max-w-56 text-xs leading-5">
+              <strong className="block font-semibold">Cupos sujetos a disponibilidad.</strong>
               Formulario en Google Forms · Se abre en otra pestaña.
             </p>
           </div>
