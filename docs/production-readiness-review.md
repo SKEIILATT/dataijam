@@ -44,18 +44,6 @@ Tras incorporar la agenda y la foto de Fabricio, una ejecución sobre `vite prev
 | Movimiento de diseño (CLS)              |                  0 |              0 |
 | Transferencia total                     |          1.491 KiB |        943 KiB |
 
-Capturas del contenedor final: [móvil de 320 px](review/production-mobile.png) y [escritorio de 1440 px](review/production-desktop.png).
-
-Capturas de la agenda y Fabricio tras la actualización: [agenda móvil](review/agenda-mobile.png), [agenda de escritorio](review/agenda-desktop.png), [tarjeta móvil](review/fabricio-mobile.png) y [tarjeta de escritorio](review/fabricio-desktop.png).
-
-Captura del tramo de experiencia optimizado en [móvil](review/mobile-experience-optimized.png).
-
-Captura del selector de semanas del hackathon en [móvil](review/hackathon-mobile-smooth.png).
-
-Captura de la tarjeta de registro con el adorno estático en [móvil](review/registration-mobile-static.png).
-
-Captura de las opciones de consentimiento de analítica en [móvil](review/analytics-consent-mobile.png).
-
 ## Cambios aplicados
 
 - Imágenes editoriales y textura del globo convertidas a WebP; póster móvil más ligero y precargado. Se mantiene el material original en el repositorio.
